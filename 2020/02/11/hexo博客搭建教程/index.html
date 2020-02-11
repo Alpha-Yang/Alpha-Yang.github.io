@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、 hexo博客的作用博客就像一个人公开的日记一般，可以记录很多包括生活学习在内的诸多事情，作为IT的学生，拥有一个属于自己的博客，也将是未来校招或研究生面试重要的加分项。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo博客搭建教程">
+<meta property="og:url" content="http://yoursite.com/2020/02/11/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="杨文昊的个人博客">
+<meta property="og:description" content="一、 hexo博客的作用博客就像一个人公开的日记一般，可以记录很多包括生活学习在内的诸多事情，作为IT的学生，拥有一个属于自己的博客，也将是未来校招或研究生面试重要的加分项。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/EuDAUeitgs1L3jm.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/ms53VpJQgfMWRcO.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/5SoyteL4BYb3pnR.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/QMuhEzAomG4lc2S.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/mikay2LEFxNPHvd.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/bNcDdlqYVOIJ5gL.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/Umzn6IaltJZPXi7.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/238yAmoSVrMPkHj.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/11/ko1bgBWGqX89QlJ.png">
+<meta property="article:published_time" content="2020-02-10T18:27:23.000Z">
+<meta property="article:modified_time" content="2020-02-11T12:55:49.305Z">
+<meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/11/EuDAUeitgs1L3jm.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/11/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>hexo博客搭建教程 | 杨文昊的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨文昊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">愿你出走半生，归来仍是少年。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hexo博客搭建教程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-10 18:27:23" itemprop="dateCreated datePublished" datetime="2020-02-10T18:27:23Z">2020-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-11 12:55:49" itemprop="dateModified" datetime="2020-02-11T12:55:49Z">2020-02-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">实用工具</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、-hexo博客的作用"><a href="#一、-hexo博客的作用" class="headerlink" title="一、 hexo博客的作用"></a>一、 hexo博客的作用</h3><p>博客就像一个人公开的日记一般，可以记录很多包括生活学习在内的诸多事情，作为IT的学生，拥有一个属于自己的博客，也将是未来校招或研究生面试重要的加分项。</p>
+<a id="more"></a>
+<h3 id="二、-教程内容"><a href="#二、-教程内容" class="headerlink" title="二、 教程内容"></a>二、 教程内容</h3><p>本文将带你从0开始，根据以下5个内容，搭建属于自己的hexo博客。</p>
+<ul>
+<li><ol>
+<li>部署环境</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>初始化个人博客</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>markdown写博客</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>通过github把博客部署到远端</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>设置博客主题</li>
+</ol>
+</li>
+</ul>
+<h3 id="三、-博客搭建"><a href="#三、-博客搭建" class="headerlink" title="三、 博客搭建"></a>三、 博客搭建</h3><h4 id="1-软件准备"><a href="#1-软件准备" class="headerlink" title="1. 软件准备"></a>1. 软件准备</h4><blockquote>
+<p>node.js<br>git工具</p>
+</blockquote>
+<p>首先需要下载<code>nodejs</code>，我们可以去<a href="https://nodejs.org/" target="_blank" rel="noopener">https://nodejs.org/</a>下载<br><img src="https://i.loli.net/2020/02/11/EuDAUeitgs1L3jm.png" alt="nodejis"><br>下载完按照其默认安装即可。<br>下载安装完之后，本地就有了两个组件：<code>nodejs</code>和<code>npm</code>。</p>
+<p>下面我们下载git工具，直接在官网上下载即可。<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a><br>和nodejs一样根据他的提示下载安装。<br>安装完成后，本地将会有三个东西：<code>Git Gui</code> <code>Git cmd</code> <code>Git Bash</code><br>我们打开<code>Git Bash</code>输入以下指令，来设置自己的用户名和邮箱</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> user.name <span class="string">"nameVal"</span>   <span class="comment"># 全局配置自己的用户名</span></span><br><span class="line">git config --<span class="keyword">global</span> user.email <span class="string">"emailVal"</span> <span class="comment"># 全局配置自己的邮箱</span></span><br></pre></td></tr></table></figure>
+<p>配置完之后我们可以确认下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list  <span class="comment"># 查看git配置信息</span></span><br></pre></td></tr></table></figure>
+<p>以上便是hexo博客搭建的软件准备了，下面我们开始部署环境。</p>
+<h4 id="2-环境部署"><a href="#2-环境部署" class="headerlink" title="2. 环境部署"></a>2. 环境部署</h4><p>打开电脑终端<code>cmd</code>，在<code>shell</code>中输入命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node -v <span class="comment"># 查看nodejs版本</span></span><br><span class="line">npm -v  <span class="comment"># 查看npm版本</span></span><br><span class="line">``` </span><br><span class="line">查看无误后，下面开始在终端输入命令，安装hexo博客框架。</span><br><span class="line">由于国内`npm`安装速度问题，我们可以通过淘宝镜像换成`cnpm`</span><br><span class="line">``` python</span><br><span class="line">npm install -g cnpm --registry=https://registry.taobao.org</span><br><span class="line"><span class="comment"># 安装完成之后可以查看版本来验证安装成功</span></span><br><span class="line">cnpm -v</span><br></pre></td></tr></table></figure>
+<p>这样<code>cnpm</code>安装完成，接下来安装hexo。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br><span class="line"><span class="comment"># 安装完成后同样查看下版本</span></span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>以上便是hexo博客的环境部署，非常方便。</p>
+<h4 id="3-初始化个人博客"><a href="#3-初始化个人博客" class="headerlink" title="3. 初始化个人博客"></a>3. 初始化个人博客</h4><p>下面我们在<code>cmd</code>的默认路径下<code>C:\Users\nameVal&gt;</code>下新建一个文件夹，名为blog(名字当然随便取)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br></pre></td></tr></table></figure>
+<p>然后我们在本地就能看到一个新的文件夹blog，我们的所有配置都在此文件夹下面。<br>然后我们在<code>cmd</code>中进入blog这个目录下面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd blog</span><br></pre></td></tr></table></figure>
+<p>下面开始初始化博客</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init  <span class="comment"># 需要一些时间等待</span></span><br></pre></td></tr></table></figure>
+<p>经过等待之后，博客已经搭建完成。大家可以进入blog文件夹查看生成的配置文件。然后我们启动博客预览。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s <span class="comment"># hexo s==hexo server意思是启动本地服务器</span></span><br></pre></td></tr></table></figure>
+<p>然后我们在本地服务器中输入<code>cmd</code>中提示的4000端口就可以看到自己的博客了。<br><img src="https://i.loli.net/2020/02/11/ms53VpJQgfMWRcO.png" alt=""><br><code>hexo s</code>一般是在本地作为博客预览的一个命令。</p>
+<h4 id="4-markdown写博客"><a href="#4-markdown写博客" class="headerlink" title="4. markdown写博客"></a>4. markdown写博客</h4><p>下面我们就要开始在我们的hexo博客下写博客了。我们首先需要创建一篇新的博客，在blog目录下输入命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">"我的第一篇博客"</span>  <span class="comment"># 引号内写博客的标题</span></span><br></pre></td></tr></table></figure>
+<p>然后在<code>blog/source/_posts/</code>的目录下就能找到我们创建的第一篇博客的markdown文件。<br>markdown格式是程序员常用写博客的方式，markdown的语法十分简单。<br>给大家markdown的菜鸟教程<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/markdown/md-tutorial.html</a><br>基本上里面的语法就能解决常用的问题了，如果有里面没有的，要善用搜索引擎。<br>完成博客内容后，我们首先要在本地预览此篇博客的内容，写完之后打开<code>cmd</code>终端，在blog目录下输入两个命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment"># hexo g==hexo generate生成博客</span></span><br><span class="line">hexo s <span class="comment"># 在本地服务器上启动</span></span><br></pre></td></tr></table></figure>
+<p>这是我们刷新本地服务器地址，就能看到我们的博客了。</p>
+<h4 id="5-通过github把博客部署到远端"><a href="#5-通过github把博客部署到远端" class="headerlink" title="5. 通过github把博客部署到远端"></a>5. 通过github把博客部署到远端</h4><p><code>local:4000</code>作为我们本地的测试端，但是我们的博客内容不可能仅仅在本地用，所以我们需要把它部署到远端去。<br>github是一种非常稳定的方式，以后我们只要通过github的方式来访问我们的博客就可以了，而且此方法免费。<br><strong>当然大家也可以购买阿里云服务器，为自己的博客地址更改域名，这就看个人需求了</strong><br>ps：如果你还没有github账号，请赶紧注册<a href="https://www.github.com/" target="_blank" rel="noopener">https://www.github.com/</a>，这可是程序员乃至所有工科生必备神器，以及最大的同性交友网站gayhub(滑稽)。<br>下面打开自己的github，我们首先新建一个仓库(new repository)。<br><img src="https://i.loli.net/2020/02/11/5SoyteL4BYb3pnR.png" alt=""><br>用户部署个人博客的github仓库的命名必须要与你的用户名一致才行。如下图所示，因为我的博客已经部署好了，所以它会提示已存在。<br><img src="https://i.loli.net/2020/02/11/QMuhEzAomG4lc2S.png" alt=""><br>然后按照默认的点击<code>create repository</code>就行了。这现在是个空仓库，这是我们部署的博客地址<a href="https://Alpha-Yang.github.io" target="_blank" rel="noopener">https://Alpha-Yang.github.io</a><br><img src="https://i.loli.net/2020/02/11/mikay2LEFxNPHvd.png" alt=""><br>下面我们先不管它，打开终端命令行<code>cmd</code>下载git插件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install --save hexo deployer-git</span><br></pre></td></tr></table></figure>
+<p>然后我们需要设置其配置文件，在<code>blog/</code>目录下找到配置文件<code>_config.yml</code>，用notepad或vim等记事本工具将其打开，更改该文件底部Deployment的内容。<br><img src="https://i.loli.net/2020/02/11/bNcDdlqYVOIJ5gL.png" alt=""><br>最后一步，我们将博客部署到远端，打开<code>cmd</code>终端。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d <span class="comment"># hexo d=hexo deployer部署到远端</span></span><br></pre></td></tr></table></figure>
+<p>这时候输入你的github账号及密码(<strong>这里注意你的密码不会显示出来，所以输入即可</strong>)<br>这时候你会发现的仓库多了很多东西，然后把我们的仓库名拿出来访问，即<a href="https://alpha-yang.github.io" target="_blank" rel="noopener">https://alpha-yang.github.io</a><br>就能看到我们的博客被部署到github上了，这样的话博客的部署工作也就完成了。所以我们今后使用hexo的命令基本为五个，这里我做下整理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">"博客名"</span>   <span class="comment"># 新建一篇博客</span></span><br><span class="line">hexo g           <span class="comment"># 博客内容生成</span></span><br><span class="line">hexo s           <span class="comment"># 启动本地服务器，预览更改后的博客</span></span><br><span class="line">hexo d           <span class="comment"># 将更改后的博客部署到远端</span></span><br><span class="line">hexo clean       <span class="comment"># 在hexo g之前的文件清理，不是必要。</span></span><br></pre></td></tr></table></figure>
+<p>以上就完成了所有的博客搭建的内容教程，这时候你就有了属于你自己的博客了。</p>
+<h3 id="四、-设置博客主题"><a href="#四、-设置博客主题" class="headerlink" title="四、 设置博客主题"></a>四、 设置博客主题</h3><p>hexo博客的默认主题为landscape，我们可以自由地更换主题，大家可以去github上广泛地搜索，下面我们来讲解下如何更换主题。</p>
+<h4 id="1-博客主题下载"><a href="#1-博客主题下载" class="headerlink" title="1. 博客主题下载"></a>1. 博客主题下载</h4><p>在hexo博客中有好多主题被广泛使用，这里我推荐我使用的两款主题</p>
+<blockquote>
+<p>next(目前正在使用)<br>yimlia</p>
+</blockquote>
+<p>两款主题的下载地址分别为</p>
+<blockquote>
+<p><a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">https://github.com/theme-next/hexo-theme-next</a><br><a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
+</blockquote>
+<p>可以现在github上预览看下自己喜欢的主题。<br>我们下面来下载主题，打开<code>cmd</code>终端，在blog目录下输入命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure>
+<p>克隆完之后，在<code>blog/themes/</code>的目录下就有next文件夹了。</p>
+<h4 id="2-将主题导入自己的博客"><a href="#2-将主题导入自己的博客" class="headerlink" title="2. 将主题导入自己的博客"></a>2. 将主题导入自己的博客</h4><p>打开blog目录下的配置文件<code>_config.yml</code>，更改theme的内容<br><img src="https://i.loli.net/2020/02/11/Umzn6IaltJZPXi7.png" alt=""><br>这样主题就导入成功了，接下来生成新内容，并部署到远端就可以了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>就可以在我们的网址上看到新的主题了。<br><strong>有可能出现尚未生效的情况，大家多刷新或等待就可以了，这是正常情况</strong></p>
+<h4 id="3-常用更改"><a href="#3-常用更改" class="headerlink" title="3. 常用更改"></a>3. 常用更改</h4><p>最后的最后，我们需要学会更改配置文件的内容，根据自己的喜好优化博客即可，比如更改名字背景或添加特效等等。</p>
+<p>第一个是<code>blog/</code>目录下的<code>_config.yml</code>配置文件<br><img src="https://i.loli.net/2020/02/11/238yAmoSVrMPkHj.png" alt=""><br>我们可以设置博客标题，副标题，描述，昵称，语言以及时区等等。</p>
+<p>第二个是<code>blog/themes/next/</code>目录下的<code>_config.yml</code>配置文件<br>其实next主题还有四种样式可以选择，我选择的是Gemini样式<br><img src="https://i.loli.net/2020/02/11/ko1bgBWGqX89QlJ.png" alt=""><br>大家想要哪儿个样式，就在配置文件中取消注释就可以了。</p>
+<h3 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h3><p>以上所有内容便是hexo博客搭建的所有内容了。除了hexo以外，当然还有其他很多博客的框架，选择hexo的原因是应用比较广泛，可讨论的地方比较多。当然大家搭建博客还是先玩起来，至于其他的之后再考虑。<br>关于博客的其他细节内容，大家一定要善用搜索引擎，我也会考虑写一篇hexo next主题优化的博客内容，供大家参考。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-hexo博客的作用"><span class="nav-number">1.</span> <span class="nav-text">一、 hexo博客的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、-教程内容"><span class="nav-number">2.</span> <span class="nav-text">二、 教程内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、-博客搭建"><span class="nav-number">3.</span> <span class="nav-text">三、 博客搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-软件准备"><span class="nav-number">3.1.</span> <span class="nav-text">1. 软件准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-环境部署"><span class="nav-number">3.2.</span> <span class="nav-text">2. 环境部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-初始化个人博客"><span class="nav-number">3.3.</span> <span class="nav-text">3. 初始化个人博客</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-markdown写博客"><span class="nav-number">3.4.</span> <span class="nav-text">4. markdown写博客</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-通过github把博客部署到远端"><span class="nav-number">3.5.</span> <span class="nav-text">5. 通过github把博客部署到远端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、-设置博客主题"><span class="nav-number">4.</span> <span class="nav-text">四、 设置博客主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-博客主题下载"><span class="nav-number">4.1.</span> <span class="nav-text">1. 博客主题下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将主题导入自己的博客"><span class="nav-number">4.2.</span> <span class="nav-text">2. 将主题导入自己的博客</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-常用更改"><span class="nav-number">4.3.</span> <span class="nav-text">3. 常用更改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、总结"><span class="nav-number">5.</span> <span class="nav-text">五、总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alpha Yang"
+      src="/images/IMG_1979(20200206-160439).JPG">
+  <p class="site-author-name" itemprop="name">Alpha Yang</p>
+  <div class="site-description" itemprop="description">世间万物，唯代码美食，不能辜负。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+<div style="">
+  <canvas id="canvas" style="width:60%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+      </div>
+	  
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alpha Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+</body>
+</html>
