@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、分享理由博主现在于西安电子科技大学读电子信息工程专业，这个专业在我们学校的研究方向为雷达天线这块嵌入式的内容，然而读大学以来其实我对于编程，软件开发以及人工智能方面的兴趣颇浓，甚于硬件部分。所以考虑研究生转计算机研究方向，你要问我EE转CS是不是一种趋势，我只能说据我的了解，EE要比CS更加难读，在就业方面，CS近乎于饱和，EE就业竞争压力小，但是相反的EE夕阳产业也较多，但这并不算明显的劣势">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程与人工智能推荐书目以及学习路线">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/index.html">
+<meta property="og:site_name" content="杨文昊的个人博客">
+<meta property="og:description" content="一、分享理由博主现在于西安电子科技大学读电子信息工程专业，这个专业在我们学校的研究方向为雷达天线这块嵌入式的内容，然而读大学以来其实我对于编程，软件开发以及人工智能方面的兴趣颇浓，甚于硬件部分。所以考虑研究生转计算机研究方向，你要问我EE转CS是不是一种趋势，我只能说据我的了解，EE要比CS更加难读，在就业方面，CS近乎于饱和，EE就业竞争压力小，但是相反的EE夕阳产业也较多，但这并不算明显的劣势">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.lIHIbM-8IrjdoUtBuEYANAAAAA?w=132&h=176&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse1-mm.cn.bing.net/th/id/OIP.oyCOuxWBzqHmptlXd9_MjwHaHa?w=201&h=201&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse4-mm.cn.bing.net/th/id/OIP.iL8C_emJBwxaJxy7bBahHQHaJq?w=138&h=181&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse2-mm.cn.bing.net/th/id/OIP.NchuvFN-tGgIBKpGK_fpJAAAAA?w=146&h=207&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.XgDm2k8XNgH8Z2Fk9iRVLgAAAA?w=139&h=196&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse2-mm.cn.bing.net/th/id/OIP.RoW031enRzgYeDbZaifGSQHaHa?w=182&h=180&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.UM3pnGA88svvkQALU3I-RgAAAA?w=197&h=197&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse1-mm.cn.bing.net/th/id/OIP.e1_aiovnGSX9QGjdXIiceAHaKD?w=139&h=189&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse1-mm.cn.bing.net/th/id/OIP.xzUf8h_as43rg9W74PlQYQAAAA?w=217&h=213&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse1-mm.cn.bing.net/th/id/OIP.JXZV2FgQ5DHpHs4fbHCQ5QAAAA?w=208&h=208&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse1-mm.cn.bing.net/th/id/OIP.ZiS7EuKRoNJu2aZKigCcBQHaJ4?w=160&h=204&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse4-mm.cn.bing.net/th/id/OIP.VzusU2dkDc9Ntd6RjkJDAQAAAA?w=216&h=208&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="og:image" content="https://tse2-mm.cn.bing.net/th/id/OIP.jefPCQYLnhgPTsRWDfpnSwD6D6?w=205&h=205&c=7&o=5&dpr=1.5&pid=1.7">
+<meta property="article:published_time" content="2020-02-11T22:12:21.000Z">
+<meta property="article:modified_time" content="2020-02-11T16:30:51.396Z">
+<meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="经验分享">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tse3-mm.cn.bing.net/th/id/OIP.lIHIbM-8IrjdoUtBuEYANAAAAA?w=132&h=176&c=7&o=5&dpr=1.5&pid=1.7">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/12/%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>编程与人工智能推荐书目以及学习路线 | 杨文昊的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨文昊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">愿你出走半生，归来仍是少年。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编程与人工智能推荐书目以及学习路线
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-11 22:12:21 / 修改时间：16:30:51" itemprop="dateCreated datePublished" datetime="2020-02-11T22:12:21Z">2020-02-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、分享理由"><a href="#一、分享理由" class="headerlink" title="一、分享理由"></a>一、分享理由</h3><p>博主现在于西安电子科技大学读电子信息工程专业，这个专业在我们学校的研究方向为雷达天线这块嵌入式的内容，然而读大学以来其实我对于编程，软件开发以及人工智能方面的兴趣颇浓，甚于硬件部分。所以考虑研究生转计算机研究方向，你要问我EE转CS是不是一种趋势，我只能说据我的了解，EE要比CS更加难读，在就业方面，CS近乎于饱和，EE就业竞争压力小，但是相反的EE夕阳产业也较多，但这并不算明显的劣势，主要还是我更对编程及数学方面感兴趣点，虽然EE的图像处理，模式识别和智能系统方向也是人工智能的分支，但我还是更喜欢软件的东西。去年我们学校西电发布的关于AI的论文在全国高校居第二位，仅次于清华，绝大部分都是图像处理方向的研究，我也参加了电子工程学院图像处理的实验室学习，之后也会分享学习内容。</p>
+<a id="more"></a>
+<p>说了这么多，作为研究生想转CS方向的本科生，我肯定是要学习CS的本科我们EE没学的知识，我们学校人工智能专业和我们专业本科学习科目基本相同，我也是课外看了一些书目，然后自己做了些整理。其实人工智能这方面更多靠的是兴趣来自学，比如cv这些方向内容，本科很少有这方面深入的课程，与EE大部分课程一样都是蜻蜓点水，只有读了研究生博士生和导师做项目锻炼实战的能力。下面主要来讲讲我的学习思路。</p>
+<h3 id="二、编程语言类书籍"><a href="#二、编程语言类书籍" class="headerlink" title="二、编程语言类书籍"></a>二、编程语言类书籍</h3><h4 id="写在前面：“纸上得来终觉浅，绝知此事要躬行”-任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。"><a href="#写在前面：“纸上得来终觉浅，绝知此事要躬行”-任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。" class="headerlink" title="写在前面：“纸上得来终觉浅，绝知此事要躬行” 任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。"></a><strong>写在前面：“纸上得来终觉浅，绝知此事要躬行” 任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。</strong></h4><h4 id="1-C语言"><a href="#1-C语言" class="headerlink" title="1. C语言"></a>1. C语言</h4><p>作为大学的第一门编程语言，和我小学时候学的basic编程语言相似，对我而言上手还是轻松的，但是想深入的学习C语言的难点，比如指针，内存管理，谭浩强的教学书籍肯定是不够的，所以这里我推荐额外的三本书。</p>
+<ul>
+<li><p><strong>C语言程序设计现代方法</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.lIHIbM-8IrjdoUtBuEYANAAAAA?w=132&h=176&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是我用来自学的书，个人感觉还不错，更加适合小白入门，内容通俗易懂。</p>
+</li>
+<li><p><strong>C Primer Plus</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.oyCOuxWBzqHmptlXd9_MjwHaHa?w=201&h=201&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>经典中的经典，这个不用多说，应该是内容最全的C语言书籍了，但是内容并不是十分新手向，然而对于学习C语言中难的部分有重大的好处。</p>
+</li>
+<li><p><strong>C HOW TO PROGRAM</strong><br><img src="https://tse4-mm.cn.bing.net/th/id/OIP.iL8C_emJBwxaJxy7bBahHQHaJq?w=138&h=181&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书现在也有中文版了，中文名为C语言大学教程，是学长推荐的书籍，这本书也是我最喜欢的一本，里面的代码以及风格非常吸引人，充分体现了编程语言之美的特点，书里还包括一些C语言高级的操作以及实战，个人非常喜欢。</p>
+</li>
+</ul>
+<h4 id="2-C"><a href="#2-C" class="headerlink" title="2. C++"></a>2. C++</h4><p>C++在上大学前也接触过但是不多，停留在基础语法方面，在大一学C的过程中顺便学了C++，讲真学了C++再也不想用C编程了，特别是大二学习数据结构，用C写了几百行代码，内心哭着想明明C++一个库文件就能搞定了啊。除了硬件编程，使用汇编和C之外，C++应该是使用最广泛地语言了，不管是Python或者Matlab开发的底层库大部分都是基于C++的，学好C++比只学一门Python更重要。</p>
+<ul>
+<li><strong>C++ Primer Plus</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.NchuvFN-tGgIBKpGK_fpJAAAAA?w=146&h=207&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书也是经典中的经典，其实挺适合初学者的，还有一本书C++ Prime少个plus，个人觉得差别不是很大，基本上吃透这本书，C++就没啥问题了，更多的还是需要实战，C++比C更高级不光在语法还有各种库文件，灵活使用，C++将比C简洁许多。</li>
+</ul>
+<h4 id="3-Java"><a href="#3-Java" class="headerlink" title="3. Java"></a>3. Java</h4><p>Java也是我大一特别喜欢的一门语言，作为后端的老大，任何软件开发项目都需要Java来搭建网络框架，不做多的介绍，如果你的兴趣是软件开发研究，这就是必学的语言。</p>
+<ul>
+<li><strong>Java编程思想</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.XgDm2k8XNgH8Z2Fk9iRVLgAAAA?w=139&h=196&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是java经典中的经典，作为后端老大，java更多的还是靠项目实战。</li>
+</ul>
+<h4 id="4-Python"><a href="#4-Python" class="headerlink" title="4. Python"></a>4. Python</h4><p>Python是近几年最火的编程语言，这是我大一下的一门课，Python方面我只推荐一本书，因为我觉得Python看书真的不是最重要的事情，Python编程讲究的是简洁以及快捷，配合它的各种库，它几乎是能做所有事情的工具。但是请注意，它是工具，配合上Python的库，它可以Excel分析，网络爬虫，人脸识别，机器学习深度学习，图像处理等等内容，在暑假我浏览Python底层文件库的时候，我竟然还发现Python也能写arduino单片机了，并且不管是前端后端，Python也可以参与开发工作。及至到此，你可能觉得学好了Python可以打遍天下了，但是必然不是，光学好Python反而在以后很不受待见，主要是Python门槛低见效高，各类培训机构更是抓住这样的机会大把捞钱，其实10几天成为Python工程师，也只是学会了调包。综上，Python可以作为你增值的最好工具，但是不能是你唯一的语言。</p>
+<ul>
+<li><strong>Python编程从入门到实践</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.RoW031enRzgYeDbZaifGSQHaHa?w=182&h=180&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书基本上就是我寒假入门的书，基于Python3，我觉得入门很好，语法讲全了也很透彻，后面还有关于一个做飞机游戏的实战，用到了matplotlib和pygame库，学习Python，语法和算法并不是最重要的，重要的是学习如何安装库，调用库，使用库来实现你的功能。</li>
+</ul>
+<h4 id="5-GoLang"><a href="#5-GoLang" class="headerlink" title="5. GoLang"></a>5. GoLang</h4><p>Go语言是我闲暇带着学的语言，它是新出来的一门语言，Go语言市面上没有啥经典的书，所以我只推荐一本书。</p>
+<ul>
+<li><strong>Go语言实战</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.UM3pnGA88svvkQALU3I-RgAAAA?w=197&h=197&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>Go语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</li>
+</ul>
+<h4 id="写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。"><a href="#写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。" class="headerlink" title="写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。"></a><strong>写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。</strong></h4><h3 id="三、数据结构与算法类书籍"><a href="#三、数据结构与算法类书籍" class="headerlink" title="三、数据结构与算法类书籍"></a>三、数据结构与算法类书籍</h3><p>光学会语言肯定是不够的，语言是实现工具，要想真正使它起到重要作用，计算机数据结构和经典算法也必须掌握。</p>
+<ul>
+<li><p><strong>算法导论</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.e1_aiovnGSX9QGjdXIiceAHaKD?w=139&h=189&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>“年轻人，来感受力量吧。”算法导论是算法中的经典书籍，但是需要深厚的数学功底，以及学习过数据结构的知识，才能感受到其中的力量。</p>
+</li>
+<li><p><strong>算法</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.xzUf8h_as43rg9W74PlQYQAAAA?w=217&h=213&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>与算法导论那本书买错了，我当时看着算法导论，就哭了。算法第四版是我们学校计科专业的用书，这本书还是比算法导论友善很多的。</p>
+</li>
+<li><p><strong>数据结构</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.JXZV2FgQ5DHpHs4fbHCQ5QAAAA?w=208&h=208&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>说实话这本书实在不适合初学者，我大一基本是面向csdn在看这本书，但是这本书对于学习所有数据结构内容又是经典，建议结合github上现成的数据结构代码来看。</p>
+</li>
+</ul>
+<h3 id="四、计算机知识类书籍"><a href="#四、计算机知识类书籍" class="headerlink" title="四、计算机知识类书籍"></a>四、计算机知识类书籍</h3><p>非计算机科班出身想转CS的必读书目，简而言之，就是人家的本科知识，我也整理了些不在计算机大类基础中的书籍，这些内容是关于计算机底层以及系统类的知识。</p>
+<h4 id="1-计算机网络类"><a href="#1-计算机网络类" class="headerlink" title="1. 计算机网络类"></a>1. 计算机网络类</h4><ul>
+<li><p><strong>图解HTTP</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.ZiS7EuKRoNJu2aZKigCcBQHaJ4?w=160&h=204&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是俱乐部推荐学习web端知识的，是我最喜欢的书，主要是生动形象，通俗易懂，建议web小白学习，非常有趣。</p>
+</li>
+<li><p><strong>TCP/IP详解</strong><br><img src="https://tse4-mm.cn.bing.net/th/id/OIP.VzusU2dkDc9Ntd6RjkJDAQAAAA?w=216&h=208&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是学习计算机网络特别经典的书籍，计算机网络狭义而言就是TCP/IP协议，但这本书比较晦涩难懂，需要基础知识。</p>
+</li>
+<li><p><strong>计算机网络 自顶向下的方法</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.jefPCQYLnhgPTsRWDfpnSwD6D6?w=205&h=205&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书比起上本书稍微好懂一点，但也只是稍微，计算机网络本身就是枯燥的东西，个人还是更推荐上一本。</p>
+</li>
+</ul>
+<h2 id="先更新这么多吧，明早继续。"><a href="#先更新这么多吧，明早继续。" class="headerlink" title="先更新这么多吧，明早继续。"></a>先更新这么多吧，明早继续。</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/" rel="tag"># 经验分享</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/12/Matlab%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="prev" title="Matlab安装教程">
+      <i class="fa fa-chevron-left"></i> Matlab安装教程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、分享理由"><span class="nav-number">1.</span> <span class="nav-text">一、分享理由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、编程语言类书籍"><span class="nav-number">2.</span> <span class="nav-text">二、编程语言类书籍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写在前面：“纸上得来终觉浅，绝知此事要躬行”-任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。"><span class="nav-number">2.1.</span> <span class="nav-text">写在前面：“纸上得来终觉浅，绝知此事要躬行” 任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-C语言"><span class="nav-number">2.2.</span> <span class="nav-text">1. C语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-C"><span class="nav-number">2.3.</span> <span class="nav-text">2. C++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Java"><span class="nav-number">2.4.</span> <span class="nav-text">3. Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Python"><span class="nav-number">2.5.</span> <span class="nav-text">4. Python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-GoLang"><span class="nav-number">2.6.</span> <span class="nav-text">5. GoLang</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。"><span class="nav-number">2.7.</span> <span class="nav-text">写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、数据结构与算法类书籍"><span class="nav-number">3.</span> <span class="nav-text">三、数据结构与算法类书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、计算机知识类书籍"><span class="nav-number">4.</span> <span class="nav-text">四、计算机知识类书籍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-计算机网络类"><span class="nav-number">4.1.</span> <span class="nav-text">1. 计算机网络类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先更新这么多吧，明早继续。"><span class="nav-number"></span> <span class="nav-text">先更新这么多吧，明早继续。</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alpha Yang"
+      src="/images/IMG_1979(20200206-160439).JPG">
+  <p class="site-author-name" itemprop="name">Alpha Yang</p>
+  <div class="site-description" itemprop="description">世间万物，唯代码美食，不能辜负。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+<div style="">
+  <canvas id="canvas" style="width:60%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+      </div>
+	  
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alpha Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+</body>
+</html>
