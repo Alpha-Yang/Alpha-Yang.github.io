@@ -182,7 +182,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-12 23:18:18 / 修改时间：16:09:13" itemprop="dateCreated datePublished" datetime="2020-02-12T23:18:18Z">2020-02-12</time>
+              <time title="创建时间：2020-02-12 23:18:18 / 修改时间：16:11:24" itemprop="dateCreated datePublished" datetime="2020-02-12T23:18:18Z">2020-02-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,25 +213,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、聊聊OpenCV"><a href="#一、聊聊OpenCV" class="headerlink" title="一、聊聊OpenCV"></a>一、聊聊OpenCV</h3><p>计算机视觉应该是目前和自然语言处理一起在人工智能方向最火的领域，主要是因为这两个人工智能分支，是目前应用领域最广泛的。然而其实就目前时代而言，所有的人工智能研究生博士生都转向了这两个领域去研究，导致了公司岗位的过度饱和。但是实际情况是计算机视觉领域，工程师过剩，学术人才短缺。我之前给大家推荐过一个学习线路：</p>
-<ul>
-<li>学习《机器学习》《深度学习》等内容。</li>
-<li>认真研读几篇CV的paper。</li>
-<li>了解CV方向的Alexnet，R-CNN，yolo系列等。</li>
-<li>下载VOC，ImageNet，COCO，Kaggle开源数据集。</li>
-<li>在github上准备几个CV的框架，例如pytorch，Tensorflow等，准备数据集来跑一下。</li>
-</ul>
-<p>做到以上几点，本科阶段那绝对都是高手了，大牛算不上，但是肯定比一般人要厉害了，但是如果说找工作岗位和未来更进一步，但肯定是不够的。因为以上内容其实很快就能学会了，我们真正要学会的，或者是难的东西永远是底层架构，不管是软件开发方向还是人工智能方向（<strong>当然也有工程师能特别厉害，充分利用资源等</strong>）。其实计算机视觉最底层的东西不是人工智能，而是图像处理，所以我认为计算机视觉要从图像处理开始学起，但是这些内容是更难啃的骨头，但是我相信如果坚持下来，之后的视觉学习会事半功倍。</p>
-<h3 id="二、工具准备"><a href="#二、工具准备" class="headerlink" title="二、工具准备"></a>二、工具准备</h3><p>我来说说我目前的编译环境好了，其实ide方面我对于vscode一直情有独钟，基本靠他来写所有语言的代码，但是图像处理内容所用的Python库，很可惜在vscode上经常报错，查询了很多方法无法解决，于是我直接开始使用Anaconda，人家集成好的环境，更加方便，ide也改用了spyder。</p>
-<h3 id="三、环境配置"><a href="#三、环境配置" class="headerlink" title="三、环境配置"></a>三、环境配置</h3><p>首先在官网上<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">https://www.anaconda.com/download/</a>下载anaconda环境配置包，大家下载安装全部默认即可。<br><strong>下载Anaconda不需要提前安装Python，安装了也没关系</strong></p>
-<p>这时，电脑本地会多一个Anaconda3的文件夹，会有5个东西。<br><img src="https://i.loli.net/2020/02/12/pODNQ7M8itSGe1s.png" alt=""><br>我们需要来学习的有两个东西：<code>Anaconda Prompt</code> 和 <code>Spyder</code></p>
-<blockquote>
-<p>Anaconda Prompt就是相当于本地终端cmd，如果有Python基础的都知道，在安装Python库文件的时候我们通过使用终端的pip命令安装。<br>之前说了安装Anaconda不需要安装Python，但是如果安装了也要注意，这时候的你的电脑有两个环境，一个Python环境，一个Anaconda环境。<br>其中cmd的pip安装库是安装在了Python环境下，在Anaconda Prompt里面pip安装才在Anaconda环境下，换言之，在cmd里面使用pip install 的库，并不能在Anaconda下调用。<br>Spyder就是Anaconda自带的编译器，还是十分方便的。</p>
-</blockquote>
-<p>安装完Anaconda后，我们打开<code>Anaconda Prompt</code>，输入指令查看目录。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Anaconda3  <span class="comment"># 进入Anaconda3文件夹，按照不用安装路径更改</span></span><br><span class="line">dir           <span class="comment"># 查看本目录下的配置文件</span></span><br><span class="line">python        <span class="comment"># 如果出现程序命令行状态，证明安装成功</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2020/02/13/gZw731GOUmsbQ8R.png" alt=""><br><img src="https://i.loli.net/2020/02/13/JcnFOe3DUoQjxfs.png" alt=""></p>
-<h3 id="明天再更，睡觉"><a href="#明天再更，睡觉" class="headerlink" title="明天再更，睡觉"></a><strong>明天再更，睡觉</strong></h3>
+          <h3 id="一、聊聊OpenCV"><a href="#一、聊聊OpenCV" class="headerlink" title="一、聊聊OpenCV"></a>一、聊聊OpenCV</h3><p>计算机视觉应该是目前和自然语言处理一起在人工智能方向最火的领域，主要是因为这两个人工智能分支，是目前应用领域最广泛的。然而其实就目前时代而言，所有的人工智能研究生博士生都转向了这两个领域去研究，导致了公司岗位的过度饱和。但是实际情况是计算机视觉领域，工程师过剩，学术人才短缺。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/13/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
