@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、笔记整理通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。">
+  <meta name="description" content="一、笔记整理通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。 二、图像的本质在学习之前我们需要思考一个问题，在计算机的眼中，图像到底是什么东西。  我们用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像基本操作">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="杨文昊的个人博客">
-<meta property="og:description" content="一、笔记整理通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。">
+<meta property="og:description" content="一、笔记整理通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。 二、图像的本质在学习之前我们需要思考一个问题，在计算机的眼中，图像到底是什么东西。  我们用">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/03/24/hCJsYW86rzHkeN7.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/24/zlZnW9v5yqg4VXj.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/24/NuSbmdzq9pYBCw5.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/24/DSwIb4hQto6H5N3.png">
 <meta property="article:published_time" content="2020-03-24T15:16:32.000Z">
-<meta property="article:modified_time" content="2020-03-24T11:10:24.652Z">
+<meta property="article:modified_time" content="2020-03-24T11:22:09.794Z">
 <meta property="article:author" content="Alpha Yang">
 <meta property="article:tag" content="图像处理">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-24 15:16:32 / 修改时间：11:10:24" itemprop="dateCreated datePublished" datetime="2020-03-24T15:16:32Z">2020-03-24</time>
+              <time title="创建时间：2020-03-24 15:16:32 / 修改时间：11:22:09" itemprop="dateCreated datePublished" datetime="2020-03-24T15:16:32Z">2020-03-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +223,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、笔记整理"><a href="#一、笔记整理" class="headerlink" title="一、笔记整理"></a>一、笔记整理</h3><p>通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。<a id="more"></a></p>
+        <h3 id="一、笔记整理"><a href="#一、笔记整理" class="headerlink" title="一、笔记整理"></a>一、笔记整理</h3><p>通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。</p>
 <h3 id="二、图像的本质"><a href="#二、图像的本质" class="headerlink" title="二、图像的本质"></a>二、图像的本质</h3><p>在学习之前我们需要思考一个问题，在计算机的眼中，图像到底是什么东西。</p>
 <p><img src="https://i.loli.net/2020/03/24/hCJsYW86rzHkeN7.png" alt=""></p>
 <p>我们用所有cv教程中最经典的名画来举例，计算机将图像分割了成了无数小方格，这些小方格分别有自己对应的数字矩阵，而这些数字矩阵便是计算机解读和提取图像的信息。这些数字其实便是我们常说的RGB像素，这个概念并不难理解，其实在我们眼中图片是可视化的，而在计算机眼中，所有一切可视化的图片以及视屏都是矩阵。</p>
@@ -425,6 +425,11 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Alpha-Yang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Alpha-Yang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
 
 
 <div style="">

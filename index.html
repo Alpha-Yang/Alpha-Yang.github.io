@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-24 15:16:32 / 修改时间：11:10:24" itemprop="dateCreated datePublished" datetime="2020-03-24T15:16:32Z">2020-03-24</time>
+              <time title="创建时间：2020-03-24 15:16:32 / 修改时间：11:22:09" itemprop="dateCreated datePublished" datetime="2020-03-24T15:16:32Z">2020-03-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,15 +214,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、笔记整理"><a href="#一、笔记整理" class="headerlink" title="一、笔记整理"></a>一、笔记整理</h3><p>通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/24/%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h3 id="一、笔记整理"><a href="#一、笔记整理" class="headerlink" title="一、笔记整理"></a>一、笔记整理</h3><p>通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。</p>
+<h3 id="二、图像的本质"><a href="#二、图像的本质" class="headerlink" title="二、图像的本质"></a>二、图像的本质</h3><p>在学习之前我们需要思考一个问题，在计算机的眼中，图像到底是什么东西。</p>
+<p><img src="https://i.loli.net/2020/03/24/hCJsYW86rzHkeN7.png" alt=""></p>
+<p>我们用所有cv教程中最经典的名画来举例，计算机将图像分割了成了无数小方格，这些小方格分别有自己对应的数字矩阵，而这些数字矩阵便是计算机解读和提取图像的信息。这些数字其实便是我们常说的RGB像素，这个概念并不难理解，其实在我们眼中图片是可视化的，而在计算机眼中，所有一切可视化的图片以及视屏都是矩阵。</p>
+<p>这也是为何传统领域的图像处理属于信号与信息处理领域，本质上任何预处理的都是数字。</p>
+<p>明白了这个概念，下面我们可以用简单的几个命令，来将图像的数字信息给提取出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">img=cv2.imread(<span class="string">'image\lena.jpg'</span>)  <span class="comment"># 读取图片的RGB参数</span></span><br><span class="line">size=img.shape <span class="comment"># 获取矩阵的维度</span></span><br></pre></td></tr></table></figure>
+<p>通过这样的命令，我们便可以得到一个$266\times 266 \times 3$的矩阵了，说明计算机将lena的图像分成了266*266的像素小方格，每个方格有三个参数，这三个参数分别代表B，G，R(这里注意不是RGB)。</p>
+<p><img src="https://i.loli.net/2020/03/24/zlZnW9v5yqg4VXj.png" alt=""></p>
+<p>下面还有一个问题，如果只告诉计算机一张图片的像素参数，计算机能否将它画出来。这当然也是很轻松的。</p>
+<p>比如我们提取了lena图片中的img参数，用一个万不变的函数便能解决。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv_show</span><span class="params">(name,img)</span>:</span></span><br><span class="line">    cv2.imshow(name,img)  <span class="comment"># 显示图片，可以多个窗口</span></span><br><span class="line">    cv2.waitKey(<span class="number">0</span>) <span class="comment"># 窗口停止时间，毫秒级，0表示任意键结束</span></span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">cv_show(<span class="string">'image'</span>,img)</span><br></pre></td></tr></table></figure>
+<p>上述代码非常简单，我就不仔细说明了。下面我们来思考下，如果一张彩色的图片，我们能否提取他灰度的参数，即灰度处理，将其变成灰度图像。只需要记下下面cv2的命令即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img=cv2.imread(<span class="string">'image\lena.jpg'</span>,cv2.IMREAD_GRAYSCALE) <span class="comment"># 灰度处理：读取灰度参数</span></span><br><span class="line">cv_show(<span class="string">'lena_gray'</span>,img)</span><br><span class="line">cv2.imwrite(<span class="string">'image\lena_gray.png'</span>,img) <span class="comment"># 保存图片</span></span><br></pre></td></tr></table></figure>
+<p>并保存图片，我们得到了新的lena图片。</p>
+<p><img src="https://i.loli.net/2020/03/24/JcZB8r4HSlyDdiT.png" alt=""></p>
+<h3 id="三、处理视屏"><a href="#三、处理视屏" class="headerlink" title="三、处理视屏"></a>三、处理视屏</h3><h4 id="1-图像与视屏的关系"><a href="#1-图像与视屏的关系" class="headerlink" title="1. 图像与视屏的关系"></a>1. 图像与视屏的关系</h4><p>下面我们来研究如何处理视屏的图像，其实两者完全一样，视屏有帧数的概念，我们把一帧看做一个图像，那这样理解就轻松很多了，我们只需要一帧一帧地分离视屏，并用图像的处理知识就可以啦。</p>
+<h4 id="2-几个基础的图像或视屏处理命令"><a href="#2-几个基础的图像或视屏处理命令" class="headerlink" title="2.几个基础的图像或视屏处理命令"></a>2.几个基础的图像或视屏处理命令</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cv2.VideoCapture(‘video.mp4’,(0))</td>
+<td style="text-align:center">捕捉摄像头，后面的0代表默认，可有可无</td>
+</tr>
+<tr>
+<td style="text-align:center">read()</td>
+<td style="text-align:center">检查是否能打开视屏以及读取的图像内容</td>
+</tr>
+<tr>
+<td style="text-align:center">cv2.cvtColor()</td>
+<td style="text-align:center">转换颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">cv2.imshow()</td>
+<td style="text-align:center">展示图像或视屏</td>
+</tr>
+<tr>
+<td style="text-align:center">cv2.waitkeys()</td>
+<td style="text-align:center">等待的时间或视屏图像展示时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="3-视屏基本操作"><a href="#3-视屏基本操作" class="headerlink" title="3.视屏基本操作"></a>3.视屏基本操作</h4><p>下面我们对视屏进行一些基本操作，包括提取视屏，检查是否能打开，将彩色视屏转换为灰色视屏，快进视屏。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理视屏</span></span><br><span class="line">video=cv2.VideoCapture(<span class="string">'image/test.mp4'</span>) <span class="comment"># 捕捉摄像头，用数字来控制不同的设备，例如外接通常为400</span></span><br><span class="line"><span class="comment"># 检查是否正确打开</span></span><br><span class="line"><span class="keyword">if</span> video.isOpened():</span><br><span class="line">    open, frame = video.read()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    open=<span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> open:</span><br><span class="line">    ret, frame=video.read()</span><br><span class="line">    <span class="keyword">if</span> frame <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> ret==<span class="literal">True</span>:</span><br><span class="line">        gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)   <span class="comment"># 转换视屏颜色</span></span><br><span class="line">        cv2.imshow(<span class="string">'result'</span>,gray)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">10</span>) &amp; <span class="number">0xFF</span>==<span class="number">27</span>:  <span class="comment"># waitkey代表视屏播放时间，0xFF==27相当于键盘上的Esc键退出</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">video.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<h4 id="四、图像基本操作"><a href="#四、图像基本操作" class="headerlink" title="四、图像基本操作"></a>四、图像基本操作</h4><h4 id="1-截取部分图像"><a href="#1-截取部分图像" class="headerlink" title="1.截取部分图像"></a>1.截取部分图像</h4><p>手机上处理照片有一个我们非常常用的功能，叫”裁剪”。同样，计算机上也有。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 截取部分图像数据</span></span><br><span class="line">img=cv2.imread(<span class="string">'image\lena.jpg'</span>)</span><br><span class="line">lena_new=img[<span class="number">0</span>:<span class="number">200</span>,<span class="number">0</span>:<span class="number">200</span>]</span><br><span class="line">cv_show(<span class="string">'lena_new'</span>,lena_new)</span><br><span class="line">cv2.imwrite(<span class="string">'image\lena_new.png'</span>,lena_new) <span class="comment"># 保存图片</span></span><br></pre></td></tr></table></figure>
+<p>通过简单地规定矩阵的范围，我们可以得到裁剪后的图像。</p>
+<p><img src="https://i.loli.net/2020/03/24/mgq8xSG6CedLTUZ.png" alt=""></p>
+<h4 id="2-颜色通道提取"><a href="#2-颜色通道提取" class="headerlink" title="2.颜色通道提取"></a>2.颜色通道提取</h4><p>对于图像的颜色而言，我们之前说了如何将彩色图像转换为灰色图像，其实其他颜色也可以相互转化，我们通过对图像颜色的提取，修改b，g，r这三个在0~255之间的参数，便可以随意更改图像的颜色了。比如这里面，我只保留lena图像中的r参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 颜色通道提取</span></span><br><span class="line">b,g,r=cv2.split(img)</span><br><span class="line"><span class="comment"># 只保留R</span></span><br><span class="line">cur_img=img.copy()</span><br><span class="line">cur_img[:,:,<span class="number">0</span>]=<span class="number">0</span></span><br><span class="line">cur_img[:,:,<span class="number">1</span>]=<span class="number">0</span></span><br><span class="line">cv_show(<span class="string">'R'</span>,cur_img)</span><br><span class="line">cv2.imwrite(<span class="string">'image\lena_R.png'</span>,cur_img) <span class="comment"># 保存图片</span></span><br></pre></td></tr></table></figure>
+<p>我们成功地得到了一张红色的lena照片。对色域感兴趣的小伙伴，可以直接google所有的RGB值。</p>
+<p><img src="https://i.loli.net/2020/03/24/NuSbmdzq9pYBCw5.png" alt=""></p>
+<h4 id="3-边界填充"><a href="#3-边界填充" class="headerlink" title="3.边界填充"></a>3.边界填充</h4><p>除了裁剪图像，有的时候我们还需要拓宽图像的边界，而边界的地方有许多种填充方式，在这里我为大家介绍其中的常用的6种。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 边界填充</span></span><br><span class="line">top_size,bottom_size,left_size,right_size = (<span class="number">50</span>,<span class="number">50</span>,<span class="number">50</span>,<span class="number">50</span>) <span class="comment"># 表示拓充上下左右的宽度</span></span><br><span class="line">replicate = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, borderType=cv2.BORDER_REPLICATE)</span><br><span class="line">reflect = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size,cv2.BORDER_REFLECT)</span><br><span class="line">reflect101 = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv2.BORDER_REFLECT_101)</span><br><span class="line">wrap = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size, cv2.BORDER_WRAP)</span><br><span class="line">constant = cv2.copyMakeBorder(img, top_size, bottom_size, left_size, right_size,cv2.BORDER_CONSTANT, value=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">231</span>), plt.imshow(img, <span class="string">'gray'</span>), plt.title(<span class="string">'ORIGINAL'</span>)</span><br><span class="line">plt.subplot(<span class="number">232</span>), plt.imshow(replicate, <span class="string">'gray'</span>), plt.title(<span class="string">'REPLICATE'</span>)</span><br><span class="line">plt.subplot(<span class="number">233</span>), plt.imshow(reflect, <span class="string">'gray'</span>), plt.title(<span class="string">'REFLECT'</span>)</span><br><span class="line">plt.subplot(<span class="number">234</span>), plt.imshow(reflect101, <span class="string">'gray'</span>), plt.title(<span class="string">'REFLECT_101'</span>)</span><br><span class="line">plt.subplot(<span class="number">235</span>), plt.imshow(wrap, <span class="string">'gray'</span>), plt.title(<span class="string">'WRAP'</span>)</span><br><span class="line">plt.subplot(<span class="number">236</span>), plt.imshow(constant, <span class="string">'gray'</span>), plt.title(<span class="string">'CONSTANT'</span>)</span><br><span class="line">plt.savefig(<span class="string">'image/image_filling.png'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>这些复杂的代码我觉得并不需要非常深刻地理解，当然如果感兴趣你也可以去看看python底层的库程序到底是怎么实现的。一共六张图片，效果如下图所示。</p>
+<p><img src="https://i.loli.net/2020/03/24/DSwIb4hQto6H5N3.png" alt=""></p>
+<h4 id="4-数值计算"><a href="#4-数值计算" class="headerlink" title="4.数值计算"></a>4.数值计算</h4><p>我们之前说了为了表示色域，所有图像提取的参数都是0~255，那如果我们给所有参数原有基础上加上10呢，又或者我们的参数超过了255怎么办？图像的计算一样非常简单，如果超过了，计算机会自动模256，让其回到原来的区间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数值计算</span></span><br><span class="line">img_cat=cv2.imread(<span class="string">'image/cat.jpg'</span>)</span><br><span class="line">img_car=cv2.imread(<span class="string">'image/car.png'</span>)</span><br><span class="line">img_cat2=img_cat+<span class="number">10</span></span><br><span class="line">img_sum=img_cat+img_cat2 <span class="comment"># 相当于%256</span></span><br><span class="line">img_sum2=cv2.add(img_cat,img_cat2)</span><br></pre></td></tr></table></figure>
+<h4 id="5-图像融合"><a href="#5-图像融合" class="headerlink" title="5.图像融合"></a>5.图像融合</h4><p>相信对基于深度学习的cv感兴趣的伙伴，一定看过一个开源项目基于tensorflow的neural-style。对于简单的图像融合，我们有非常简单的命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 图像融合</span></span><br><span class="line"><span class="comment"># print(img_cat.shape,img_car.shape)</span></span><br><span class="line">img_car=cv2.resize(img_car,(<span class="number">500</span>,<span class="number">414</span>))</span><br><span class="line"><span class="comment"># img_car=cv2.resize(img_car,(0,0),fx=1,fy=3)</span></span><br><span class="line">res=cv2.addWeighted(img_cat,<span class="number">0.6</span>,img_car,<span class="number">0.4</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment"># cv_show('fusion',res)</span></span><br><span class="line">plt.imshow(res)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>但是需要注意的是，如果两张照片的尺寸不同，那显然他们像素矩阵是不能直接按权重相加的，这时候我们就需要resize的命令了，大可以动手操作一下以上程序，毕竟实践出真知。</p>
+
       
     </div>
 
@@ -851,6 +911,11 @@ I&=\iiint\limits_{\Omega}(z^2+x^2+y^2)dV=\iiint\limits_{\Omega}r^2dV \\
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Alpha-Yang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Alpha-Yang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
 
 
 <div style="">
