@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-02T15:03:03.244Z</updated>
+  <updated>2020-06-06T13:59:44.818Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>科研论文常用LaTex代码</title>
+    <link href="http://yoursite.com/2020/06/07/%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTex%E4%BB%A3%E7%A0%81/"/>
+    <id>http://yoursite.com/2020/06/07/%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTex%E4%BB%A3%E7%A0%81/</id>
+    <published>2020-06-06T21:56:50.000Z</published>
+    <updated>2020-06-06T13:59:44.818Z</updated>
+    
+    <content type="html"><![CDATA[<p>【转载队友的论文博客】</p><p>正是由于数学建模美赛，我们队伍的同学才开始去学习<strong>Latex</strong>这样一个论文工具的</p><p>用完之后，真香！Word从此是路人</p><p>也许大部分本科生还不太了解<strong>Latex</strong>究竟是什么？简而言之就是，论文写作排版的工具</p><p>据我观察，大部分的本科学长还是用Word来完成毕业设计的。</p><p>于是我们有个西电的保研群里面就开始天天问“字体用什么”“标题间距”“怎么调画图”等等之类的问题</p><p>而如果你学会了<strong>Latex</strong>这样一个工具，你就只管写就可以了，只要有毕设的固定模板，你只需要写你的文字就可以了，排版之类的全部自动生成，完全不用你担心。</p><p><strong>Latex</strong>的好处我就不在此一一列举了，反正等大家上了研究生，发paper还是需要会用到的（大部分出版社和学校毕设都会直接给模板，直接使用即可，不需要学会如何自己编写模板宏包）这学期的大作业和实验报告我全是用的<strong>Latex</strong>完成的（当然模板是论文队友自己编写的宏包）</p><p>不说多了，这里是论文队友的博客，整理了一些科研论文常用LaTeX代码，对数模美赛国赛的写作都有很好的帮助，非常适合初学者（指不知道常用命令的同学）等大家学会了，善用百度Bing等就可以任意写作了。</p><p><a href="[https://levitate-qian.github.io/2020/03/08/%E6%95%B0%E6%A8%A1%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTeX%E4%BB%A3%E7%A0%81/](https://levitate-qian.github.io/2020/03/08/数模论文常用LaTeX代码/">【持续更新】论文常用LaTeX代码</a>)</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;【转载队友的论文博客】&lt;/p&gt;
+&lt;p&gt;正是由于数学建模美赛，我们队伍的同学才开始去学习&lt;strong&gt;Latex&lt;/strong&gt;这样一个论文工具的&lt;/p&gt;
+&lt;p&gt;用完之后，真香！Word从此是路人&lt;/p&gt;
+&lt;p&gt;也许大部分本科生还不太了解&lt;strong&gt;Latex&lt;/st
+      
+    
+    </summary>
+    
+    
+      <category term="LaTex" scheme="http://yoursite.com/categories/LaTex/"/>
+    
+    
+      <category term="LaTex" scheme="http://yoursite.com/tags/LaTex/"/>
+    
+  </entry>
   
   <entry>
     <title>如何写出一篇高质量的数模竞赛答卷</title>
