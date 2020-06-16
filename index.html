@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-06-16 14:41:03 / 修改时间：07:46:19" itemprop="dateCreated datePublished" datetime="2020-06-16T14:41:03Z">2020-06-16</time>
+              <time title="创建时间：2020-06-16 14:41:03 / 修改时间：07:52:50" itemprop="dateCreated datePublished" datetime="2020-06-16T14:41:03Z">2020-06-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,45 +215,15 @@
 
       
           <p>该博客内容是针对西安电子科技大学2020年ACM暑假培训，6月15日校队周益全大佬讲课内容的总结与整理。</p>
-<h3 id="一、STL库的概念"><a href="#一、STL库的概念" class="headerlink" title="一、STL库的概念"></a>一、STL库的概念</h3><p>STL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI/ISO C++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。</p>
-<h3 id="二、vector向量-不定长数组"><a href="#二、vector向量-不定长数组" class="headerlink" title="二、vector向量(不定长数组)"></a>二、vector向量(不定长数组)</h3><h4 id="1-头文件"><a href="#1-头文件" class="headerlink" title="1. 头文件"></a>1. 头文件</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt; // 头文件</span></span></span><br></pre></td></tr></table></figure>
-<h4 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2. 常用命令"></a>2. 常用命令</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;vec; <span class="comment">// 申请一个vector容器，这里int也可以是其他数据类型</span></span><br><span class="line">vec.push_back(num); <span class="comment">// 向容器最后插入一个数num</span></span><br><span class="line">vec.<span class="built_in">size</span>(); <span class="comment">// 查询目前容器的大小，常用于遍历</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-二维数组"><a href="#3-二维数组" class="headerlink" title="3. 二维数组"></a>3. 二维数组</h4><p>我们还可以一次性申请多个vector，这样就可以起到二维数组的作用。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;vec[<span class="number">100</span>]; <span class="comment">// 申请100个不定长容器</span></span><br></pre></td></tr></table></figure>
-<h3 id="三、map关联式容器"><a href="#三、map关联式容器" class="headerlink" title="三、map关联式容器"></a>三、map关联式容器</h3><p>以前内容还有部分整理自其他博客 <a href="https://www.cnblogs.com/fnlingnzb-learner/p/5833051.html" target="_blank" rel="noopener">C++中的STL中map用法详解</a></p>
-<h4 id="1-头文件-1"><a href="#1-头文件-1" class="headerlink" title="1. 头文件"></a>1. 头文件</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt; // 头文件</span></span></span><br></pre></td></tr></table></figure>
-<h4 id="2-常用命令-1"><a href="#2-常用命令-1" class="headerlink" title="2. 常用命令"></a>2. 常用命令</h4><p>这里举一个作业题目的例子，洛谷Hash模板题 <a href="https://www.luogu.com.cn/problem/P3370" target="_blank" rel="noopener">P3370 【模板】字符串哈希</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">bool</span>&gt;mp; <span class="comment">// 申请一个map，这个意思是申请一个名叫mp的map它可以将一个string类型的映射成bool类型。当然名字和类型都是可以换的</span></span><br><span class="line">mp[<span class="string">"abc"</span>] = <span class="number">1</span>; <span class="comment">// 之后输出mp["abc"]就会是1要是没有上一步输出就会是0</span></span><br><span class="line">mp.<span class="built_in">size</span>(); <span class="comment">// 容器的大小</span></span><br></pre></td></tr></table></figure>
-<p>根据周大佬上课所说的，map的库轮子是用红黑树写的，所以效率会很高。</p>
-<h4 id="3-容器遍历"><a href="#3-容器遍历" class="headerlink" title="3. 容器遍历"></a>3. 容器遍历</h4><p>这里上课没有提到，在这里补充一下关于map容器遍历问题，博客上有两种遍历方式，我这里说的是应用前向迭代器的方法。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;::iterator iter;</span><br><span class="line"><span class="keyword">for</span>(iter = mp.<span class="built_in">begin</span>();iter != mp.<span class="built_in">end</span>();iter++)</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="string">' '</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="4-pair的用法"><a href="#4-pair的用法" class="headerlink" title="4. pair的用法"></a>4. pair的用法</h4><p>将两个数放在一起，类似数据结构。比如直角坐标系(x,y)对应一个数value。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;,<span class="keyword">int</span>&gt;mapxy; <span class="comment">// 申请容器</span></span><br><span class="line">mapxy[make_pair(x,y)] = value; <span class="comment">// 赋值</span></span><br></pre></td></tr></table></figure>
-<h3 id="四、set集合"><a href="#四、set集合" class="headerlink" title="四、set集合"></a>四、set集合</h3><p>这个比较容易，就简单写写了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt; // 头文件</span></span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;st; <span class="comment">// 申请一个集合st</span></span><br><span class="line">st.<span class="built_in">begin</span>(); <span class="comment">// 返回set容器的第一个元素</span></span><br><span class="line">st.<span class="built_in">end</span>(); <span class="comment">// 返回set容器的最后一个元素</span></span><br><span class="line">st.<span class="built_in">clear</span>(); <span class="comment">// 删除set容器中的所有的元素</span></span><br><span class="line">st.empty(); <span class="comment">// 判断set容器是否为空</span></span><br><span class="line">st.max_size(); <span class="comment">// 返回set容器可能包含的元素最大个数</span></span><br><span class="line">st.<span class="built_in">size</span>(); <span class="comment">// 返回当前set容器中的元素个数</span></span><br><span class="line">st.insert(); <span class="comment">// 在集合中插入元素</span></span><br><span class="line">st.erase(); <span class="comment">// 删除集合中的某个元素</span></span><br></pre></td></tr></table></figure>
-<h3 id="五、algorithm算法库"><a href="#五、algorithm算法库" class="headerlink" title="五、algorithm算法库"></a>五、algorithm算法库</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt; // 头文件</span></span></span><br></pre></td></tr></table></figure>
-<h4 id="1-二分查找"><a href="#1-二分查找" class="headerlink" title="1. 二分查找"></a>1. 二分查找</h4><ul>
-<li>lower_bound(起始地址，结束地址，要查找的数值)</li>
-</ul>
-<p>返回大于或等于val的第一个元素位置。如果所有元素都小于val，则返回last的位置。</p>
-<p>注意：如果所有元素都小于val，则返回last的位置，且last的位置是越界的。</p>
-<ul>
-<li>upper_bound(起始地址，结束地址，要查找的数值)</li>
-</ul>
-<p>功能：函数upper_bound()返回的在前闭后开区间查找的关键字的上界，返回大于val的第一个元素位置。</p>
-<p><strong>记得最后减去地址</strong></p>
-<h4 id="2-sort排序"><a href="#2-sort排序" class="headerlink" title="2. sort排序"></a>2. sort排序</h4><p>太常用了。对有n个元素的数组a进行排序。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(a,a+n); <span class="comment">// 升序排序，起始地址和结束地址</span></span><br></pre></td></tr></table></figure>
-<p>如果想要降序排序，简单写一个比较函数就可以了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i &gt; j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sort(a,a+n,cmp); <span class="comment">// 降序排序</span></span><br></pre></td></tr></table></figure>
-<p>如果想对结构体的某个value进行排序也是一样的，把cmp函数改掉就行。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> key,value;</span><br><span class="line">&#125;a[<span class="number">100</span>];</span><br><span class="line"><span class="comment">// 想对a直接进行升序排序是不可以的，因为对象不清楚</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node i,node j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i.value &lt; j.value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sort(a,a+n,cmp); <span class="comment">// 这样就行了</span></span><br></pre></td></tr></table></figure>
-<p>还有另一种写法，就是对大于号重载一下，重新定义其意义。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> key,value;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> node&amp;x)<span class="keyword">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> value &lt; x.value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;a[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">sort(a,a+n); <span class="comment">// 这样也行</span></span><br></pre></td></tr></table></figure>
-<h3 id="六、数据结构"><a href="#六、数据结构" class="headerlink" title="六、数据结构"></a>六、数据结构</h3><h4 id="1-队列"><a href="#1-队列" class="headerlink" title="1. 队列"></a>1. 队列</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt; // 头文件</span></span></span><br><span class="line"><span class="built_in">queue</span> &lt;<span class="keyword">int</span>&gt; q; <span class="comment">// 申请队列</span></span><br><span class="line">q.push(value); <span class="comment">// 入队</span></span><br><span class="line">q.pop(); <span class="comment">// 出队</span></span><br><span class="line">q.top(); <span class="comment">// 返回队首元素</span></span><br><span class="line">q.empty(); <span class="comment">// 判断是否为空</span></span><br><span class="line">q.<span class="built_in">size</span>(); <span class="comment">// 返回队列个数</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-栈"><a href="#2-栈" class="headerlink" title="2. 栈"></a>2. 栈</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt; // 头文件</span></span></span><br><span class="line"><span class="built_in">stack</span> &lt;<span class="keyword">int</span>&gt; stk; <span class="comment">// 申请栈</span></span><br><span class="line">stk.push(value); <span class="comment">// 入栈</span></span><br><span class="line">stk.pop(); <span class="comment">// 出栈</span></span><br><span class="line">stk.top(); <span class="comment">// 返回栈顶元素</span></span><br><span class="line">stk.empty(); <span class="comment">// 判断是否为空栈</span></span><br></pre></td></tr></table></figure>
-<p>其余数据结构之后还会细讲。</p>
-
+<h3 id="一、STL库的概念"><a href="#一、STL库的概念" class="headerlink" title="一、STL库的概念"></a>一、STL库的概念</h3><p>STL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI/ISO C++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/16/%E5%B8%B8%E7%94%A8STL%E5%BA%93%E6%80%BB%E7%BB%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -295,10 +265,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-06-12 16:46:23 / 修改时间：08:49:26" itemprop="dateCreated datePublished" datetime="2020-06-12T16:46:23Z">2020-06-12</time>
+              <time title="创建时间：2020-06-12 16:46:23" itemprop="dateCreated datePublished" datetime="2020-06-12T16:46:23Z">2020-06-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-16 07:52:40" itemprop="dateModified" datetime="2020-06-16T07:52:40Z">2020-06-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -328,35 +304,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>所有的模型与算法是不可能学完的，大家根据自己的实际情况来学习，不必过于焦虑。</p>
-<h4 id="1-数学模型的分类"><a href="#1-数学模型的分类" class="headerlink" title="1. 数学模型的分类"></a>1. 数学模型的分类</h4><ul>
-<li><p><strong>按数学方法分类：</strong> 几何模型、图论模型、微分方程模型、概率模型、最优控制模型、规划论模型、马氏链模型等。</p>
-</li>
-<li><p><strong>按特征分类：</strong> 静态模型和动态模型，确定性模型和随机模型，<strong>离散模型和连续性模型</strong>，线性模型和非线性模型等。</p>
-</li>
-<li><p><strong>按应用领域分类：</strong> 人口模型、交通模型、经济模型、生态模型、资源模型、环境模型等。</p>
-</li>
-<li><p><strong>按建模目的分类：</strong> 预测模型、优化模型、决策模型、控制模型等。</p>
-</li>
-<li><p><strong>按比赛命题方向分类：</strong> 国赛一般是离散模型和连续模型各一个，2019增加了一个人文社科背景题目，</p>
-<p>美赛六个题目（离散、连续、大数据、运筹学/复杂网络、环境科学、政策）。</p>
-</li>
-</ul>
-<h4 id="2-备赛：常用的模型与算法"><a href="#2-备赛：常用的模型与算法" class="headerlink" title="2. 备赛：常用的模型与算法"></a>2. 备赛：常用的模型与算法</h4><ul>
-<li><strong>评价模型：</strong> 层次分析、Topsis(优劣解距离法)、数据包络分析(DEA)、模糊综合评价、秩和比综合评价、主成分分析、灰色关联分析法</li>
-<li><strong>预测分析模型：</strong> 微分方程模型、差分方程模型、回归分析、时间序列、马尔可夫、神经网络、插值拟合、混沌序列预测、小波分析预测、灰色预测模型</li>
-<li><strong>优化模型：</strong> 数学规划模型（多目标、单目标、0-1整数规划等）、复杂网络优化、排队论与计算机仿真、图论、博弈论</li>
-<li><strong>数理统计模型：</strong> 多元分析（主成分分析、聚类分析、因子分析、判别分析、典型相关性分析等）、相关回归分析、假设检验、方差检验、贝叶斯统计</li>
-<li><strong>分类与判别算法：</strong> 距离聚类(系统聚类)、关联性聚类，层次聚类、贝叶斯分类与判别、SVM支持向量机、决策树、极限学习机</li>
-<li><strong>重要的算法：</strong> 蒙特卡罗算法、数据处理算法(数据拟合、参数估计、插值等)、规划算法(线性规划、整数规划、多元规划、二次规划等)、图论算法、计算机经典算法(动态规划、回溯搜索、分治算法、分支定界等)、最优化理论的三大非经典算法(模拟退火法、神经网络、遗传算法)、网格算法和穷举法、元胞自动机</li>
-</ul>
-<h4 id="3-备赛：针对性训练"><a href="#3-备赛：针对性训练" class="headerlink" title="3. 备赛：针对性训练"></a>3. 备赛：针对性训练</h4><ul>
-<li>无论是国赛还是美赛，比赛前要确定大概的选题范围。比如这次美赛，我们赛前训练了2道D题，1道A题，1道C题，当然我们学校最擅长的也是D题。所以这次美赛前我们便确定了选题。</li>
-<li>选定题目后，阅读往年优秀论文，可以是这个题目的也可以不是。请尽可能多地阅读，并且总结分析以及比较，人家能得大奖一定有他的原因，每阅读一篇优秀论文就把人家优秀的地方学过来，不断总结积累。</li>
-<li>经过多次真题训练，比赛前整理一套属于自己队伍的Latex或者Word模板，比赛时候方便使用。</li>
-<li>熟练使用各种查找文献，下载文献的办法，知网、谷歌学术等等。</li>
-</ul>
-
+          <p>所有的模型与算法是不可能学完的，大家根据自己的实际情况来学习，不必过于焦虑。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/13/%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E5%A4%87%E8%B5%9B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
