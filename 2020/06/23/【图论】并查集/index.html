@@ -20,29 +20,32 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="世间万物，唯代码美食，不能辜负。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="杨文昊的个人博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="最近一段时间一直忙着刷题，没时间来写博客了。今天，我来写一个基础的问题，就是图论中常见的并查集的问题。首先明确并查集是什么？ _并查集，在一些有N个元素的集合应用问题中，我们通常是在开始时让每个元素构成一个单元素的集合，然后按一定顺序将属于同一组的元素所在的集合合并，其间要反复查找一个元素在哪个集合中。这一类问题近几年来反复出现在信息学的国际国内赛题中，其特点是看似并不复杂，但数据量极大，若用正常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【图论】并查集">
+<meta property="og:url" content="http://yoursite.com/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E5%B9%B6%E6%9F%A5%E9%9B%86/index.html">
 <meta property="og:site_name" content="杨文昊的个人博客">
-<meta property="og:description" content="世间万物，唯代码美食，不能辜负。">
+<meta property="og:description" content="最近一段时间一直忙着刷题，没时间来写博客了。今天，我来写一个基础的问题，就是图论中常见的并查集的问题。首先明确并查集是什么？ _并查集，在一些有N个元素的集合应用问题中，我们通常是在开始时让每个元素构成一个单元素的集合，然后按一定顺序将属于同一组的元素所在的集合合并，其间要反复查找一个元素在哪个集合中。这一类问题近几年来反复出现在信息学的国际国内赛题中，其特点是看似并不复杂，但数据量极大，若用正常">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-22T23:06:12.000Z">
+<meta property="article:modified_time" content="2020-06-22T16:02:18.677Z">
 <meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="图论">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E5%B9%B6%E6%9F%A5%E9%9B%86/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>杨文昊的个人博客</title>
+  <title>【图论】并查集 | 杨文昊的个人博客</title>
   
 
 
@@ -154,10 +157,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E5%B9%B6%E6%9F%A5%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -171,8 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E3%80%91%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-title-link" itemprop="url">【图论】并查集</a>
+          【图论】并查集
         </h1>
 
         <div class="post-meta">
@@ -214,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最近一段时间一直忙着刷题，没时间来写博客了。今天，我来写一个基础的问题，就是图论中常见的并查集的问题。首先明确并查集是什么？</p>
+        <p>最近一段时间一直忙着刷题，没时间来写博客了。今天，我来写一个基础的问题，就是图论中常见的并查集的问题。首先明确并查集是什么？</p>
 <p>_并查集，在一些有N个元素的集合应用问题中，我们通常是在开始时让每个元素构成一个单元素的集合，然后按一定顺序将属于同一组的元素所在的集合合并，其间要反复查找一个元素在哪个集合中。这一类问题近几年来反复出现在信息学的国际国内赛题中，其特点是看似并不复杂，但数据量极大，若用正常的数据结构来描述的话，往往在空间上过大，计算机无法承受;即使在空间上勉强通过，运行的时间复杂度也极高，根本就不可能在比赛规定的运行时间(1~3秒)内计算出试题需要的结果，只能用并查集来描述。_(摘自百度)</p>
 <p>并查集和路径压缩应该怎么形象地理解呢，这里我们可以做一下这样的假设。</p>
 <p>我们现在假定一个数组f，其中<code>f[i]</code>表示第i个人的老大是谁（当然网上还有其他解释，爸爸什么的，反正先这样理解）</p>
@@ -240,804 +242,55 @@
 <p>以下是代码，个人认为我的代码还是非常易于理解，且对新手友善的（大家轻喷</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e4</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">1e5</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> f[maxn],re[maxn],n,m; <span class="comment">// 数组f存放并查集，数组re表示敌人</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">&#125;v[maxm];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node x,node y)</span> <span class="comment">// 定义结构体的sort排序，根据c进行降序</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x.c&gt;y.c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> k)</span> <span class="comment">// 并查集，找老大的函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (f[k]==k) <span class="keyword">return</span> k;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> f[k]=<span class="built_in">find</span>(f[k]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> <span class="comment">// 对两数进行合并操作</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f[<span class="built_in">find</span>(x)]=<span class="built_in">find</span>(y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> <span class="comment">// 判断两数是否在同一个集合中</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find</span>(x)==<span class="built_in">find</span>(y); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=m;i++) <span class="built_in">cin</span>&gt;&gt;v[i].a&gt;&gt;v[i].b&gt;&gt;v[i].c;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=n;i++) f[i]=i;</span><br><span class="line">    sort(v+<span class="number">1</span>,v+m,cmp); <span class="comment">// 按照c即冲突值从大到小排序</span></span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (check(v[i].a,v[i].b)) <span class="comment">// 如果发现a和b已经在一个监狱了，说明冲突无法避免，直接输出c</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;v[i].c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            getchar();getchar();</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 后面的罪犯不用考虑，只求最大的冲突</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (re[v[i].a]) merge(re[v[i].a],v[i].b);<span class="comment">//发现a已经有敌人了，所以我们合并敌人的敌人</span></span><br><span class="line">            <span class="keyword">else</span> re[v[i].a]=v[i].b; <span class="comment">// 标记a和敌人是b</span></span><br><span class="line">            <span class="keyword">if</span> (re[v[i].b]) merge(re[v[i].b],v[i].a);</span><br><span class="line">            <span class="keyword">else</span> re[v[i].b]=v[i].a;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/%E7%AC%AC0%E6%AC%A1%E8%AE%AD%E7%BB%83%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA%E9%A2%98%E8%A7%A3/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/16/%E7%AC%AC0%E6%AC%A1%E8%AE%AD%E7%BB%83%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">第0次训练洛谷试炼场题解</a>
-        </h1>
+    <div class="social-list">
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-16 15:58:06 / 修改时间：08:23:13" itemprop="dateCreated datePublished" datetime="2020-06-16T15:58:06Z">2020-06-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM算法</span>
-                  </a>
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
                 </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">洛谷试炼场</span>
-                  </a>
-                </span>
-            </span>
 
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>第0次训练作业为自由训练，题目都比较简单，大概30min能搞定。布置了四道题目，这里总结归纳，写了一下题解。</p>
-<blockquote>
-<p>P1449 后缀表达式 </p>
-<p>P3613【深基15.例2】寄包柜 </p>
-<p>P1177【模板】快速排序 </p>
-<p>P3370 【模板】字符串哈希 </p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/16/%E7%AC%AC0%E6%AC%A1%E8%AE%AD%E7%BB%83%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                阅读全文 &raquo;
+                <span class="label">RSS</span>
               </a>
             </div>
-          <!--/noindex-->
-        
-      
     </div>
+  </div>
 
-    
-    
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag"># 图论</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/16/%E5%B8%B8%E7%94%A8STL%E5%BA%93%E6%80%BB%E7%BB%93/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/16/%E5%B8%B8%E7%94%A8STL%E5%BA%93%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">常用STL库总结</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-16 14:41:03 / 修改时间：07:52:50" itemprop="dateCreated datePublished" datetime="2020-06-16T14:41:03Z">2020-06-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM算法</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/%E8%A5%BF%E7%94%B5%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">西电培训笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>该博客内容是针对西安电子科技大学2020年ACM暑假培训，6月15日校队周益全大佬讲课内容的总结与整理。</p>
-<h3 id="一、STL库的概念"><a href="#一、STL库的概念" class="headerlink" title="一、STL库的概念"></a>一、STL库的概念</h3><p>STL（Standard Template Library），即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI/ISO C++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/16/%E5%B8%B8%E7%94%A8STL%E5%BA%93%E6%80%BB%E7%BB%93/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/16/%E7%AC%AC0%E6%AC%A1%E8%AE%AD%E7%BB%83%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA%E9%A2%98%E8%A7%A3/" rel="prev" title="第0次训练洛谷试炼场题解">
+      <i class="fa fa-chevron-left"></i> 第0次训练洛谷试炼场题解
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/13/%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E5%A4%87%E8%B5%9B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/13/%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E5%A4%87%E8%B5%9B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">数模竞赛备赛常用模型与算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-12 16:46:23" itemprop="dateCreated datePublished" datetime="2020-06-12T16:46:23Z">2020-06-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-16 07:52:40" itemprop="dateModified" datetime="2020-06-16T07:52:40Z">2020-06-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">数学建模</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/" itemprop="url" rel="index">
-                    <span itemprop="name">入门指导</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>所有的模型与算法是不可能学完的，大家根据自己的实际情况来学习，不必过于焦虑。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/13/%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E5%A4%87%E8%B5%9B%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/11/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E9%9D%A2%E8%AF%95%E5%9F%B9%E8%AE%AD%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/11/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E9%9D%A2%E8%AF%95%E5%9F%B9%E8%AE%AD%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">西电数模竞赛面试培训参赛经验汇总</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-10 21:09:10 / 修改时间：14:38:01" itemprop="dateCreated datePublished" datetime="2020-06-10T21:09:10Z">2020-06-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">数学建模</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/" itemprop="url" rel="index">
-                    <span itemprop="name">入门指导</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天西电数学建模竞赛总教练刚在群里通知，数学建模国赛报名及选拔工作即将开始。</p>
-<p>我想趁这个机会来分享下数模竞赛的从面试到培训，再到选导师，以及最后参赛的整个流程的经验。</p>
-<p>在这个过程中，如果有哪儿些地方没说清楚或者你有自己的见解，也欢迎各位西电er私信我来对这个文章予以补充，用来给更多的学弟学妹或者第一次参与整个数模竞赛的流程的同学一些可供参考的建议。</p>
-<p>学弟学妹们关于培训有什么问题或者担忧的地方，也欢迎私信我~</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/11/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E9%9D%A2%E8%AF%95%E5%9F%B9%E8%AE%AD%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/07/%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTex%E4%BB%A3%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/07/%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTex%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">科研论文常用LaTex代码</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-06 21:56:50" itemprop="dateCreated datePublished" datetime="2020-06-06T21:56:50Z">2020-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-10 14:38:17" itemprop="dateModified" datetime="2020-06-10T14:38:17Z">2020-06-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LaTex/" itemprop="url" rel="index">
-                    <span itemprop="name">LaTex</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>【转载队友的论文博客】</p>
-<p>正是由于数学建模美赛，我们队伍的同学才开始去学习<strong>Latex</strong>这样一个论文工具的</p>
-<p>用完之后，真香！Word从此是路人</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/07/%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E5%B8%B8%E7%94%A8LaTex%E4%BB%A3%E7%A0%81/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/02/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E7%AF%87%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E7%AD%94%E5%8D%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/02/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E7%AF%87%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E7%AD%94%E5%8D%B7/" class="post-title-link" itemprop="url">如何写出一篇高质量的数模竞赛答卷</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-02 15:29:33 / 修改时间：15:03:03" itemprop="dateCreated datePublished" datetime="2020-06-02T15:29:33Z">2020-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">数学建模</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/" itemprop="url" rel="index">
-                    <span itemprop="name">入门指导</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、写在前面"><a href="#一、写在前面" class="headerlink" title="一、写在前面"></a>一、写在前面</h3><p>我相信很多人都和我一样，刚开始入门的时候，接触到的是眼花缭乱的数学知识，不管是学校数模培训也好还是网上教程也好，时间序列，博弈论，排队论这些等等。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/02/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E7%AF%87%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E6%95%B0%E6%A8%A1%E7%AB%9E%E8%B5%9B%E7%AD%94%E5%8D%B7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/24/%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">图像基本操作</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 15:16:32" itemprop="dateCreated datePublished" datetime="2020-03-24T15:16:32Z">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-08 15:33:40" itemprop="dateModified" datetime="2020-05-08T15:33:40Z">2020-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index">
-                    <span itemprop="name">图像处理与计算机视觉</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">入门笔记整理</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、笔记整理"><a href="#一、笔记整理" class="headerlink" title="一、笔记整理"></a>一、笔记整理</h3><p>通过b站以及github的学习完成了本教程，讲解了图像处理的底层知识，本教程所有python代码将会放在我的github仓库上面，通过首页即可访问。欢迎大家通过github来学习，当然想提高学习效率，提前了解git，ssh以及其基本命令是必须的，之后我也会推荐关于计算机视觉以及深度学习的项目。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/24/%E5%9B%BE%E5%83%8F%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/%E7%94%B5%E8%B7%AF%E6%A8%A1%E6%8B%9F%E4%BB%BF%E7%9C%9F%E8%BD%AF%E4%BB%B6icircuit%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/13/%E7%94%B5%E8%B7%AF%E6%A8%A1%E6%8B%9F%E4%BB%BF%E7%9C%9F%E8%BD%AF%E4%BB%B6icircuit%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">电路模拟仿真软件icircuit使用指南</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-12 23:37:57" itemprop="dateCreated datePublished" datetime="2020-03-12T23:37:57Z">2020-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-08 15:34:11" itemprop="dateModified" datetime="2020-05-08T15:34:11Z">2020-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
-                    <span itemprop="name">实用工具</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="一、为何选择icircuit？"><a href="#一、为何选择icircuit？" class="headerlink" title="一、为何选择icircuit？"></a>一、为何选择icircuit？</h3><p>这学期我们学校电院开始了《数字电路与逻辑设计》以及《模拟电子电路与技术基础》，这两门学科在电子领域地位和意义重大，想学好这两门课可不是很容易，他们相对于其他门学科而言，更加抽象。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/13/%E7%94%B5%E8%B7%AF%E6%A8%A1%E6%8B%9F%E4%BB%BF%E7%9C%9F%E8%BD%AF%E4%BB%B6icircuit%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/%E5%85%A5%E9%97%A8%E5%8F%82%E4%B8%8E%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AB%9E%E8%B5%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/13/%E5%85%A5%E9%97%A8%E5%8F%82%E4%B8%8E%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AB%9E%E8%B5%9B/" class="post-title-link" itemprop="url">入门参与数学建模竞赛</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-13 12:46:33" itemprop="dateCreated datePublished" datetime="2020-02-13T12:46:33Z">2020-02-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-08 15:40:30" itemprop="dateModified" datetime="2020-05-08T15:40:30Z">2020-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">数学建模</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/" itemprop="url" rel="index">
-                    <span itemprop="name">入门指导</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>哇！终于有时间来写这个入门参与数模的指导教程了，由于疫情原因一直没发开学，正好也来写点东西。在这次2020年国际数学建模竞赛中，我们队伍获得了特等O奖，并被美国INFORMS(运筹与管理学协会)冠名为当年D题全球最佳答卷，不得不说这次运气真的好，大概率应该是退役了吧。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/13/%E5%85%A5%E9%97%A8%E5%8F%82%E4%B8%8E%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AB%9E%E8%B5%9B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1088,6 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#P3367-【模板】并查集"><span class="nav-number">1.</span> <span class="nav-text">P3367 【模板】并查集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P1525-关押罪犯"><span class="nav-number">2.</span> <span class="nav-text">P1525 关押罪犯</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
