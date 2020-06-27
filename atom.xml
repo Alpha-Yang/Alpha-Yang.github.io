@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-24T11:32:27.506Z</updated>
+  <updated>2020-06-27T07:27:33.405Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【吴恩达笔记】线性回归</title>
+    <link href="http://yoursite.com/2020/06/27/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
+    <id>http://yoursite.com/2020/06/27/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</id>
+    <published>2020-06-27T14:58:06.000Z</published>
+    <updated>2020-06-27T07:27:33.405Z</updated>
+    
+    <content type="html"><![CDATA[<p>吴恩达老师的机器学习公开课应该算是目前我见过，最适合小白入门的公开课程了。即使内容对新人比较友好，但我想还是需要整理些许笔记的，因为涉及到机器学习的基础阶段，各个概念的掌握情况，我跳过了一些对我个人而言不重要的栏目，比如线性代数和matlab教程这些。</p><h3 id="一元线性回归-单变量线性回归-Linear-Regression-with-one-variable"><a href="#一元线性回归-单变量线性回归-Linear-Regression-with-one-variable" class="headerlink" title="一元线性回归(单变量线性回归)  Linear Regression with one variable"></a>一元线性回归(单变量线性回归)  Linear Regression with one variable</h3><h4 id="1-模型描述"><a href="#1-模型描述" class="headerlink" title="1. 模型描述"></a>1. 模型描述</h4><p>首先明确线性回归的作用，在机器学习中，我们可以广义的把机器学习划分为两类学习，监督学习与无监督学习。简单而言，监督学习就是给出了准确答案，期望计算机能学习其中的原理，并对我们未知的事情做出一定的预测。无监督学习就是指，我们并不知道准确结果的事情，希望机器通过学习，能从中抽取有效信息，举个简单的例子，例如邮箱文件分类，新闻栏目划分等等，这些我们都能通过无监督学习去解决。</p><p>好了下面再举一个关于监督学习的例子，吴老师上课的例子是房价预估，如下图所示。</p><p><img src="/../image/ml1.jpg" alt=""></p><p>给你一定数量的数据集，代表房屋尺寸与价格的散点图，现在你希望知道除这些数据集以外的Size所对应的Price，相当于我之前说的预测。比如Size为1250时，那Price可能为</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;吴恩达老师的机器学习公开课应该算是目前我见过，最适合小白入门的公开课程了。即使内容对新人比较友好，但我想还是需要整理些许笔记的，因为涉及到机器学习的基础阶段，各个概念的掌握情况，我跳过了一些对我个人而言不重要的栏目，比如线性代数和matlab教程这些。&lt;/p&gt;
+&lt;h3 id
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="吴恩达课程笔记" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>【XDUACM暑培】二分法洛谷作业题解</title>
