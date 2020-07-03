@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-02T16:09:56.294Z</updated>
+  <updated>2020-07-03T15:58:59.155Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【吴恩达笔记】正则化</title>
+    <link href="http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/"/>
+    <id>http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/</id>
+    <published>2020-07-03T11:44:01.000Z</published>
+    <updated>2020-07-03T15:58:59.155Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p><h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p><p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p><h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p><p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;关于&lt;strong&gt;Regularization(正则化)&lt;/strong&gt;的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。&lt;/p&gt;
+&lt;h3 id=&quot;关于拟合：Underfitting
+      
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="吴恩达课程笔记" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【模型优化】浅谈正则化</title>
+    <link href="http://yoursite.com/2020/07/03/%E3%80%90%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96%E3%80%91%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99%E5%8C%96/"/>
+    <id>http://yoursite.com/2020/07/03/%E3%80%90%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96%E3%80%91%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99%E5%8C%96/</id>
+    <published>2020-07-03T11:43:35.000Z</published>
+    <updated>2020-07-03T16:00:14.381Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p><h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p><p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p><h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p><p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;关于&lt;strong&gt;Regularization(正则化)&lt;/strong&gt;的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。&lt;/p&gt;
+&lt;h3 id=&quot;关于拟合：Underfitting
+      
+    
+    </summary>
+    
+    
+      <category term="数学建模" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
+    
+      <category term="模型篇" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%A8%A1%E5%9E%8B%E7%AF%87/"/>
+    
+    
+      <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>【初等模型】Logistic回归模型</title>
@@ -47,7 +105,7 @@
     <link href="http://yoursite.com/2020/06/29/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91Logistic%E5%9B%9E%E5%BD%92/"/>
     <id>http://yoursite.com/2020/06/29/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91Logistic%E5%9B%9E%E5%BD%92/</id>
     <published>2020-06-28T21:13:21.000Z</published>
-    <updated>2020-07-02T15:52:34.580Z</updated>
+    <updated>2020-07-03T02:31:53.704Z</updated>
     
     <content type="html"><![CDATA[<p>上一篇博客中，我们讲到了线性回归模型，是监督学习中的一个做预测工作的例子。而这里的Logistic回归则是监督学习的一个做分类工作例子，在数学建模与机器学习中，Logistic回归通常用于分类的目的，例如邮件的垃圾邮件分类，肿瘤的恶性良性分类等等。By the way，Logistic回归和Logistic分类是一回事，大家完全可以将两者等价。</p><p>Logistic回归有两种任务情况，分别是二元分类和多元分类问题，从字面上理解来说，binary problem是二元问题：非此即彼，非0即1 。而多元分类则是有多个分类组别，下面我们先从易入难，从binary的Logistic回归说起。</p><a id="more"></a><h3 id="Logistic模型描述"><a href="#Logistic模型描述" class="headerlink" title="Logistic模型描述"></a>Logistic模型描述</h3><p>和线性回归模型思想一项，也会存在单特征或多个特征$x^{(1)}_j$的情况，但是我们的目标值或者是输出值只有两种，0或1，即$y\in \{0,1\}$。其中”0”代表”Negative Class”，”1”代表”Positive Class”。</p><p>但是我们通过假设函数计算的输出值即$h_{\theta}(x)$可不可能只有0或1两个情况，很显然，根本没有连续函数能达到这个功能，所以在输出值有一段连续值得情况下，我们设置一个<strong>阈值(threshold)</strong>。例如我们讨论关于肿瘤恶性与良性的分类，设置阈值为0.5，这是什么意思呢？</p><p>如果$h_{\theta}(x)\geq 0.5$，那我们预测$y=1$，即在这种情况下，我们更倾向于将这个肿瘤划分为恶性的。反之$h_{\theta}(x)&lt;0.5$，则$y=0$。在这方面，后来也有很多扩展，比如应用于年龄估计和情感计算的多标签分布学习与标记增强，拜读过东南大学耿新老师的论文，如果有兴趣可以去看看。</p><p>为了使得分类任务靠设定阈值顺利进行，我们其实还得保证输出$h(x)$的范围的确定性，如果范围过于不确定，那阈值的选择会比较困难，所以之后我们会讲到这种方法，使得$0\leq h_{\theta}(x)\leq 1$。</p><h3 id="假设函数的新表示方法-区别于线性回归"><a href="#假设函数的新表示方法-区别于线性回归" class="headerlink" title="假设函数的新表示方法(区别于线性回归)"></a>假设函数的新表示方法(区别于线性回归)</h3><p>在上文中提到，我们为了想让$0\leq h_{\theta}(x)\leq 1$满足在这个范围内，我们引入一个神奇的函数，在机器学习中这个函数当真反复出现，<strong>Sigmoid function/Logistic function</strong>(这两个函数就是等价的，一个意思)：</p><p><img src="/../image/ml21.jpg" alt=""></p><p>这是个生物学函数，为了显示它的重要性，我单独列一行出来：</p><script type="math/tex; mode=display">g(z)=\frac{1}{1+e^{-z}}</script><p>现在我们写出Logistic回归模型的假设函数，并与之前的线性回归模型的进行对比：</p><script type="math/tex; mode=display">\begin{align}Linear&:h_{\theta}(x)=\theta^Tx\\Logistic&:h_{\theta}(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}\end{align}</script><p>事实上，就是区别于Sigmoid函数，还是之前恶性与良性肿瘤的例子。根据我输入的特征向量，求出的假设函数$h(x)$实际上代表着预测$y=1$的概率，即：</p><script type="math/tex; mode=display">h(x)=P(y=1|x;\theta),y=0,1</script><p>比如输出一组特征值，我们输出$h(x)=0.7$代表肿瘤为恶性的可能性为$70\%$，考虑到我们之前所定阈值为0.5，所以这个肿瘤我们划分在恶性中去。</p><h3 id="决策界限-Decision-Boundary"><a href="#决策界限-Decision-Boundary" class="headerlink" title="决策界限(Decision Boundary)"></a>决策界限(Decision Boundary)</h3><h4 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h4><p><img src="/../image/ml22.jpg" alt=""></p><p>通常选择线性or非线性，主要还是观察数据集的分布情况。比如上图，我们采用线性Boundary，$z=\theta^Tx$我们通过现有的数据集计算出了，$\theta^T=\begin{bmatrix}-3 &amp; 1&amp; 1\end{bmatrix}$，由于我们知道Sigmoid函数的性质我们知道，当$z\geq0$时，$g(z)\geq0.5$，我们认为它属于恶性肿瘤，反之相对即可。即我们最终计算出的线性决策界限，就是$z\geq0$时为恶性肿瘤，即$-3+x_1+x_2\geq0$。我们通过$\theta$反推得出了决策界限。</p><h4 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h4><p><img src="/../image/ml23.jpg" alt=""></p><p>在这个非线性的例子中，我们处理非线性的决策边界问题，令假设函数的表达式为：</p><script type="math/tex; mode=display">h(x)=g(\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1^2+\theta_4x_2^2)</script><p>当然你可能会觉得这个假设函数的设置过于主观，that’s ok. 这可能是我通常不会选择Logistic来处理非线性分类问题的原因。在这种分类问题，我更喜欢构建SVM的模型，这个我们之后会提到。好了，话说回来，这个我们通过计算得到，$\theta^T=\begin{bmatrix}-1 &amp; 0 &amp; 0 &amp; 1 &amp; 1\end{bmatrix}$，由Sigmoid的性质可得，当$z\geq 0$时，即$x_1^2+x^2_2\geq 1$，在这个情况下，我们更希望相信这个分类成为恶性肿瘤，反之也相对。下面我们来说说，Logistic回归的代价函数。</p><h3 id="代价函数-Cost-Function"><a href="#代价函数-Cost-Function" class="headerlink" title="代价函数(Cost Function)"></a>代价函数(Cost Function)</h3><h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>我们上述讨论了决策边界的问题，那么我们现在需要解决的问题就是如何选取最优的$\theta$值，即代价函数最小。首先，我先说Logistic的代价函数，和我们之前的线性回归的表达形式一模一样：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}\sum_{i=1}^m\left(h_\theta(x^{(i)})-y^{(i)}\right)^2</script><p>你可能觉得这个代价函数和线性回归的一模一样，但是有一些细微的差别，在这里$h(x)=g(z)$，而线性回归则没有加入sigmoid函数。但是，我们其实通常并不选择这个函数为我们所要的代价函数，我这里简单说下原因，由于我们的假设函数是关于sigmoid的函数，是一个非线性的函数。代入计算，我们的代价函数会是一个非凸函数。</p><p><img src="/../image/ml24.jpg" alt=""></p><p>在这个情况下，非凸函数如左图所示，他有很多的局部最优点，所以我们使用梯度下降法是找不到全局最优点的。而我们需要找一个<strong>凸函数(convex function)</strong>，也就是弓形函数，仅有一个全局最优解，所以我们通过梯度下降法就能很好做到找到代价函数的最优点。</p><h4 id="改进Cost，重新化简代价函数"><a href="#改进Cost，重新化简代价函数" class="headerlink" title="改进Cost，重新化简代价函数"></a>改进Cost，重新化简代价函数</h4><p>在上个引入部分中，我们令代价函数的部分为：</p><script type="math/tex; mode=display">\begin{align}J(\theta)&=\frac{1}{m}\sum_{i=1}^m\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2\\Cost(h_\theta(x^{(i)}),y^{(i)})&=\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2\\\end{align}</script><p>下面我们来改进一个新的Cost从而得到新的代价函数，而这个代价函数我们希望他是convex的，还是以二分类问题来举例：</p><script type="math/tex; mode=display">Cost(h_\theta(x),y)=\begin{cases}-log(h_\theta(x)) & \text{if } y=1\\-log(1-h_\theta(x)) & \text{if } y=0\\\end{cases}</script><p>在binary的问题中，我们注意到y的值总是0或1，所以我们重新化简代价函数：</p><script type="math/tex; mode=display">J(\theta)=-\frac{1}{m}[\sum_{i=1}^my^{(i)}logh_{\theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]</script><p>然后我们又可以愉快地用梯度下降算法啦！！</p><h3 id="多元分类问题-Multi-class-classification"><a href="#多元分类问题-Multi-class-classification" class="headerlink" title="多元分类问题(Multi-class classification)"></a>多元分类问题(Multi-class classification)</h3><p>其实，多元分类与二元分类基本类似，我们现在假设我们有三个类别(更多的也一样)，Class 1~3，我们简单用下图来说明下问题。</p><p><img src="/../image/ml25.jpg" alt=""></p><p>吴恩达老师上课的课件，看到$h_{\theta}^{(i)}=P(y=i|x;\theta)$这个公式(julao不愧是julao)，让我茅塞顿开。其实多元分类问题就可以写成二元分类，如果你还没看懂，我来做下简单的解释。</p><script type="math/tex; mode=display">J^{(i)}(\theta)=-\frac{1}{m}[\sum_{i=1}^mylogh^{(i)}_{\theta}(x)+(i-y)log(1-h^{(i)}_{\theta}(x))]</script><p>这样，我们便依然可以采用梯度下降法去求解。</p>]]></content>
     
@@ -61,7 +119,7 @@
     
       <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="吴恩达课程" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B/"/>
+      <category term="吴恩达课程笔记" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     
       <category term="Logistic" scheme="http://yoursite.com/tags/Logistic/"/>
@@ -481,54 +539,6 @@
     
     
       <category term="数学建模" scheme="http://yoursite.com/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>写在前面</title>
-    <link href="http://yoursite.com/2020/02/13/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/"/>
-    <id>http://yoursite.com/2020/02/13/%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2/</id>
-    <published>2020-02-12T23:18:18.000Z</published>
-    <updated>2020-05-08T15:33:13.800Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、聊聊OpenCV"><a href="#一、聊聊OpenCV" class="headerlink" title="一、聊聊OpenCV"></a>一、聊聊OpenCV</h3><p>计算机视觉应该是目前和自然语言处理一起在人工智能方向最火的领域，主要是因为这两个人工智能分支，是目前应用领域最广泛的。然而其实就目前时代而言，所有的人工智能研究生博士生都转向了这两个领域去研究，导致了公司岗位的过度饱和。但是实际情况是计算机视觉领域，工程师过剩，学术人才短缺。<a id="more"></a>我之前给大家推荐过一个学习线路：</p><ul><li>学习《机器学习》《深度学习》等内容。</li><li>认真研读几篇CV的paper。</li><li>了解CV方向的Alexnet，R-CNN，yolo系列等。</li><li>下载VOC，ImageNet，COCO，Kaggle开源数据集。</li><li>在github上准备几个CV的框架，例如pytorch，Tensorflow等，准备数据集来跑一下。</li></ul><p>做到以上几点，本科阶段那绝对都是高手了，大牛算不上，但是肯定比一般人要厉害了，但是如果说找工作岗位和未来更进一步，但肯定是不够的。因为以上内容其实很快就能学会了，我们真正要学会的，或者是难的东西永远是底层架构，不管是软件开发方向还是人工智能方向（<strong>当然也有工程师能特别厉害，充分利用资源等</strong>）。其实计算机视觉最底层的东西不是人工智能，而是图像处理，所以我认为计算机视觉要从图像处理开始学起，但是这些内容是更难啃的骨头，但是我相信如果坚持下来，之后的视觉学习会事半功倍。</p><h3 id="二、工具准备"><a href="#二、工具准备" class="headerlink" title="二、工具准备"></a>二、工具准备</h3><p>我来说说我目前的编译环境好了，其实ide方面我对于vscode一直情有独钟，基本靠他来写所有语言的代码，但是图像处理内容所用的Python库，很可惜在vscode上经常报错，查询了很多方法无法解决，于是我直接开始使用Anaconda，人家集成好的环境，更加方便，ide也改用了spyder。</p><h3 id="三、环境配置"><a href="#三、环境配置" class="headerlink" title="三、环境配置"></a>三、环境配置</h3><p>首先在官网上<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">https://www.anaconda.com/download/</a>下载anaconda环境配置包，大家下载安装全部默认即可。<br><strong>下载Anaconda不需要提前安装Python，安装了也没关系</strong></p><p>这时，电脑本地会多一个Anaconda3的文件夹，会有5个东西。<br><img src="https://i.loli.net/2020/02/12/pODNQ7M8itSGe1s.png" alt=""><br>我们需要来学习的有两个东西：<code>Anaconda Prompt</code> 和 <code>Spyder</code></p><blockquote><p>Anaconda Prompt就是相当于本地终端cmd，如果有Python基础的都知道，在安装Python库文件的时候我们通过使用终端的pip命令安装。<br>之前说了安装Anaconda不需要安装Python，但是如果安装了也要注意，这时候的你的电脑有两个环境，一个Python环境，一个Anaconda环境。<br>其中cmd的pip安装库是安装在了Python环境下，在Anaconda Prompt里面pip安装才在Anaconda环境下，换言之，在cmd里面使用pip install 的库，并不能在Anaconda下调用。<br>Spyder就是Anaconda自带的编译器，还是十分方便的。</p></blockquote><p>安装完Anaconda后，我们打开<code>Anaconda Prompt</code>，输入指令查看目录。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Anaconda3  <span class="comment"># 进入Anaconda3文件夹，按照不用安装路径更改</span></span><br><span class="line">dir           <span class="comment"># 查看本目录下的配置文件</span></span><br><span class="line">python        <span class="comment"># 如果出现程序命令行状态，证明安装成功</span></span><br></pre></td></tr></table></figure><br><img src="https://i.loli.net/2020/02/13/gZw731GOUmsbQ8R.png" alt=""><br><img src="https://i.loli.net/2020/02/13/JcnFOe3DUoQjxfs.png" alt=""></p><p>然后我们进入Anaconda3目录下的Scripts文件夹，里面包含了Anaconda3的所有配置文件，然后我们查看下Anaconda给我们集成好的库文件。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts    <span class="comment"># 进入Scripts文件夹，查看配置文件</span></span><br><span class="line">pip list      <span class="comment"># 查看集成好的库文件</span></span><br></pre></td></tr></table></figure><br><img src="https://i.loli.net/2020/02/13/eCgGqT6uxkrOm8s.png" alt=""></p><p>下面我们来正式开始安装两个常用的CV库文件：<code>opencv-python</code>和<code>opencv-contrib-python</code></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install opencv-python</span><br><span class="line">pip install opencv-contrib-python</span><br></pre></td></tr></table></figure><p>然后验证下是否安装完成，进入Python环境。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">cv2.__version__   <span class="comment"># 查看版本号</span></span><br></pre></td></tr></table></figure><br><img src="https://i.loli.net/2020/02/13/N7xHXjvCrazfO9y.png" alt=""></p><p>至此，CV的库文件安装成功，在Spyder IDE中大家就可以直接调用了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、聊聊OpenCV&quot;&gt;&lt;a href=&quot;#一、聊聊OpenCV&quot; class=&quot;headerlink&quot; title=&quot;一、聊聊OpenCV&quot;&gt;&lt;/a&gt;一、聊聊OpenCV&lt;/h3&gt;&lt;p&gt;计算机视觉应该是目前和自然语言处理一起在人工智能方向最火的领域，主要是因为这两个人工智能分支，是目前应用领域最广泛的。然而其实就目前时代而言，所有的人工智能研究生博士生都转向了这两个领域去研究，导致了公司岗位的过度饱和。但是实际情况是计算机视觉领域，工程师过剩，学术人才短缺。
-    
-    </summary>
-    
-    
-      <category term="图像处理与计算机视觉" scheme="http://yoursite.com/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
-    
-      <category term="入门笔记整理" scheme="http://yoursite.com/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/"/>
-    
-    
-      <category term="计算机视觉" scheme="http://yoursite.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程与人工智能推荐书目以及学习路线</title>
-    <link href="http://yoursite.com/2020/02/12/%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
-    <id>http://yoursite.com/2020/02/12/%E7%BC%96%E7%A8%8B%E4%B8%8E%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%9B%AE%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</id>
-    <published>2020-02-11T22:12:21.000Z</published>
-    <updated>2020-02-12T04:37:00.059Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、分享理由"><a href="#一、分享理由" class="headerlink" title="一、分享理由"></a>一、分享理由</h3><p>博主现在于西安电子科技大学读电子信息工程专业，这个专业在我们学校的研究方向为雷达天线这块嵌入式的内容，然而读大学以来其实我对于编程，软件开发以及人工智能方面的兴趣颇浓，甚于硬件部分。<a id="more"></a>所以考虑研究生转计算机研究方向，你要问我EE转CS是不是一种趋势，我只能说据我的了解，EE要比CS更加难读，在就业方面，CS近乎于饱和，EE就业竞争压力小，但是相反的EE夕阳产业也较多，但这并不算明显的劣势，主要还是我更对编程及数学方面感兴趣点，虽然EE的图像处理，模式识别和智能系统方向也是人工智能的分支，但我还是更喜欢软件的东西。去年我们学校西电发布的关于AI的论文在全国高校居第二位，仅次于清华，绝大部分都是图像处理方向的研究，我也参加了电子工程学院图像处理的实验室学习，之后也会分享学习内容。</p><p>说了这么多，作为研究生想转CS方向的本科生，我肯定是要学习CS的本科我们EE没学的知识，我们学校人工智能专业和我们专业本科学习科目基本相同，我也是课外看了一些书目，然后自己做了些整理。其实人工智能这方面更多靠的是兴趣来自学，比如cv这些方向内容，本科很少有这方面深入的课程，与EE大部分课程一样都是蜻蜓点水，只有读了研究生博士生和导师做项目锻炼实战的能力。下面主要来讲讲我的学习思路。</p><h3 id="二、编程语言类书籍"><a href="#二、编程语言类书籍" class="headerlink" title="二、编程语言类书籍"></a>二、编程语言类书籍</h3><h4 id="写在前面：“纸上得来终觉浅，绝知此事要躬行”-任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。"><a href="#写在前面：“纸上得来终觉浅，绝知此事要躬行”-任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。" class="headerlink" title="写在前面：“纸上得来终觉浅，绝知此事要躬行” 任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。"></a><strong>写在前面：“纸上得来终觉浅，绝知此事要躬行” 任何编程语言如果说光看书都只是个笑话，一定要动手实战训练才能到到看的效果，github上面有无数经典的实战项目可供我们上手练习。</strong></h4><h4 id="1-C语言"><a href="#1-C语言" class="headerlink" title="1. C语言"></a>1. C语言</h4><p>作为大学的第一门编程语言，和我小学时候学的basic编程语言相似，对我而言上手还是轻松的，但是想深入的学习C语言的难点，比如指针，内存管理，谭浩强的教学书籍肯定是不够的，所以这里我推荐额外的三本书。</p><ul><li><p><strong>C语言程序设计现代方法</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.lIHIbM-8IrjdoUtBuEYANAAAAA?w=132&h=176&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是我用来自学的书，个人感觉还不错，更加适合小白入门，内容通俗易懂。</p></li><li><p><strong>C Primer Plus</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.oyCOuxWBzqHmptlXd9_MjwHaHa?w=201&h=201&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>经典中的经典，这个不用多说，应该是内容最全的C语言书籍了，但是内容并不是十分新手向，然而对于学习C语言中难的部分有重大的好处。</p></li><li><p><strong>C HOW TO PROGRAM</strong><br><img src="https://tse4-mm.cn.bing.net/th/id/OIP.iL8C_emJBwxaJxy7bBahHQHaJq?w=138&h=181&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书现在也有中文版了，中文名为C语言大学教程，是学长推荐的书籍，这本书也是我最喜欢的一本，里面的代码以及风格非常吸引人，充分体现了编程语言之美的特点，书里还包括一些C语言高级的操作以及实战，个人非常喜欢。</p></li></ul><h4 id="2-C"><a href="#2-C" class="headerlink" title="2. C++"></a>2. C++</h4><p>C++在上大学前也接触过但是不多，停留在基础语法方面，在大一学C的过程中顺便学了C++，讲真学了C++再也不想用C编程了，特别是大二学习数据结构，用C写了几百行代码，内心哭着想明明C++一个库文件就能搞定了啊。除了硬件编程，使用汇编和C之外，C++应该是使用最广泛地语言了，不管是Python或者Matlab开发的底层库大部分都是基于C++的，学好C++比只学一门Python更重要。</p><ul><li><strong>C++ Primer Plus</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.NchuvFN-tGgIBKpGK_fpJAAAAA?w=146&h=207&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书也是经典中的经典，其实挺适合初学者的，还有一本书C++ Prime少个plus，个人觉得差别不是很大，基本上吃透这本书，C++就没啥问题了，更多的还是需要实战，C++比C更高级不光在语法还有各种库文件，灵活使用，C++将比C简洁许多。</li></ul><h4 id="3-Java"><a href="#3-Java" class="headerlink" title="3. Java"></a>3. Java</h4><p>Java也是我大一特别喜欢的一门语言，作为后端的老大，任何软件开发项目都需要Java来搭建网络框架，不做多的介绍，如果你的兴趣是软件开发研究，这就是必学的语言。</p><ul><li><strong>Java编程思想</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.XgDm2k8XNgH8Z2Fk9iRVLgAAAA?w=139&h=196&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是java经典中的经典，作为后端老大，java更多的还是靠项目实战。</li></ul><h4 id="4-Python"><a href="#4-Python" class="headerlink" title="4. Python"></a>4. Python</h4><p>Python是近几年最火的编程语言，这是我大一下的一门课，Python方面我只推荐一本书，因为我觉得Python看书真的不是最重要的事情，Python编程讲究的是简洁以及快捷，配合它的各种库，它几乎是能做所有事情的工具。但是请注意，它是工具，配合上Python的库，它可以Excel分析，网络爬虫，人脸识别，机器学习深度学习，图像处理等等内容，在暑假我浏览Python底层文件库的时候，我竟然还发现Python也能写arduino单片机了，并且不管是前端后端，Python也可以参与开发工作。及至到此，你可能觉得学好了Python可以打遍天下了，但是必然不是，光学好Python反而在以后很不受待见，主要是Python门槛低见效高，各类培训机构更是抓住这样的机会大把捞钱，其实10几天成为Python工程师，也只是学会了调包。综上，Python可以作为你增值的最好工具，但是不能是你唯一的语言。</p><ul><li><strong>Python编程从入门到实践</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.RoW031enRzgYeDbZaifGSQHaHa?w=182&h=180&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书基本上就是我寒假入门的书，基于Python3，我觉得入门很好，语法讲全了也很透彻，后面还有关于一个做飞机游戏的实战，用到了matplotlib和pygame库，学习Python，语法和算法并不是最重要的，重要的是学习如何安装库，调用库，使用库来实现你的功能。</li></ul><h4 id="5-GoLang"><a href="#5-GoLang" class="headerlink" title="5. GoLang"></a>5. GoLang</h4><p>Go语言是我闲暇带着学的语言，它是新出来的一门语言，Go语言市面上没有啥经典的书，所以我只推荐一本书。</p><ul><li><strong>Go语言实战</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.UM3pnGA88svvkQALU3I-RgAAAA?w=197&h=197&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>Go语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</li></ul><h4 id="写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。"><a href="#写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。" class="headerlink" title="写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。"></a><strong>写在最后：我只是兴趣才涉及了这5门语言，实际上没必要，看自己以后的研究方向，决定深入学习哪儿种语言。</strong></h4><h3 id="三、数据结构与算法类书籍"><a href="#三、数据结构与算法类书籍" class="headerlink" title="三、数据结构与算法类书籍"></a>三、数据结构与算法类书籍</h3><p>光学会语言肯定是不够的，语言是实现工具，要想真正使它起到重要作用，计算机数据结构和经典算法也必须掌握。</p><ul><li><p><strong>算法导论</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.e1_aiovnGSX9QGjdXIiceAHaKD?w=139&h=189&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>“年轻人，来感受力量吧。”算法导论是算法中的经典书籍，但是需要深厚的数学功底，以及学习过数据结构的知识，才能感受到其中的力量。</p></li><li><p><strong>算法</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.xzUf8h_as43rg9W74PlQYQAAAA?w=217&h=213&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>与算法导论那本书买错了，我当时看着算法导论，就哭了。算法第四版是我们学校计科专业的用书，这本书还是比算法导论友善很多的。</p></li><li><p><strong>数据结构</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.JXZV2FgQ5DHpHs4fbHCQ5QAAAA?w=208&h=208&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>说实话这本书实在不适合初学者，我大一基本是面向csdn在看这本书，但是这本书对于学习所有数据结构内容又是经典，建议结合github上现成的数据结构代码来看。</p></li></ul><h3 id="四、计算机知识类书籍"><a href="#四、计算机知识类书籍" class="headerlink" title="四、计算机知识类书籍"></a>四、计算机知识类书籍</h3><p>非计算机科班出身想转CS的必读书目，简而言之，就是人家的本科知识，我也整理了些不在计算机大类基础中的书籍，这些内容是关于计算机底层以及系统类的知识。</p><h4 id="1-计算机网络类"><a href="#1-计算机网络类" class="headerlink" title="1. 计算机网络类"></a>1. 计算机网络类</h4><p>计算机网络是计算机知识中非常重要，但是十分枯燥的部分，我推荐三本书，一本轻松，两本硬核。</p><ul><li><p><strong>图解HTTP</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.ZiS7EuKRoNJu2aZKigCcBQHaJ4?w=160&h=204&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是俱乐部推荐学习web端知识的，是我最喜欢的书，主要是生动形象，通俗易懂，建议web小白学习，非常有趣。</p></li><li><p><strong>TCP/IP详解</strong><br><img src="https://tse4-mm.cn.bing.net/th/id/OIP.VzusU2dkDc9Ntd6RjkJDAQAAAA?w=216&h=208&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书是学习计算机网络特别经典的书籍，计算机网络狭义而言就是TCP/IP协议，但这本书比较晦涩难懂，需要基础知识。</p></li><li><p><strong>计算机网络 自顶向下的方法</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.jefPCQYLnhgPTsRWDfpnSwD6D6?w=205&h=205&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书比起上本书稍微好懂一点，但也只是稍微，计算机网络本身就是枯燥的东西，个人还是更推荐上一本。</p></li></ul><h4 id="2-Linux系统类"><a href="#2-Linux系统类" class="headerlink" title="2. Linux系统类"></a>2. Linux系统类</h4><p>Linux系统应该不用多说他的重要性了吧，基本上90%的项目都是在Linux开发的，所以学好Linux真的非常重要。我推荐两本经典的书。</p><ul><li><p><strong>鸟哥的Linux私房菜</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.QQ9ADeGcN6sCfSmAFbZmAQAAAA?w=212&h=213&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书包含了几乎所有Linux命令，我推荐作为工具书使用，但是务必要熟悉其内容。</p></li><li><p><strong>UNIX环境高级编程</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.Y6wj4wINzpyuKDJGY7HHqQAAAA?w=145&h=202&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>上本书基本上是在说Linux环境的使用，而这本书就是关于在环境下编程开发的。</p></li></ul><h4 id="3-数据库类"><a href="#3-数据库类" class="headerlink" title="3. 数据库类"></a>3. 数据库类</h4><ul><li><strong>MySQL必知必会</strong><br><img src="https://tse2-mm.cn.bing.net/th/id/OIP.gX2nuq_9D7LzgBDEvEc_wgAAAA?w=159&h=160&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>数据库方面就推荐这一本书，毕竟这本书讲解的已经十分全面了，不做额外的推荐。</li></ul><h3 id="五、人工智能类书籍"><a href="#五、人工智能类书籍" class="headerlink" title="五、人工智能类书籍"></a>五、人工智能类书籍</h3><p>AI是最近几年火到爆的一个话题，至于有没有必要投身于，这个就智者见智仁者见仁了。我这里推荐的也只是入门级的经典书籍，其实人工智能大部分方向都是纯数学类，真正需要计算机编程的，是应用实践与产品落地。首先，看以下的书我们需要有些数学的准备知识。</p><blockquote><p>统计学<br>线性代数</p></blockquote><p>以上两个内容我不做推荐的，但是统计学和线性代数加在一起，几乎就是整个机器学习的知识，所以还是非常重要的。</p><h4 id="1-人工智能简介类"><a href="#1-人工智能简介类" class="headerlink" title="1. 人工智能简介类"></a>1. 人工智能简介类</h4><ul><li><strong>人工智能</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.oilZ7dR4jCecof11jNkaXwAAAA?w=185&h=180&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这里推荐下李开复教授的书籍，对于想学人工智能的同学可以先了解了解。</li></ul><h4 id="2-机器学习类"><a href="#2-机器学习类" class="headerlink" title="2. 机器学习类"></a>2. 机器学习类</h4><p>机器学习是人工智能最基础的部分，其实看过机器学习的内容后，还是会发现机器学习基本都是数学类的内容，再具体一点，就是统计学，所以数学真的非常重要。</p><ul><li><p><strong>机器学习</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.eaoccMazmKDdfUylonVQDAAAAA?w=175&h=205&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书包含了几乎所有著名的机器学习模型，详细讲解其原理，缺点是没有代码，不过把它作为入门类书籍还是可以的，另外大家也可以结合吴恩达的课程一起学习。</p></li><li><p><strong>Scikit-Learn与TensorFlow机器学习实用指南</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.OJhiUZi0-LetLWUPbIyboAAAAA?w=126&h=166&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>Amazon销售量第一，这本书就是关于机器学习的实战部分内容了，源码已经在github上开源了。</p></li></ul><h4 id="3-深度学习类"><a href="#3-深度学习类" class="headerlink" title="3. 深度学习类"></a>3. 深度学习类</h4><p>深度学习和神经网络的知识大家其实可以一起学习，没必要再分细致，了解其数学背景才是关键的事情。</p><ul><li><p><strong>深度学习</strong><br><img src="https://tse1-mm.cn.bing.net/th/id/OIP.-LzszgWLjsZrbL3hMkYrRQHaJ9?w=144&h=193&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>花书，圣经，深度学习经典材料，厚度感人，十分经典不做过多的介绍，反正学习路上绕不开这本书。</p></li><li><p><strong>Deep Learning with Python</strong><br><img src="https://tse3-mm.cn.bing.net/th/id/OIP.Gs2KxopjWL5fSlSpMYGKigAAAA?w=129&h=161&c=7&o=5&dpr=1.5&pid=1.7" alt=""><br>这本书真的很适合小白入门，用的工具是Keras，作为TensorFlow的high level API，不那么复杂的Python编程，所有较为容易的上手实践项目，这本书好像没有中文版的，但是真的很有意思，另外这本书缺点就是不够深入，几乎没有数学公式和原理，当然这也是他不复杂的原因。</p></li></ul><h3 id="六、学习路线"><a href="#六、学习路线" class="headerlink" title="六、学习路线"></a>六、学习路线</h3><p>推荐了这么多，我来讲讲学习路线，以上的书我也不可能全部看完的，但是这些书在学生时代看看，有利无弊。以下是我整理的方向。</p><h4 id="1-软件开发方向"><a href="#1-软件开发方向" class="headerlink" title="1. 软件开发方向"></a>1. 软件开发方向</h4><ul><li>编程语言类书籍选择C++，Python，Java作为主要语言来看。</li><li>计算机网络类的书那是必须要掌握的。</li><li>接下来就可以再细分了，软件开发还分前端，后端，全栈。大家可以先去了解这些方向，再选择用书，比如后端可以选择最近很火的Spring框架的书来看，这里不做详细推荐。</li></ul><h4 id="2-人工智能方向"><a href="#2-人工智能方向" class="headerlink" title="2. 人工智能方向"></a>2. 人工智能方向</h4><ul><li>编程语言类书籍选择C++，Python作为主要语言。</li><li>计算机网络最好了解。</li><li>人工智能类必看。</li><li>结合吴恩达的机器学习和深度学习的课程。</li><li>阅读人工智能方向的paper，了解典型的，例如cv方向的Alexnet，R-CNN，yolo系列等。</li><li>下载VOC，ImageNet，COCO，Kaggle开源数据集。</li><li>了解人工智能基本模型框架，例如pytorch，Tensorflow等，准备数据集来跑一下。</li></ul><hr><p><strong>我觉得以上内容作为本科学习绝对足够了，我也不知道我以后具体会研究什么方向，所以趁学生时代，还是先读书吧。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、分享理由&quot;&gt;&lt;a href=&quot;#一、分享理由&quot; class=&quot;headerlink&quot; title=&quot;一、分享理由&quot;&gt;&lt;/a&gt;一、分享理由&lt;/h3&gt;&lt;p&gt;博主现在于西安电子科技大学读电子信息工程专业，这个专业在我们学校的研究方向为雷达天线这块嵌入式的内容，然而读大学以来其实我对于编程，软件开发以及人工智能方面的兴趣颇浓，甚于硬件部分。
-    
-    </summary>
-    
-    
-      <category term="经验分享" scheme="http://yoursite.com/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="经验分享" scheme="http://yoursite.com/tags/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
     
   </entry>
   
