@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
@@ -172,7 +172,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/" class="post-title-link" itemprop="url">【吴恩达笔记】正则化</a>
+            <a href="/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/" class="post-title-link" itemprop="url">【吴恩达笔记】支持向量机SVM</a>
         </h1>
 
         <div class="post-meta">
@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-03 11:44:01 / 修改时间：15:58:59" itemprop="dateCreated datePublished" datetime="2020-07-03T11:44:01Z">2020-07-03</time>
+              <time title="创建时间：2020-07-04 11:01:10 / 修改时间：05:18:11" itemprop="dateCreated datePublished" datetime="2020-07-04T11:01:10Z">2020-07-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,14 +214,187 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p>
-<h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p>
-<p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p>
-<h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p>
-<script type="math/tex; mode=display">
-J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p>
-<p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>
+          <p><strong>Support Vector Machines(简称SVM)支持向量机</strong>是机器学习中非常重要的一种算法，一般用于分类与判别，你可以能还会见到<strong>Support Vector Classification(简称SVC)、Support Vector Regression(简称SVR)</strong>，分别用于分类与回归，别担心他们的内理是一模一样的，只是功能不同而进行了划分罢了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/%E3%80%90%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/04/%E3%80%90%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/" class="post-title-link" itemprop="url">【分类与判别算法】支持向量机SVM</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-04 11:00:36 / 修改时间：05:18:51" itemprop="dateCreated datePublished" datetime="2020-07-04T11:00:36Z">2020-07-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">数学建模</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%AE%97%E6%B3%95%E7%AF%87/" itemprop="url" rel="index">
+                    <span itemprop="name">算法篇</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>终于讲到了算法的内容了，<strong>Support Vector Machines(简称SVM)支持向量机</strong>是机器学习与数学建模中非常重要的一种算法，一般用于分类与判别，你可以能还会见到<strong>Support Vector Classification(简称SVC)、Support Vector Regression(简称SVR)</strong>，分别用于分类与回归，别担心他们的内理是一模一样的，只是功能不同而进行了划分罢了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/04/%E3%80%90%E5%88%86%E7%B1%BB%E4%B8%8E%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/" class="post-title-link" itemprop="url">【吴恩达笔记】正则化</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-03 11:44:01" itemprop="dateCreated datePublished" datetime="2020-07-03T11:44:01Z">2020-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-04 05:17:53" itemprop="dateModified" datetime="2020-07-04T05:17:53Z">2020-07-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -263,10 +436,16 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\l
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-03 11:43:35 / 修改时间：16:00:14" itemprop="dateCreated datePublished" datetime="2020-07-03T11:43:35Z">2020-07-03</time>
+              <time title="创建时间：2020-07-03 11:43:35" itemprop="dateCreated datePublished" datetime="2020-07-03T11:43:35Z">2020-07-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-04 05:18:02" itemprop="dateModified" datetime="2020-07-04T05:18:02Z">2020-07-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -297,13 +476,14 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\l
 
       
           <p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p>
-<h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p>
-<p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p>
-<h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p>
-<script type="math/tex; mode=display">
-J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p>
-<p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/03/%E3%80%90%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96%E3%80%91%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99%E5%8C%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -841,187 +1021,6 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\l
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84Dijkstra%E4%B8%8EFloyd%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84Dijkstra%E4%B8%8EFloyd%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">【图论与树】最短路径Dijkstra与Floyd算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-23 10:05:20" itemprop="dateCreated datePublished" datetime="2020-06-23T10:05:20Z">2020-06-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 11:08:43" itemprop="dateModified" datetime="2020-06-24T11:08:43Z">2020-06-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM算法</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/%E8%A5%BF%E7%94%B5%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">西电培训笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在图论中有一个非常常见的问题，就是最短路径的问题。常见的最短路径算法有三种：dijkstra，floyd和SPFA。本文将带你了解前两种最短路算法，他们分别适用于不同场景下的问题。</p>
-<p>以下笔记乃是参考西电ACM暑假培训张帆大佬的讲课以及<a href="https://www.cnblogs.com/xzxl/p/7266404.html" target="_blank" rel="noopener">优先队列博客</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84Dijkstra%E4%B8%8EFloyd%E7%AE%97%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91XDUACM%E6%9A%91%E5%9F%B9%E6%B4%9B%E8%B0%B7%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91XDUACM%E6%9A%91%E5%9F%B9%E6%B4%9B%E8%B0%B7%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" class="post-title-link" itemprop="url">【图论与树】XDUACM暑培洛谷算法题解</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-23 00:14:11" itemprop="dateCreated datePublished" datetime="2020-06-23T00:14:11Z">2020-06-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-24 11:23:08" itemprop="dateModified" datetime="2020-06-24T11:23:08Z">2020-06-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM算法</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/%E6%B4%9B%E8%B0%B7%E8%AF%95%E7%82%BC%E5%9C%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">洛谷试炼场</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>该博客所有题目均是西电ACM暑假培训洛谷团队的题目，目前共16题，之前一直在写题，本博客持续更新。</p>
-<p>感谢校队张帆大佬的讲课(ID：孤月)。</p>
-<p>由于本人太菜，本文将持续更新</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91XDUACM%E6%9A%91%E5%9F%B9%E6%B4%9B%E8%B0%B7%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1094,20 +1093,20 @@ J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\l
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
