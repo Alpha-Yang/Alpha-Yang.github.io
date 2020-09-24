@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="西电ACM暑假培训二分法课程，感谢柴东辰大佬的讲课！ 二分算法，就是为了在单调的序列中寻找某个值，而每次选取中间位置，合理减少问题的规模，从而快速得到答案。 二分法，我想大家肯定都知道，这里我也不再赘述了，不过二分法的模板网上到处都是，但是有问题的也很多，比如这题是mid+1，那题是mid-1，也就是边界条件难以处理，很讨厌对吧？所以我这里介绍一种通用模板并分析思路。">
+  <meta name="description" content="对这次web开发与项目部署进行简单的记录小结~ 由于最近从事了深度学习方面的科研，实验室想将其算法落地，做成一个在线系统，于是这几天和几位朋友自学的Django框架，做了一个初步的最简单的网页，实现图像到画像的深度学习算法转换，这篇博客主要记录将做好的Django框架部署到远端的过程。 我们的系统虽然还有很多不完善的地方，但是没关系，越早把它部署到互联网上，才能越早发现线上特有的问题。现在也提倡渐">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【二分】思路与模板">
-<meta property="og:url" content="http://yoursite.com/2020/06/25/%E3%80%90%E4%BA%8C%E5%88%86%E3%80%91%E6%80%9D%E8%B7%AF%E4%B8%8E%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:title" content="Django项目框架部署到远端服务器">
+<meta property="og:url" content="http://yoursite.com/2020/09/22/Django%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
 <meta property="og:site_name" content="杨文昊的个人博客">
-<meta property="og:description" content="西电ACM暑假培训二分法课程，感谢柴东辰大佬的讲课！ 二分算法，就是为了在单调的序列中寻找某个值，而每次选取中间位置，合理减少问题的规模，从而快速得到答案。 二分法，我想大家肯定都知道，这里我也不再赘述了，不过二分法的模板网上到处都是，但是有问题的也很多，比如这题是mid+1，那题是mid-1，也就是边界条件难以处理，很讨厌对吧？所以我这里介绍一种通用模板并分析思路。">
+<meta property="og:description" content="对这次web开发与项目部署进行简单的记录小结~ 由于最近从事了深度学习方面的科研，实验室想将其算法落地，做成一个在线系统，于是这几天和几位朋友自学的Django框架，做了一个初步的最简单的网页，实现图像到画像的深度学习算法转换，这篇博客主要记录将做好的Django框架部署到远端的过程。 我们的系统虽然还有很多不完善的地方，但是没关系，越早把它部署到互联网上，才能越早发现线上特有的问题。现在也提倡渐">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-24T16:10:30.000Z">
-<meta property="article:modified_time" content="2020-06-24T11:33:57.164Z">
+<meta property="og:image" content="http://yoursite.com/2020/09/22/image/dj1.png">
+<meta property="article:published_time" content="2020-09-21T16:11:54.000Z">
+<meta property="article:modified_time" content="2020-09-24T07:15:25.729Z">
 <meta property="article:author" content="Alpha Yang">
-<meta property="article:tag" content="二分">
+<meta property="article:tag" content="Django">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/22/image/dj1.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/06/25/%E3%80%90%E4%BA%8C%E5%88%86%E3%80%91%E6%80%9D%E8%B7%AF%E4%B8%8E%E6%A8%A1%E6%9D%BF/">
+<link rel="canonical" href="http://yoursite.com/2020/09/22/Django%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>【二分】思路与模板 | 杨文昊的个人博客</title>
+  <title>Django项目框架部署到远端服务器 | 杨文昊的个人博客</title>
   
 
 
@@ -161,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/25/%E3%80%90%E4%BA%8C%E5%88%86%E3%80%91%E6%80%9D%E8%B7%AF%E4%B8%8E%E6%A8%A1%E6%9D%BF/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/22/Django%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
@@ -174,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【二分】思路与模板
+          Django项目框架部署到远端服务器
         </h1>
 
         <div class="post-meta">
@@ -183,24 +185,30 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-06-24 16:10:30 / 修改时间：11:33:57" itemprop="dateCreated datePublished" datetime="2020-06-24T16:10:30Z">2020-06-24</time>
+              <time title="创建时间：2020-09-21 16:11:54" itemprop="dateCreated datePublished" datetime="2020-09-21T16:11:54Z">2020-09-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-24 07:15:25" itemprop="dateModified" datetime="2020-09-24T07:15:25Z">2020-09-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM算法</span>
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM%E7%AE%97%E6%B3%95/%E8%A5%BF%E7%94%B5%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">西电培训笔记</span>
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
                   </a>
                 </span>
             </span>
@@ -216,16 +224,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>西电ACM暑假培训二分法课程，感谢柴东辰大佬的讲课！</p>
-<p>二分算法，就是为了在<strong>单调</strong>的序列中寻找某个值，而每次选取中间位置，合理减少问题的规模，从而快速得到答案。</p>
-<p>二分法，我想大家肯定都知道，这里我也不再赘述了，不过二分法的模板网上到处都是，但是有问题的也很多，比如这题是mid+1，那题是mid-1，也就是边界条件难以处理，很讨厌对吧？所以我这里介绍一种通用模板并分析思路。</p>
-<a id="more"></a>
-<p>哦对了，想给个标准的情景，1~n，查找x。就这么简单，暴力的话复杂度会达到O(n)，如果用二分法就是O(logn)了。废话不多说，直接上万用板(感谢柴大佬的模板)。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> k)</span> <span class="comment">// 判断真假情况的，根据题目意思自己写不同的check函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> k&lt;=x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binary_search</span><span class="params">(<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mid;</span><br><span class="line">    <span class="keyword">while</span> (left+<span class="number">1</span>&lt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        mid=(left+right)&gt;&gt;<span class="number">1</span>; <span class="comment">// 位运算加快速度</span></span><br><span class="line">        (check(mid) ? left : right) =mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> check(right) ? right : left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是个二分法模板，查找1~n的区间，可以查找的是任何东西。如果满足<code>left+1&lt;right</code>的条件，那就继续二分，反言之，如果<code>left+1&gt;=right</code>就不继续二分了。</p>
-<p>二分求出左右区间的mid值，判断mid的条件，会根据题目改变而改变。此题的条件是，如果价格偏高返回false，此时让<code>right=mid</code>，如果价格偏低或者相等，返回true，此时让<code>left=mid</code>。知道区间仅剩下<code>left,right</code>两个数时，即条件<code>left+1&gt;=right</code>，此时我们需要查找的数一定在<code>left</code>和<code>right</code>之间了，这样很好理解了吧。</p>
-<p>以上模板是稳定不易出错的写法，下面我们来尝试二分法的题目。</p>
-<p>请移步我洛谷<a href="[https://www.alpha-yang.cn/2020/06/25/%E3%80%90XDUACM%E6%9A%91%E5%9F%B9%E3%80%91%E4%BA%8C%E5%88%86%E6%B3%95%E6%B4%9B%E8%B0%B7%E4%BD%9C%E4%B8%9A%E9%A2%98%E8%A7%A3/](https://www.alpha-yang.cn/2020/06/25/[XDUACM暑培]二分法洛谷作业题解/">二分博客</a>)或<a href="https://zhuanlan.zhihu.com/p/150570433" target="_blank" rel="noopener">知乎专栏</a>的题解。</p>
+        <p>对这次web开发与项目部署进行简单的记录小结~</p>
+<p>由于最近从事了深度学习方面的科研，实验室想将其算法落地，做成一个在线系统，于是这几天和几位朋友自学的Django框架，做了一个初步的最简单的网页，实现图像到画像的深度学习算法转换，这篇博客主要记录将做好的Django框架部署到远端的过程。</p>
+<p>我们的系统虽然还有很多不完善的地方，但是没关系，越早把它部署到互联网上，才能越早发现线上特有的问题。现在也提倡渐进式开发，让产品在迭代中快速成长。</p>
+<p>那么我们如何才能把Django框架推到远端呢，这里我们首先介绍下原理，其实很好理解，我们项目部署到远端，客户端发来http请求，Nginx作为直接对外的服务器接口，对http请求进行静态分析，而uwsgi则像是两个框架之间的静态“桥梁”，负责处理资源分析的问题。</p>
+<p><img src="..\image\dj1.png" alt=""></p>
+<p>好，下面我们来看具体的操作。</p>
+<h2 id="一、合适的服务器与版本库需求"><a href="#一、合适的服务器与版本库需求" class="headerlink" title="一、合适的服务器与版本库需求"></a>一、合适的服务器与版本库需求</h2><p>我们把项目部署到远端服务器上，并要求能够通过公网访问。首先我们得选择一块合适的服务器，可以是阿里云，也可以是腾讯云等，区别不大，这里我直接使用的是实验室的服务器。</p>
+<p>下面我们来讲解所有需要安装的库，这里需要注意一个问题，在我们推网站的过程中，<strong>请使用Python3.7版本来完成此事</strong>，由于实验室的服务器上当时只有conda，所以我们尝试用conda部署项目的时候，怎么也无法安装uwsgi库，最后是新建了虚拟环境才解决的，反正强烈不建议。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo apt-get nginx</span><br></pre></td></tr></table></figure>
+<p>首先安装nginx版本库，使用最新的即可，下面我们通过pip3来安装剩下的支持库，在远端服务器上运行指令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ pip install uwsgi</span><br><span class="line">~$ pip install django</span><br></pre></td></tr></table></figure>
+<p>安装两个需要依赖的库，下面一定记得检查一下，是否安装在了python3.7的库中，教大家一些简单的命令来验证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~$ python  # 进入python，这里会显示</span><br><span class="line">&gt;&gt;&gt; import sys   # 自带的system库</span><br><span class="line">&gt;&gt;&gt; print(sys.executable)   # 在这里可以查看python的路径与版本</span><br><span class="line">&gt;&gt;&gt; exit(0)   # 退出python</span><br><span class="line">~$ whereis python  # 查看当前主机上所有的python版本</span><br><span class="line">~$ which python  # 查看默认指向的python路径</span><br></pre></td></tr></table></figure>
+<p>下面我再教大家如何查看自己刚刚装的第三方库的路径，这个很重要，因为之后的配置文件会让你填写进去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ python</span><br><span class="line">&gt;&gt;&gt; import django  # 检查django</span><br><span class="line">&gt;&gt;&gt; print(django.__file__)  # 这里便会输出django的安装path</span><br><span class="line">&gt;&gt;&gt; exit(0)</span><br></pre></td></tr></table></figure>
+<p>基本上掌握了这些，然后安装完我们所需要的版本库，就能愉快地开始部署啦~</p>
+<h2 id="二、Nginx配置与代码部署"><a href="#二、Nginx配置与代码部署" class="headerlink" title="二、Nginx配置与代码部署"></a>二、Nginx配置与代码部署</h2><p>下面我们检查下Nginx作为接受http请求的工具，是否能成功提起，我们首先在服务器(记得将你的Django项目上传到服务器上)上打开<code>/mysite/mysite/settings.py</code>，修改如下部分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DEBUG = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># comment by yihao for anywhere to visit</span></span><br><span class="line"><span class="comment"># ALLOWED_HOSTS = ['10.170.60.58']</span></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">'*'</span>]</span><br></pre></td></tr></table></figure>
+<p>首先关于Debug模式，建议改成False，为了避免安全性问题。这里由于我们的网站还需要改进，为了防止报错看不到，所以暂时选择的True，但实际上线还是需要改成False。</p>
+<p>关于<code>ALLOWED_HOSTS</code>部分，’*’表示允许所有请求，这是师兄改的，其实还可以改成域名或ip的形式，例如<code>ALLOWED_HOSTS = [&#39;ywh.com&#39;,&#39;10.170.60.58&#39;]</code></p>
+<p>好，完成这些后，我们检查下Nginx是否能正常运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ sudo service nginx start  # 这里必须要sudo，否则请求会被拒绝</span><br></pre></td></tr></table></figure>
+<p>这是你就能看到Nginx的欢迎界面了，但显然这里的配置还是不可以的，现在只是提起了整个网站，现在我们还要让Nginx指向我们对应的服务器地址，这里我们进入Nginx的配置文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ cd &#x2F;etc&#x2F;nginx&#x2F;sites-available    # 进入配置文件</span><br></pre></td></tr></table></figure>
+<p>这里是Nginx可以配置的地方，我们新建一个文件，命名为IP地址或已经选定的域名，或者直接本主机地址。</p>
+<p>假设IP地址为<code>10.170.60.58</code>，新建该文件，无后缀名，并在文件中添加如下配置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    charset utf<span class="number">-8</span>;</span><br><span class="line">    listen <span class="number">80</span>;</span><br><span class="line">    server_name <span class="number">10.170</span><span class="number">.60</span><span class="number">.58</span>;    <span class="comment"># 指定你的IP地址或域名   </span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        uwsgi_pass unix:///home/amax/mysite/site.sock;     <span class="comment"># 设置监听的sock文件</span></span><br><span class="line">        include /etc/nginx/uwsgi_params;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好接下来回到命令行，因为我们写的只是 Nginx 的可用配置，所以还需要把这个配置文件链接到在用配置上去，即<code>/etc/nginx/sites-enabled</code>路径文件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amax@amax:&#x2F;etc&#x2F;nginx&#x2F;sites-available$ sudo ln -s &#x2F;etc&#x2F;nginx&#x2F;sites-available&#x2F;10.170.60.58 &#x2F;etc&#x2F;nginx&#x2F;sites-enabled</span><br></pre></td></tr></table></figure>
+<p>至此Nginx配置完成，下面我们来配置uwsgi</p>
+<h2 id="三、Uwsgi结构简介与配置"><a href="#三、Uwsgi结构简介与配置" class="headerlink" title="三、Uwsgi结构简介与配置"></a>三、Uwsgi结构简介与配置</h2><p>假设你有个叫做 <code>mysite</code> 的顶级项目包，期中包含一个模板 <code>mysite/wsgi.py</code>，模块包含一个 WSGI <code>application</code> 对象。如果你使用的是较新的 Django，这就是你运行 <code>django-admin startproject mysite</code> （使用你的项目名替换 <code>mysite</code>）后得到的目录结构。</p>
+<p>那么Uwsgi包含了哪儿几个“桥梁”的部分呢？</p>
+<p><code>uwsgi.ini</code>是我们最起始的配置文件，在这个文件中，我们对我们的桥梁进行最简单的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">chdir&#x3D;&#x2F;home&#x2F;amax&#x2F;mysite</span><br><span class="line">module&#x3D;mysite.wsgi:application</span><br><span class="line">master&#x3D;True</span><br><span class="line">pidfile&#x3D;.&#x2F;mysite-master.pid</span><br><span class="line">vacuum&#x3D;True</span><br><span class="line">max-requests&#x3D;5000</span><br><span class="line">daemonize&#x3D;.&#x2F;mysite.log</span><br><span class="line">socket&#x3D;&#x2F;home&#x2F;amax&#x2F;mysite&#x2F;site.sock</span><br><span class="line">pythonpath&#x3D;&#x2F;usr&#x2F;local&#x2F;python3.7.7&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;</span><br></pre></td></tr></table></figure>
+<p>解释下这个简单的配置文件，基本上有几个重要的部分，(1) <code>pidfile</code>中其他程序可以通过这个pid文件，获取这个后台程序的pid，然后执行一些任务。这个文件在初始化<code>uwsgi.ini</code>之后，便会出现在你的顶级目录<code>mysite</code>中。 (2) <code>mysite.log</code>这里是存放项目日志的地方，以后部署项目的时候，如果出现了报错，都可以从这个地方来查询。 (3) <code>site.sock</code>时进程中产生的socket文件。(4) 而在<code>pythonpath</code>中指定的路径就是我们上述所说的python安装的第三方库的位置。</p>
+<h2 id="四、项目部署与常用命令"><a href="#四、项目部署与常用命令" class="headerlink" title="四、项目部署与常用命令"></a>四、项目部署与常用命令</h2><p>好的，下面完成Django与uwsgi的配置后，我们就可以开始正式部署我们的项目了，在部署命令的同时，我也会给出一些常用的命令，用于开始，结束，重启或查看当前进程。</p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ nginx -s reload   # 重启服务，当你修改nginx文件后，记得重启nginx服务</span><br><span class="line">~$ nginx -s stop   # 停止服务</span><br></pre></td></tr></table></figure>
+<h3 id="Uwsgi"><a href="#Uwsgi" class="headerlink" title="Uwsgi"></a>Uwsgi</h3><p>我们的Nginx服务在之前已经启动过了，下面我们开始尝试启动Uwsgi的服务，把我们的桥梁给搭起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~$ uwsgi --ini uwsgi.ini  # 启动uwsgi服务，与此同时，同目录下应该会出现log，pid，sock文件</span><br><span class="line">~$ ps -ef | grep uwsgi   # 这里检查下uwsgi的进程，查看是否正常提起</span><br><span class="line">~$ killall -s INT uwsgi   # 如果uwsgi提起异常或者其他报错，建议删除所有进程，如果成功就不需要</span><br><span class="line">~$ uwsgi --reload mysite-master.pid  # 如果之后更改了uwsgi的文件，则重启服务</span><br></pre></td></tr></table></figure>
+<p>目前为止，所有的配置与项目部署就完成了，下面通过公网的域名或IP地址即可访问了。</p>
 
     </div>
 
@@ -254,7 +292,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E4%BA%8C%E5%88%86/" rel="tag"># 二分</a>
+              <a href="/tags/Django/" rel="tag"># Django</a>
           </div>
 
         
@@ -263,13 +301,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/23/%E3%80%90%E5%9B%BE%E8%AE%BA%E4%B8%8E%E6%A0%91%E3%80%91%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84Dijkstra%E4%B8%8EFloyd%E7%AE%97%E6%B3%95/" rel="prev" title="【图论与树】最短路径Dijkstra与Floyd算法">
-      <i class="fa fa-chevron-left"></i> 【图论与树】最短路径Dijkstra与Floyd算法
+    <a href="/2020/09/05/ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5GPU%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8ssh%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/" rel="prev" title="ssh远程连接GPU服务器进行深度学习以及常用ssh命令汇总">
+      <i class="fa fa-chevron-left"></i> ssh远程连接GPU服务器进行深度学习以及常用ssh命令汇总
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/25/%E3%80%90XDUACM%E6%9A%91%E5%9F%B9%E3%80%91%E4%BA%8C%E5%88%86%E6%B3%95%E6%B4%9B%E8%B0%B7%E4%BD%9C%E4%B8%9A%E9%A2%98%E8%A7%A3/" rel="next" title="【XDUACM暑培】二分法洛谷作业题解">
-      【XDUACM暑培】二分法洛谷作业题解 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -329,6 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、合适的服务器与版本库需求"><span class="nav-number">1.</span> <span class="nav-text">一、合适的服务器与版本库需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Nginx配置与代码部署"><span class="nav-number">2.</span> <span class="nav-text">二、Nginx配置与代码部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Uwsgi结构简介与配置"><span class="nav-number">3.</span> <span class="nav-text">三、Uwsgi结构简介与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、项目部署与常用命令"><span class="nav-number">4.</span> <span class="nav-text">四、项目部署与常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx"><span class="nav-number">4.1.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uwsgi"><span class="nav-number">4.2.</span> <span class="nav-text">Uwsgi</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
