@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="[TOC] 一、简介异常检测一直是机器学习中一个非常重要的子分支，在各种人工智能落地应用例如计算机视觉、数据挖掘、NLP中，异常检测算法都是很热门的研究方向，特别是大数据时代，人工处理数据的速度已经远远赶不上机器了，所以更快地检测数据中的异常情况成为了我们当下非常重要的任务。在深度学习广泛的推广之前，传统的异常检测算法有很多，例如高斯拟合，半监督学习等等，而在深度学习大火之后，人们也开始研究将深度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异常检测|Anomaly Detection综述">
+<meta property="og:url" content="http://yoursite.com/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/index.html">
+<meta property="og:site_name" content="杨文昊的个人博客">
+<meta property="og:description" content="[TOC] 一、简介异常检测一直是机器学习中一个非常重要的子分支，在各种人工智能落地应用例如计算机视觉、数据挖掘、NLP中，异常检测算法都是很热门的研究方向，特别是大数据时代，人工处理数据的速度已经远远赶不上机器了，所以更快地检测数据中的异常情况成为了我们当下非常重要的任务。在深度学习广泛的推广之前，传统的异常检测算法有很多，例如高斯拟合，半监督学习等等，而在深度学习大火之后，人们也开始研究将深度">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/image/anomaly_detection_example1.PNG">
+<meta property="og:image" content="http://yoursite.com/image/anomaly_detection_types.png">
+<meta property="article:published_time" content="2020-10-17T20:39:56.000Z">
+<meta property="article:modified_time" content="2020-11-01T14:40:53.145Z">
+<meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="异常检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/image/anomaly_detection_example1.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>异常检测|Anomaly Detection综述 | 杨文昊的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="杨文昊的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨文昊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">愿你出走半生，归来仍是少年。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          异常检测|Anomaly Detection综述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-17 20:39:56" itemprop="dateCreated datePublished" datetime="2020-10-17T20:39:56Z">2020-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-01 14:40:53" itemprop="dateModified" datetime="2020-11-01T14:40:53Z">2020-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>异常检测一直是机器学习中一个非常重要的子分支，在各种人工智能落地应用例如计算机视觉、数据挖掘、NLP中，异常检测算法都是很热门的研究方向，特别是大数据时代，人工处理数据的速度已经远远赶不上机器了，所以更快地检测数据中的异常情况成为了我们当下非常重要的任务。在深度学习广泛的推广之前，传统的异常检测算法有很多，例如高斯拟合，半监督学习等等，而在深度学习大火之后，人们也开始研究将深度学习应用于各种异常任务中(也就是Deep Anomaly Detection，以下统称DAD)，并取得了很大的成功，本文将把当下该方向热门的研究方向分类并列举了对应的文章，希望能帮助大家更好地理解此方向的研究。</p>
+<a id="more"></a>
+<h2 id="二、异常检测的概念"><a href="#二、异常检测的概念" class="headerlink" title="二、异常检测的概念"></a>二、异常检测的概念</h2><p><img src="/../image/anomaly_detection_example1.PNG" alt=""></p>
+<p>异常检测，从定义而言就是一种识别不正常情况与挖掘非逻辑数据的技术，也叫outliers。例如在计算机视觉的应用中，有人在抖音发表一个视屏，在边骑车边打电话，那这就是个不符合规范的视屏，我们能否采用一些方式来将其检测出来，再例如在数据挖掘领域中，那异常检测的应用就更广泛了，比如信用卡盗刷，超大金额支出等等。通常情况下，在我们阅读论文的过程中，异常检测(Anomaly Detection)也被叫做，Novelty Detection，Outlier Detection，Forgery Detection，Out-of-distribution Detection。在阅读论文的情况，这些名词也有轻微的区别，以计算机视觉为例，如下图所示。</p>
+<p><img src="/../image/anomaly_detection_types.png" alt=""></p>
+<p>在计算机视觉的基本任务——图像分类中，单分类与多分类问题，将几种概念的细微区别基本阐述清楚了。Anomaly Detection指在不属于该分类的数据集中，而Novelty是检测可能属于该分类但却没见过(Unseen)也就是Novel的数据集，而OOD(out-of-distribution)则是多分类中不同目标的分布，这些任务在接下来的论文中，也经常有人进行相应的研究。</p>
+<h2 id="三、异常检测相关工作与方向"><a href="#三、异常检测相关工作与方向" class="headerlink" title="三、异常检测相关工作与方向"></a>三、异常检测相关工作与方向</h2><p>首先根据查阅异常检测方向综述的文章，我将基于深度学习的异常检测应用方向论文，按照主要的逻辑结构列举在了下面，我相信这可以更加方便地向你展示异常检测方向你应该怎样去研究你的论文。</p>
+<h3 id="1-DAD研究的主要元素"><a href="#1-DAD研究的主要元素" class="headerlink" title="1. DAD研究的主要元素"></a>1. DAD研究的主要元素</h3><h4 id="1-异常数据集"><a href="#1-异常数据集" class="headerlink" title="(1) 异常数据集"></a>(1) 异常数据集</h4><ul>
+<li>点集</li>
+<li>连续集</li>
+<li>团队集</li>
+</ul>
+<h4 id="2-异常检测模型"><a href="#2-异常检测模型" class="headerlink" title="(2) 异常检测模型"></a>(2) 异常检测模型</h4><ul>
+<li>无监督学习、AutoEncoder、GAN、矩阵因子分解</li>
+<li>半监督学习、强化学习</li>
+<li>Hybrid(混种)、特征提取+传统算法</li>
+<li>单分类神经网络</li>
+</ul>
+<h4 id="3-异常检测应用"><a href="#3-异常检测应用" class="headerlink" title="(3) 异常检测应用"></a>(3) 异常检测应用</h4><ul>
+<li>诈骗检测</li>
+<li>网络侵入检测</li>
+<li>医学异常检测</li>
+<li>传感器网络异常检测</li>
+<li>视屏监督</li>
+<li>物联网大数据异常检测</li>
+<li>日志异常检测</li>
+<li>工业危害检测</li>
+</ul>
+<h3 id="2-异常检测论文分类"><a href="#2-异常检测论文分类" class="headerlink" title="2. 异常检测论文分类"></a>2. 异常检测论文分类</h3><p>下面也是我根据参考文献，把异常检测论文分成几个当前研究方向，相当于列出了一个目录在这里，可供之后方便查看，关于论文分类的一些概念，我会在下面的介绍中详细提及。</p>
+<h4 id="1-数据的连续性"><a href="#1-数据的连续性" class="headerlink" title="(1) 数据的连续性"></a>(1) 数据的连续性</h4><h4 id="2-数据标签的可用性"><a href="#2-数据标签的可用性" class="headerlink" title="(2) 数据标签的可用性"></a>(2) 数据标签的可用性</h4><ul>
+<li>监督学习Supervised Learning</li>
+<li>半监督学习Semi-supervised Learning</li>
+<li>无监督学习Unsupervised Learning</li>
+</ul>
+<h4 id="3-基于训练对象的模型"><a href="#3-基于训练对象的模型" class="headerlink" title="(3) 基于训练对象的模型"></a>(3) 基于训练对象的模型</h4><ul>
+<li>深度混种模型Deep Hybrid Model(DHM)</li>
+<li>单分类神经网络One-Class Neural Networks(OC-NN)</li>
+</ul>
+<h4 id="4-数据异常类型"><a href="#4-数据异常类型" class="headerlink" title="(4) 数据异常类型"></a>(4) 数据异常类型</h4><ul>
+<li>点集Point</li>
+<li>连续集Contextual</li>
+<li>团队集Collective or Group</li>
+</ul>
+<h4 id="5-异常检测输出类型"><a href="#5-异常检测输出类型" class="headerlink" title="(5) 异常检测输出类型"></a>(5) 异常检测输出类型</h4><ul>
+<li>异常分数Anomaly Score</li>
+<li>标签Lable</li>
+</ul>
+<h4 id="6-异常检测应用"><a href="#6-异常检测应用" class="headerlink" title="(6) 异常检测应用"></a>(6) 异常检测应用</h4><p>有将近十种异常检测相关的应用，由于目前对该部分研究较浅，所以之后会考虑单独写篇文章来总结异常检测方面的应用型论文。</p>
+<h2 id="四、原始数据的连续性Nature-of-Input-Data"><a href="#四、原始数据的连续性Nature-of-Input-Data" class="headerlink" title="四、原始数据的连续性Nature of Input Data"></a>四、原始数据的连续性Nature of Input Data</h2><p>在DAD问题中选择怎样的网络结构很大部分取自于原始数据(raw/input data)的类型，原始数据在广义上我们可以分为连续型(Sequential)与非连续型(Non-sequential)，如何选择相应的模型，我列举在下表中。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">原始数据类型</th>
+<th style="text-align:center">举例</th>
+<th style="text-align:center">DAD模型选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">连续型Sequential</td>
+<td style="text-align:center">视屏，DNA序列，自然语言文本</td>
+<td style="text-align:center">CNN，RNN，LSTM</td>
+</tr>
+<tr>
+<td style="text-align:center">非连续型Non-sequential</td>
+<td style="text-align:center">图片，传感器</td>
+<td style="text-align:center">CNN，AE及其变种</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>DAD在未降维的高维原始数据中表现优异，成功提取大规模数据的关系，通常情况下，网络越深，提取效果越好，这个部分感兴趣的话可以参考下面这篇文章。</p>
+<ul>
+<li>Yann LeCun, Yoshua Bengio, and Geoffrey Hinton. Deep learning. nature, 521(7553):436, 2015.</li>
+</ul>
+<h2 id="五、数据标签的可用性Availability-of-Labels"><a href="#五、数据标签的可用性Availability-of-Labels" class="headerlink" title="五、数据标签的可用性Availability of Labels"></a>五、数据标签的可用性Availability of Labels</h2><p>数据标签是非常重要的事情，标签代表着正常(normal)数据或是未见过(unseen/novel)的数据，对于标签内容的使用同样是现在异常检测方向论文重点考虑的事情。异常检测的模型也可以根据数据标签的内容广义的分为三类，监督，半监督和无监督。</p>
+<h3 id="1-监督Supervised-DAD"><a href="#1-监督Supervised-DAD" class="headerlink" title="1. 监督Supervised DAD"></a>1. 监督Supervised DAD</h3><p>基于监督学习的DAD文章，整理了两篇医学方向的，由于监督学习对于标签内容的依赖度过重，所以他对于异常检测的问题并不是那么合适，所以它并不如半监督和无监督应用地那么广泛。</p>
+<ul>
+<li>Raghavendra Chalapathy, Ehsan Zare Borzeshi, and Massimo Piccardi. An investigation of recurrent neural architectures for drug name recognition. arXiv preprint arXiv:1609.07585, 2016a.</li>
+<li>Raghavendra Chalapathy, Ehsan Zare Borzeshi, and Massimo Piccardi. Bidirectional lstm-crf for clinical concept extraction. arXiv preprint arXiv:1611.08373, 2016b.</li>
+</ul>
+<h3 id="2-半监督Semi-supervised-DAD"><a href="#2-半监督Semi-supervised-DAD" class="headerlink" title="2. 半监督Semi-supervised DAD"></a>2. 半监督Semi-supervised DAD</h3><p>由于正常数据集比异常数据集更好获得，所以半监督学习DAD方法被非常广泛的使用，拥有了足够的数据集，我们能更好地标出正常数据，异常数据，新数据的界限，半监督学习模型列举三篇论文。</p>
+<ul>
+<li>Drausin Wulsin, Justin Blanco, Ram Mani, and Brian Litt. Semi-supervised anomaly detection for eeg waveforms using deep belief nets. In Machine Learning and Applications (ICMLA), 2010 Ninth International Conference on, pages 436–441. IEEE, 2010.</li>
+<li>Mutahir Nadeem, Ochaun Marshall, Sarbjit Singh, Xing Fang, and Xiaohong Yuan. Semi-supervised deep neural network for network intrusion detection. 2016.</li>
+<li>Hongchao Song, Zhuqing Jiang, Aidong Men, and Bo Yang. A hybrid semi-supervised anomaly detection model for high-dimensional data. Computational intelligence and neuroscience, 2017.</li>
+</ul>
+<h3 id="3-无监督Unsupervised-DAD"><a href="#3-无监督Unsupervised-DAD" class="headerlink" title="3. 无监督Unsupervised DAD"></a>3. 无监督Unsupervised DAD</h3><p>传统机器学习算法其实我感觉更倾向于直接从数据集中让机器去学习一些东西，然后直接用参数的方式表示出来，异常检测问题同样我们也用自动标签的方式去检测是否异常，因为有时候可能数据难以获取。自动解码器是无监督DAD的核心，所以这里深度学习的一些神经网络大有可为，例如RNN，LSTM等等。我们这里只列举了一种采用变种半监督学习方法的论文，应用于异常数据降维，表现效果超越很多传统降维算法，如PCA，Isolation等等。</p>
+<ul>
+<li>Aaron Tuor, Samuel Kaplan, Brian Hutchinson, Nicole Nichols, and Sean Robinson. Deep learning for unsupervised insider threat detection in structured cybersecurity data streams. arXiv preprint arXiv:1710.00811, 2017.</li>
+</ul>
+<h2 id="六、基于训练对象的模型"><a href="#六、基于训练对象的模型" class="headerlink" title="六、基于训练对象的模型"></a>六、基于训练对象的模型</h2><p>按照训练对象的区别，我们把训练模型单独划分为两类，变种模型与单分类神经网络。</p>
+<h3 id="1-深度变种模型Deep-Hybrid-Models-DHM"><a href="#1-深度变种模型Deep-Hybrid-Models-DHM" class="headerlink" title="1. 深度变种模型Deep Hybrid Models(DHM)"></a>1. 深度变种模型Deep Hybrid Models(DHM)</h3><ul>
+<li>Jerone TA Andrews, Edward J Morton, and Lewis D Griffin. Detecting anomalous data using auto-encoders. International Journal of Machine Learning and Computing, 6(1):21, 2016a.</li>
+<li>Tolga Ergen, Ali Hassan Mirza, and Suleyman Serdar Kozat. Unsupervised and semi-supervised anomaly detection with lstm neural networks. arXiv preprint arXiv:1710.09207, 2017.</li>
+</ul>
+<h3 id="2-单分类神经网络One-Class-Neural-Networks-OC-NN"><a href="#2-单分类神经网络One-Class-Neural-Networks-OC-NN" class="headerlink" title="2. 单分类神经网络One-Class Neural Networks(OC-NN)"></a>2. 单分类神经网络One-Class Neural Networks(OC-NN)</h3><ul>
+<li>Raghavendra Chalapathy, Aditya Krishna Menon, and Sanjay Chawla. Anomaly detection using one-class neural networks. arXiv preprint arXiv:1802.06360, 2018a.</li>
+</ul>
+<h2 id="七、数据异常类型"><a href="#七、数据异常类型" class="headerlink" title="七、数据异常类型"></a>七、数据异常类型</h2><h3 id="1-点集Point"><a href="#1-点集Point" class="headerlink" title="1. 点集Point"></a>1. 点集Point</h3><p>好像没人专门研究过</p>
+<h3 id="2-连续集Contextual"><a href="#2-连续集Contextual" class="headerlink" title="2. 连续集Contextual"></a>2. 连续集Contextual</h3><ul>
+<li>Xiuyao Song, Mingxi Wu, Christopher Jermaine, and Sanjay Ranka. Conditional anomaly detection. IEEE Transactions on Knowledge and Data Engineering, 19(5):631–645, 2007.</li>
+</ul>
+<h3 id="3-团队集Collective-or-Group"><a href="#3-团队集Collective-or-Group" class="headerlink" title="3. 团队集Collective or Group"></a>3. 团队集Collective or Group</h3><ul>
+<li>Raghavendra Chalapathy, Edward Toth, and Sanjay Chawla. Group anomaly detection using deep generative models. arXiv preprint arXiv:1804.04876, 2018b.</li>
+<li>Lo¨ıc Bontemps, James McDermott, Nhien-An Le-Khac, et al. Collective anomaly detection based on long short-term memory recurrent neural networks. In International Conference on Future Data and Security Engineering, pages 141–152. Springer, 2016.</li>
+<li>Daniel B Araya, Katarina Grolinger, Hany F ElYamany, Miriam AM Capretz, and G Bitsuamlak. Collective contextual anomaly detection framework for smart buildings. In Neural Networks (IJCNN), 2016 International Joint Conference on, pages 511–518. IEEE, 2016.</li>
+<li>Naifan Zhuang, Tuoerhongjiang Yusufu, Jun Ye, and Kien A Hua. Group activity recognition with differential recurrent convolutional neural networks. In Automatic Face &amp; Gesture Recognition (FG 2017), 2017 12th IEEE International Conference on, pages 526–531. IEEE, 2017.</li>
+</ul>
+<h2 id="八、最后总结"><a href="#八、最后总结" class="headerlink" title="八、最后总结"></a>八、最后总结</h2><p>总之就是，今晚没写完qaq。。。</p>
+<p>给大家推荐一个超级nice的github仓库，里面的文章都比较新，并且也进行了一些分类。</p>
+<p><a href="https://github.com/hoya012/awesome-anomaly-detection" target="_blank" rel="noopener">awesome-anomaly-detection</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" rel="tag"># 异常检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/26/Pycharm%E9%80%9A%E8%BF%87ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5GPU%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%AD%E7%BB%83%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81/" rel="prev" title="Pycharm通过ssh远程连接GPU服务器训练深度学习代码">
+      <i class="fa fa-chevron-left"></i> Pycharm通过ssh远程连接GPU服务器训练深度学习代码
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/20/%E3%80%90%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E3%80%91%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/" rel="next" title="【决策模型】马尔可夫决策过程">
+      【决策模型】马尔可夫决策过程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、异常检测的概念"><span class="nav-number">2.</span> <span class="nav-text">二、异常检测的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、异常检测相关工作与方向"><span class="nav-number">3.</span> <span class="nav-text">三、异常检测相关工作与方向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-DAD研究的主要元素"><span class="nav-number">3.1.</span> <span class="nav-text">1. DAD研究的主要元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-异常数据集"><span class="nav-number">3.1.1.</span> <span class="nav-text">(1) 异常数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-异常检测模型"><span class="nav-number">3.1.2.</span> <span class="nav-text">(2) 异常检测模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-异常检测应用"><span class="nav-number">3.1.3.</span> <span class="nav-text">(3) 异常检测应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-异常检测论文分类"><span class="nav-number">3.2.</span> <span class="nav-text">2. 异常检测论文分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-数据的连续性"><span class="nav-number">3.2.1.</span> <span class="nav-text">(1) 数据的连续性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数据标签的可用性"><span class="nav-number">3.2.2.</span> <span class="nav-text">(2) 数据标签的可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-基于训练对象的模型"><span class="nav-number">3.2.3.</span> <span class="nav-text">(3) 基于训练对象的模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-数据异常类型"><span class="nav-number">3.2.4.</span> <span class="nav-text">(4) 数据异常类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-异常检测输出类型"><span class="nav-number">3.2.5.</span> <span class="nav-text">(5) 异常检测输出类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-异常检测应用"><span class="nav-number">3.2.6.</span> <span class="nav-text">(6) 异常检测应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、原始数据的连续性Nature-of-Input-Data"><span class="nav-number">4.</span> <span class="nav-text">四、原始数据的连续性Nature of Input Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、数据标签的可用性Availability-of-Labels"><span class="nav-number">5.</span> <span class="nav-text">五、数据标签的可用性Availability of Labels</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-监督Supervised-DAD"><span class="nav-number">5.1.</span> <span class="nav-text">1. 监督Supervised DAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-半监督Semi-supervised-DAD"><span class="nav-number">5.2.</span> <span class="nav-text">2. 半监督Semi-supervised DAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-无监督Unsupervised-DAD"><span class="nav-number">5.3.</span> <span class="nav-text">3. 无监督Unsupervised DAD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、基于训练对象的模型"><span class="nav-number">6.</span> <span class="nav-text">六、基于训练对象的模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-深度变种模型Deep-Hybrid-Models-DHM"><span class="nav-number">6.1.</span> <span class="nav-text">1. 深度变种模型Deep Hybrid Models(DHM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-单分类神经网络One-Class-Neural-Networks-OC-NN"><span class="nav-number">6.2.</span> <span class="nav-text">2. 单分类神经网络One-Class Neural Networks(OC-NN)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、数据异常类型"><span class="nav-number">7.</span> <span class="nav-text">七、数据异常类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-点集Point"><span class="nav-number">7.1.</span> <span class="nav-text">1. 点集Point</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-连续集Contextual"><span class="nav-number">7.2.</span> <span class="nav-text">2. 连续集Contextual</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-团队集Collective-or-Group"><span class="nav-number">7.3.</span> <span class="nav-text">3. 团队集Collective or Group</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、最后总结"><span class="nav-number">8.</span> <span class="nav-text">八、最后总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alpha Yang"
+      src="/images/IMG_1979(20200206-160439).JPG">
+  <p class="site-author-name" itemprop="name">Alpha Yang</p>
+  <div class="site-description" itemprop="description">世间万物，唯代码美食，不能辜负。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Alpha-Yang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Alpha-Yang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+<div style="">
+  <canvas id="canvas" style="width:60%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+      </div>
+	  
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alpha Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+</body>
+</html>

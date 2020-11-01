@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在上星期的异常检测的综述论文中，我们谈及了异常检测的方向的很多应用层面，由于之后我的实验室可能会展开视屏监控(video surveillance)方面的任务，所以我也最近在研究该方向的论文，需要说明的是，异常检测并不是异常预测，无法提前知晓异常行为的发生，常见的异常情况如所有人都在走，有人突然跑起来或者骑了车的人路过，或者有人在视频下突然打起架来，检测难度是相当大的。另外要说的是，这些异常检测方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异常检测|视频监控方向8篇论文模型浅析">
+<meta property="og:url" content="http://yoursite.com/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/index.html">
+<meta property="og:site_name" content="杨文昊的个人博客">
+<meta property="og:description" content="在上星期的异常检测的综述论文中，我们谈及了异常检测的方向的很多应用层面，由于之后我的实验室可能会展开视屏监控(video surveillance)方面的任务，所以我也最近在研究该方向的论文，需要说明的是，异常检测并不是异常预测，无法提前知晓异常行为的发生，常见的异常情况如所有人都在走，有人突然跑起来或者骑了车的人路过，或者有人在视频下突然打起架来，检测难度是相当大的。另外要说的是，这些异常检测方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/image/advs1.png">
+<meta property="og:image" content="http://yoursite.com/image/advs2.png">
+<meta property="og:image" content="http://yoursite.com/image/advs3.png">
+<meta property="og:image" content="http://yoursite.com/image/advs4.png">
+<meta property="og:image" content="http://yoursite.com/image/advs5.png">
+<meta property="og:image" content="http://yoursite.com/image/advs6.png">
+<meta property="og:image" content="http://yoursite.com/image/advs7.png">
+<meta property="og:image" content="http://yoursite.com/image/advs8.png">
+<meta property="og:image" content="http://yoursite.com/image/advs9.png">
+<meta property="og:image" content="http://yoursite.com/image/advs10.png">
+<meta property="og:image" content="http://yoursite.com/image/advs11.png">
+<meta property="og:image" content="http://yoursite.com/image/advs12.png">
+<meta property="og:image" content="http://yoursite.com/image/advs13.png">
+<meta property="og:image" content="http://yoursite.com/image/advs14.png">
+<meta property="og:image" content="http://yoursite.com/image/advs15.png">
+<meta property="og:image" content="http://yoursite.com/image/advs16.png">
+<meta property="og:image" content="http://yoursite.com/image/advs17.png">
+<meta property="og:image" content="http://yoursite.com/image/advs18.png">
+<meta property="article:published_time" content="2020-10-25T20:55:25.000Z">
+<meta property="article:modified_time" content="2020-11-01T14:41:01.972Z">
+<meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="视屏监控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/image/advs1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>异常检测|视频监控方向8篇论文模型浅析 | 杨文昊的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="杨文昊的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨文昊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">愿你出走半生，归来仍是少年。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          异常检测|视频监控方向8篇论文模型浅析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-25 20:55:25" itemprop="dateCreated datePublished" datetime="2020-10-25T20:55:25Z">2020-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-01 14:41:01" itemprop="dateModified" datetime="2020-11-01T14:41:01Z">2020-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">异常检测</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在上星期的异常检测的<a href="https://zhuanlan.zhihu.com/p/266513299" target="_blank" rel="noopener">综述论文</a>中，我们谈及了异常检测的方向的很多应用层面，由于之后我的实验室可能会展开视屏监控(video surveillance)方面的任务，所以我也最近在研究该方向的论文，需要说明的是，异常检测并不是异常预测，无法提前知晓异常行为的发生，常见的异常情况如所有人都在走，有人突然跑起来或者骑了车的人路过，或者有人在视频下突然打起架来，检测难度是相当大的。另外要说的是，这些异常检测方法可以分为不同的任务，例如重构(reconstruction)任务与预测(prediction)任务，按照不同的任务训练数据集，将其中的异常行为给检测出来。上周内我阅读了8篇idea非常好并且可能会对我之后工作有启发式意义的论文，暂且对他们进行了粗略的阅读(阅读了模型idea与结果)，并以此文按照一定顺序介绍这些论文的模型方法，下周我可能会挑选1~2篇进行精读，西电电信大三的专业课是真的多（逃</p>
+<a id="more"></a>
+<h3 id="Future-frame-prediction-for-anomaly-detection–a-new-baseline"><a href="#Future-frame-prediction-for-anomaly-detection–a-new-baseline" class="headerlink" title="Future frame prediction for anomaly detection–a new baseline"></a>Future frame prediction for anomaly detection–a new baseline</h3><p>GB/T论文引用：Liu W, Luo W, Lian D, et al. Future frame prediction for anomaly detection–a new baseline[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018: 6536-6545.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_Future_Frame_Prediction_CVPR_2018_paper.pdf" target="_blank" rel="noopener">Future frame prediction for anomaly detection–a new baseline</a></p>
+<p>这是来自上海科学技术大学高盛华课题组的一篇论文，于2018年被计算机视觉顶会CVPR接收，截止当前被引用170次。</p>
+<p>上科大深耕异常检测视频监控方向的研究多年，有自己的上科大数据集，且被视觉界承认与使用。这篇文章从标题就可以得知，在视屏监控的预测残差分析方向形成了新的baseline，具体的准确率之后提到。我认为该篇论文的主要工作研究贡献可分为以下两点：</p>
+<ul>
+<li>首次(他说的)提出一种新的异常检测研究方法，利用一段时间的视屏图像进行下一个时刻的预测，并与真实情况进行分析比较，去检测异常情况。</li>
+<li>为了能更准确的拟合正常的事件情况，除了采用传统的空间(spatial)上的密度与梯度约束，还首次利用Flownet对时序(temporal)上预测图像与真实图像进行约束。</li>
+</ul>
+<p>然后，我们直接放上该论文的主要模型，来分析整个实验的思路。</p>
+<p><img src="/../image/advs1.png" alt=""></p>
+<p>Fig2就是该实验的流程图了，首先在视频的时序逻辑上，进行到t时刻时t个frame，$I_1,I_2,…,I_t$，通过U-Net网络提取特征向量，并预测下一个时刻的图像$\hat{I}_{t+1}$，与真实的图像(gound truth)进行密度与梯度的误差分析，与此同时，也是这篇文章的亮点，还进行了时序上的比较，用Flownet将预测的t+1图像与实际的t图像进行光流提取，得到$Flow_{I_t\sim\hat{I}_{t+1}}$，并将实际的t+1图像与实际的t图像进行光流提取，得到$Flow_{I_t\sim I_{t+1}}$，将上述两者进行误差分析。虽然这里判决器输出的二分类标签，但实际的预测过程中，输出的是异常程度的score，如果出现了异常情况，就容易出现较低的分数。</p>
+<p>这个Idea应该是在当前的视屏监测中非常常见的，通过训练正常情况的模型，去train相应的Flownet与Discriminator，从而更好地拟合正常情况，当异常情况发生时，肯定出现Loss较大的结果，从判定较低的正常score，从而达到检测的目的。下面我们来看看该实验的结果。</p>
+<p><img src="/../image/advs2.png" alt=""></p>
+<p>在各个数据集上表现还是很好的，当然使用的GAN的那个方法竟然感觉更Amazing，让我之后有空去阅读一下。这篇论文有开源代码，不过是用TF写的，所以我可能之后不会细读。</p>
+<h3 id="Memorizing-normality-to-detect-anomaly-Memory-augmented-deep-autoencoder-for-unsupervised-anomaly-detection"><a href="#Memorizing-normality-to-detect-anomaly-Memory-augmented-deep-autoencoder-for-unsupervised-anomaly-detection" class="headerlink" title="Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection"></a>Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection</h3><p>GB/T论文引用：Gong D, Liu L, Le V, et al. Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection[C]//Proceedings of the IEEE International Conference on Computer Vision. 2019: 1705-1714.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/Gong_Memorizing_Normality_to_Detect_Anomaly_Memory-Augmented_Deep_Autoencoder_for_Unsupervised_ICCV_2019_paper.pdf" target="_blank" rel="noopener">Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection</a></p>
+<p>这是来自澳大利亚阿德莱德大学的一篇论文，于2019年被计算机视觉顶会ICCV接收，截止当前被引用63次。</p>
+<p>这是篇加入Memory模块的AutoEncoder无监督学习异常检测方法，当然我需要首先说明的是这里的无监督学习并不是指样本是不加样本的normal和abnormal，而是指训练时利用无监督学习只训练正常样本，而从中学习到一些性质，从而与异常情况的极差拉开差距，值得注意的是传统方法OCNN和高斯分布异常检测的思路都是如此。</p>
+<p>在AE中加入Memory模块的思路其实这并不是第一次，但是该篇文章是把该思路应用于视频监控的，从我的第一感觉来看觉得不如第一篇文章非常靠谱，但实验结果确实表现不错，下面我来总结下该论文的主要工作贡献：</p>
+<ul>
+<li>在异常检测领域AE被研究者广泛使用，通常的方法是使用AE来拟合normal的情况，然后来判断异常情况，然而由于AE的泛化能力过强，所以有可能还能泛化(normalize)异常情况，所以该文章提出加入Mem模块，使得recon. error(重构误差)增强，从而区分异常情况。</li>
+</ul>
+<p>下面我们来看下改论文给出的研究流程图：</p>
+<p><img src="/../image/advs3.png" alt=""></p>
+<p>注意该流程图只有一个Mem模块，而实际上实验中有多个。在训练阶段，我们只训练normal样本，并不断更新Mem，在测试阶段，我们不再更新Mem模块，当输入样本后，我们将未标记样本编码，找到Mem中最相近的Mem slots，然后将其解码，并与原始输入进行重构误差分析，即recon. error，如果是异常情况，会使error更大，这样的方法理论上有一定可能规避了AE泛化能力过强的问题。</p>
+<p>这篇论文了解这个思路还是远远不够的，下面我们来详细解释下Mem模块的运作内理。</p>
+<p><img src="/../image/advs4.png" alt=""></p>
+<p>该图再次展示了论文的MemAE模型的更细节的内容，也就是Mem模块是如何address的，具体的理论公式感兴趣可以去深扒一下论文，我这里不做过多的数学公式推导，等下周精读论文我再细细道来。</p>
+<p>我们来解释下具体的实验思路(以下将未训练的模块统称为pretrained)，首先输入样本x，进行pretrained编码，$z=f_e(x;\theta_e)$，将编码后的z向量扔进pretrained Memory Addressing模块，得到vector权重w，经过Hard Shrinkage得到$\hat{w}$，其实这个Shrinkage就是变种的ReLu激活函数，$\hat{w}_i=h(w_i;\lambda)$，然后与update之后的Memory M得到$\hat{z}=\hat{w}M$，最后进行pretrained解码输出$\hat{x}$，计算recon. error，这就是训练过程，测试过程也类似，那就是使用trained network来进行测试了。</p>
+<p>好了，整篇文章的模型思路到这里应该已经差不多了，下面我们来看看实验结果，这篇文章很有趣，他不光跑了视频的数据集，还跑了图像的数据集，MNIST和CIFAR-10。</p>
+<p><img src="/../image/advs5.png" alt=""></p>
+<p>实验结果在图像识别的领域表现得竟然也很好，非常amazing啊！这样以后就能更准确的识别你小学二年级写的数字了（狗头。当然，这个方法也跑了异常检测的常用的3个数据集，如下图，就结果而言与上科大的方法准确率差距不算法，但是我很好奇他为啥没跑Pred1的数据集QAQ。</p>
+<p><img src="/../image/advs6.png" alt=""></p>
+<h3 id="Learning-Memory-guided-Normality-for-Anomaly-Detection"><a href="#Learning-Memory-guided-Normality-for-Anomaly-Detection" class="headerlink" title="Learning Memory-guided Normality for Anomaly Detection"></a>Learning Memory-guided Normality for Anomaly Detection</h3><p>GB/T论文引用：Park H, Noh J, Ham B. Learning Memory-guided Normality for Anomaly Detection[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020: 14372-14381.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Park_Learning_Memory-Guided_Normality_for_Anomaly_Detection_CVPR_2020_paper.pdf" target="_blank" rel="noopener">Learning Memory-guided Normality for Anomaly Detection</a></p>
+<p>这是篇来自韩国延世大学的文章，2020年被CVPR接收，非常新鲜，截止当前被引用3次。</p>
+<p>这篇文章看完之后，和上一篇2019ICCV的大体思路一致，也同样是为了防止AutoAE的泛化效果过强，导致异常情况检测不出来，所以加入了Mem模块，这篇文章也同样阐述了由于正常情况的distribution很多，异常情况的特征不一定在CNN的特征提取后那么明显地能得到我们想优化的Loss，那么这篇文章相较于上一篇的主要工作贡献，或者说创新之处，我们可以概括为以下两点：</p>
+<ul>
+<li>首先ICCV的文章主要做的是reconstruction的任务并得出异常画面的Loss和标签，而这篇文章既做了预测也做了重构任务，该文章model的输入可以是frame，即$I_t$从而预测下一个时间的$\hat{I}_t$。</li>
+<li>ICCV文章的work采用的是激活函数+误差拟合的方法来训练并更新Memory模块的，而这篇文章的work的更新机制则是借鉴了CNN卷积的方法，用来更新以及输出，这个我们下面详细讲。</li>
+</ul>
+<p>好的，下面就是该模型的基本流程图了，和上一篇文章的大题思路一致，创新的部分主要是它的Mem更新机制。</p>
+<p><img src="/../image/advs7.png" alt=""></p>
+<p>这就是这篇文章的framework，其中Encoder是变种的U-net网络，用来提取输入frame的特征向量，提取出$H\times W \times C$的特征，然后作为$K(K=H\times W)$个queries，然后就是更新机制(感兴趣的可以扒一扒文章理论，这里不做详细说明了)，同样最后解码获得预测的frame。</p>
+<p>以上为预训练的步骤，输出的frame与原frame对比，并计算误差Loss，本文使用了三个比较常见的Loss(Reconstruction Loss, Feature compactness Loss, Feature separateness Loss)，大家有兴趣可以去看看，然后训练了模型，最后再进行测试，下面我们来简单看看测试结果。</p>
+<p><img src="/../image/advs8.png" alt=""></p>
+<p>可以看到，这篇work做了不少实验，在预测的任务上表现突出，Reconstruction的异常检测上是不如上一篇ICCV的work的，同样也测试了有无Mem模块的实验，数据放在这里。这篇文章提供了很好的Mem更新与读取的思路，建议大家去看看，但是我对这个work的总体兴趣不算特别高，就简单说说以上内容了。</p>
+<h3 id="Spatio-temporal-autoencoder-for-video-anomaly-detection"><a href="#Spatio-temporal-autoencoder-for-video-anomaly-detection" class="headerlink" title="Spatio-temporal autoencoder for video anomaly detection"></a>Spatio-temporal autoencoder for video anomaly detection</h3><p>GB/T论文引用：Zhao Y, Deng B, Shen C, et al. Spatio-temporal autoencoder for video anomaly detection[C]//Proceedings of the 25th ACM international conference on Multimedia. 2017: 1933-1941.</p>
+<p>原文下载地址：<a href="https://alpha-yang.lanzous.com/iTMEXhrgbub" target="_blank" rel="noopener">Spatio-temporal autoencoder for video anomaly detection</a> (Notes：本文为付费文章，禁止以任何形式出售)</p>
+<p>这是来自上海交通大学卢宏涛教授与阿里巴巴达摩院合作的work，于2017年被ACM MM会议接收，截止当前引用量为86次。</p>
+<p>这篇文章看完之后，深刻地让我认识到了卷积有多么**的属性，总结一下，这篇文章没有Mem，没有什么花里胡哨的技巧，就是从头卷积到尾。采用了三维卷积，从时空(Spatial-Temporal)两个维度将frame的特征提取出来，以下我将这个work的模型简称为STAE(Spatial-Temporal AutoEncoder)，我将这篇文章的创新贡献与研究主要概括为以下三点：</p>
+<ul>
+<li>利用3D卷积构建了深度AE网络，对frame进行特征提取。</li>
+<li>构造了新的预测型损失值函数，weight-decreasing prediction loss，$L_{pred}=\frac{1}{N}\Sigma_{i=1}^{N}\frac{1}{T^2}\Sigma_{t=1}^T(T-t)||X_{i+T}^t-f_{pred}(X_i)^t||_2^2$</li>
+<li>构建了包含很多异常情况的数据集。</li>
+</ul>
+<p>下面就是整个网络流程图，其实非常容易理解，就是编码器和解码器，不过这个三维卷积具有很强的特征提取的作用。</p>
+<p><img src="/../image/advs9.png" alt=""></p>
+<p>大概整个work的思路就是如此，就是这样不停地套神经网络，得出了Reconstruction和Prediction的结果，这篇文章我认为对之后的很多研究可能会有启发意义，由于是17年的文章，所以最后的对比实验结果，并没有和近两年也就是前面介绍的论文相比。</p>
+<p><img src="/../image/advs10.png" alt=""></p>
+<h3 id="Object-centric-auto-encoders-and-dummy-anomalies-for-abnormal-event-detection-in-video"><a href="#Object-centric-auto-encoders-and-dummy-anomalies-for-abnormal-event-detection-in-video" class="headerlink" title="Object-centric auto-encoders and dummy anomalies for abnormal event detection in video"></a>Object-centric auto-encoders and dummy anomalies for abnormal event detection in video</h3><p>GB/T论文引用：Ionescu R T, Khan F S, Georgescu M I, et al. Object-centric auto-encoders and dummy anomalies for abnormal event detection in video[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019: 7842-7851.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Ionescu_Object-Centric_Auto-Encoders_and_Dummy_Anomalies_for_Abnormal_Event_Detection_in_CVPR_2019_paper.pdf" target="_blank" rel="noopener">Object-centric auto-encoders and dummy anomalies for abnormal event detection in video</a></p>
+<p>这篇文章于2019年被计算机视觉顶会CVPR接收，截止当前被引用44次。</p>
+<p>该work非常的有趣，当大家都在想如何把network做深的时候，这篇文章则是想着如何处理得到的特征向量，我们前面介绍了引入Mem模块的方法，而这篇文章也给我提供了一个全新的思路，我把文章的创意贡献简单概括为两个方面：</p>
+<ul>
+<li>训练无监督的object-centric卷积自动编码器，用来提取特征向量，并利用k-means把训练样本分为了不同的clusters</li>
+<li>对于不同聚类使用监督学习方法SVM划分边界，然后训练one-versus-rest，对分类进行打分。</li>
+</ul>
+<p>该文章的framework流程图，如图所示，然后我们再一步一步的分析该work的总体思想。</p>
+<p><img src="/../image/advs11.png" alt=""></p>
+<p>如这篇文章的model所示，object-centric是用FPN框架把frame中的人物给提取出来，并选择一段时间的3张图片，如图所示。然后根据梯度的变化量以及t时刻frame本身，分别作为motion和appearance的输入值，再进行卷积AE，注意接下来我们是把隐含层作为特征向量拿出来并合并在一起。为了讲解清楚，下面我分开阐述该model的训练与测试过程，测试也就是inference推断。</p>
+<p><strong>训练过程：</strong>将提取出的特征向量通过看K-means划分为不同的聚类，然后对每一个聚类都进行分析，比如输入了normal的样本，发现它属于聚类i中，那我们可以觉得聚类i是正常样本的可能性更高，然后利用SVM划分boundary，假设一共有k个聚类，可以把他们当成k个二分类SVM问题，同样最后的分数score也是由k各分类器得到的。</p>
+<p><strong>测试/推断(test/inference)：</strong>推断过程，我们提取完特征向量后，直接使用k个SVM的分类打出对应的score，其中的最高分就作为我们的abnormality score s了。</p>
+<script type="math/tex; mode=display">
+s(x)=-max_i\{g_i(x)\},\forall i \in \{1,2,...,k\}\\
+g_i(x)=\Sigma_{j=1}^mw_j\cdot x_j +b</script><p>最后来简单看一下实验结果，就结果而言，这个model表现地非常好，正好我有一位同学在做行人行为定位与识别方面的研究，其实如果能把两者结合会是一个很好的落地idea。</p>
+<p><img src="/../image/advs12.png" alt=""></p>
+<h3 id="Margin-Learning-Embedded-Prediction-for-Video-Anomaly-Detection-with-A-Few-Anomalies"><a href="#Margin-Learning-Embedded-Prediction-for-Video-Anomaly-Detection-with-A-Few-Anomalies" class="headerlink" title="Margin Learning Embedded Prediction for Video Anomaly Detection with A Few Anomalies"></a>Margin Learning Embedded Prediction for Video Anomaly Detection with A Few Anomalies</h3><p>GB/T论文引用：Liu W, Luo W, Li Z, et al. Margin Learning Embedded Prediction for Video Anomaly Detection with A Few Anomalies[C]//IJCAI. 2019: 3023-3030.</p>
+<p>原文下载地址：<a href="https://www.ijcai.org/Proceedings/2019/0419.pdf" target="_blank" rel="noopener">Margin Learning Embedded Prediction for Video Anomaly Detection with A Few Anomalies</a></p>
+<p>又是一篇来自上海科大高盛华老师组的文章，于2019年被机器学习A类会议IJCAI接收，截止当前被引用4次。</p>
+<p>这是我看的论文中为数不多利用半监督学习思想的异常检测方法，这是8篇论文中我最感兴趣的一篇，可惜没有开源代码，现在我复现也没啥时间，之后倒是想试试看。该work阐述了如果我们只有少量的abnormal的样本，事实上在视屏监控的问题中，异常样本的数量是远远少于正常样本的，那在这样的情况下我们能不能将normal和abnormal的区分度拉到最大，下面我来介绍下这篇文章的主要创意贡献，也就是他的核心模型：</p>
+<ul>
+<li>该work提出了Margin Learning Embedded Prediction(MLEP) framework的模型，可以大间隔地拉大正常样本和异常样本之间的决策边界，既可以处理frame亦可以处理video。</li>
+</ul>
+<p>我们下面通过framework的流程图来好好理解其中的算法思路，特别是半监督学习的思路。</p>
+<p><img src="/../image/advs13.png" alt=""></p>
+<p>选取三段时间的video frame即$I_t \sim I_{t+T-1}$，包含异常情况的正样本，正常情况的负样本，与正常情况的未标签样本，经过Predictor提取出特征向量和预测future frame $\hat{I}_t$，其中Predictor由Encoder和ConvLSTM组成，然后我们对特征向量进行Margin Learning，让正常情况尽量靠近，以及异常情况远离的思想，对参数进行训练，从而达到整个实验目的，总体来说，我认为这样的思想甚是有趣，确实可以处理一些少样本异常情况的办法。</p>
+<p><img src="/../image/advs14.png" alt=""></p>
+<p>最后来看下实验结果，我对这篇文章倒是很想试验试验他在其他测试集上的效果，因为我觉得他是目前而言对于少样本异常的Open-set目前最有效的实验方法。</p>
+<h3 id="Real-world-anomaly-detection-in-surveillance-videos"><a href="#Real-world-anomaly-detection-in-surveillance-videos" class="headerlink" title="Real-world anomaly detection in surveillance videos"></a>Real-world anomaly detection in surveillance videos</h3><p>GB/T论文引用：Sultani W, Chen C, Shah M. Real-world anomaly detection in surveillance videos[C]//Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018: 6479-6488.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Sultani_Real-World_Anomaly_Detection_CVPR_2018_paper.pdf" target="_blank" rel="noopener">Real-world anomaly detection in surveillance videos</a></p>
+<p>这是一篇来自巴基斯坦大学的文章工作，于2018年被计算机视觉顶会CVPR接收，截止当前被引用276次。</p>
+<p>这篇文章也提供了异常检测非常好的方法，被引用了很多次，相较于其他方法，该model的可解释性更强，阅读完论文后，我将该篇文章的主要贡献概括为两个方面：</p>
+<ul>
+<li>idea较为新颖，将正常样本和异常样本统一打包在bag里，作为样本进行multiple instance learning(MIL)，最后对其进行ranking score。</li>
+<li>另外本文构建了新的数据集，1900个视屏，长达128小时。</li>
+</ul>
+<p>还是老样子，我们先来看该文章的framework，从而去理解这个model是如何work的。</p>
+<p><img src="/../image/advs15.png" alt=""></p>
+<p>本文framework的流程图如上图所示，将异常情况与正常情况一起训练，按道理而言是监督学习的方法，进行FC network的参数拟合。首先时序上选取32张正常情况与异常情况的segments，并分别把他们放入Positive bags和Negative bags里，然后用pretrained的C3D网络来提取特征向量，然后通过pretrained的FC layers全连接层，进行4096到1的压缩，得到分值scores，将两个情况的分值放在对应的两个bag里，然后将正bag的最大值与负包的最小值进行比较，最后的Loss function得到了这样的式子，属于SVM中loss的变种体：</p>
+<script type="math/tex; mode=display">
+l(\mathcal{B_a},\mathcal{B_n})=max(0,1-max_{i\in \mathcal{B_a}}f(\mathcal{V_a^i})+max_{i\in \mathcal{B_n}}f(\mathcal{V_n^i}))+\lambda_1\Sigma_i^{(n-1)}(f(\mathcal{V_a^i})-f(\mathcal{V_a^{i+1}}))^2+\lambda_2\Sigma_i^nf(\mathcal{V_a^i})</script><p>然后最后实验结果并没有与很多方法进行比较，但是就他自己的可视化测试的结果而言，表现地还是挺准确的，另外他们自己建立的open-set数据集挑战难度较大，可以预见未来该领域有更多的work可以去探究。</p>
+<p><img src="/../image/advs16.png" alt=""></p>
+<h3 id="A-revisit-of-sparse-coding-based-anomaly-detection-in-stacked-rnn-framework"><a href="#A-revisit-of-sparse-coding-based-anomaly-detection-in-stacked-rnn-framework" class="headerlink" title="A revisit of sparse coding based anomaly detection in stacked rnn framework"></a>A revisit of sparse coding based anomaly detection in stacked rnn framework</h3><p>GB/T论文引用：Luo W, Liu W, Gao S. A revisit of sparse coding based anomaly detection in stacked rnn framework[C]//Proceedings of the IEEE International Conference on Computer Vision. 2017: 341-349.</p>
+<p>原文下载地址：<a href="https://openaccess.thecvf.com/content_ICCV_2017/papers/Luo_A_Revisit_of_ICCV_2017_paper.pdf" target="_blank" rel="noopener">A revisit of sparse coding based anomaly detection in stacked rnn framework</a></p>
+<p>上周我阅读的最后一篇文章也是来自上科大高盛华老师组的文章，于2017被计算机视觉顶会ICCV接收，截止当前被引用121次。</p>
+<p>本文的model其实是RNN网络的变种与改进，将其应用于了异常检测领域，其实最近几年RNN和LSTM这些越来越适用于检测一段时间内的特征处理，这篇文章其实能说的内容比较少，因为我也没细看，主要的创意点就是模型吧，另外还构建了属于自己的数据集。</p>
+<p>下面我们直接来看本文的framework，模型就是标题所示的Temporally-coherent Sparse Coding(TSC)与sRNN相结合的改进模型。</p>
+<p><img src="/../image/advs17.png" alt=""></p>
+<p>Fig1中图(a)表示的就sRNN网络结果，和RNN就是堆积方式的区别，这里不了解的可以去自行查阅资料，然后本文的work提出的模型就是图(b)了，这篇文章主要是这样一个改进模型，用来进行时序模型上的分析，这是一个非常有趣且新颖的模型，之后可能阅读到不少基于这个模型改进的方法吧。</p>
+<p><img src="/../image/advs18.png" alt=""></p>
+<p>最后就是测试集的效果啦，当然还有文章里介绍的上科大提出的新的异常检测数据集<strong>ShanghaiTech Campus Dataset</strong>，从上面7篇文章我们也可以看出，在之后的几年里上科大的数据集受到了大家的广泛认可。</p>
+<p>最后的最后，终于写完了这8篇论文模型简单的分析了，反正我头已经晕了，研究一个新的领域总是非常interesting的，不知道未来自己能不能也为机器学习的科研做出一点点成果，各位晚安~</p>
+<p>Notes：这周一定更新数学模型，马尔可夫决策过程，本周日晚12点前没更新，我直播女装（逃</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%86%E5%B1%8F%E7%9B%91%E6%8E%A7/" rel="tag"># 视屏监控</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/20/%E3%80%90%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E3%80%91%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/" rel="prev" title="【决策模型】马尔可夫决策过程">
+      <i class="fa fa-chevron-left"></i> 【决策模型】马尔可夫决策过程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Future-frame-prediction-for-anomaly-detection–a-new-baseline"><span class="nav-number">1.</span> <span class="nav-text">Future frame prediction for anomaly detection–a new baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memorizing-normality-to-detect-anomaly-Memory-augmented-deep-autoencoder-for-unsupervised-anomaly-detection"><span class="nav-number">2.</span> <span class="nav-text">Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-Memory-guided-Normality-for-Anomaly-Detection"><span class="nav-number">3.</span> <span class="nav-text">Learning Memory-guided Normality for Anomaly Detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spatio-temporal-autoencoder-for-video-anomaly-detection"><span class="nav-number">4.</span> <span class="nav-text">Spatio-temporal autoencoder for video anomaly detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-centric-auto-encoders-and-dummy-anomalies-for-abnormal-event-detection-in-video"><span class="nav-number">5.</span> <span class="nav-text">Object-centric auto-encoders and dummy anomalies for abnormal event detection in video</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Margin-Learning-Embedded-Prediction-for-Video-Anomaly-Detection-with-A-Few-Anomalies"><span class="nav-number">6.</span> <span class="nav-text">Margin Learning Embedded Prediction for Video Anomaly Detection with A Few Anomalies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Real-world-anomaly-detection-in-surveillance-videos"><span class="nav-number">7.</span> <span class="nav-text">Real-world anomaly detection in surveillance videos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-revisit-of-sparse-coding-based-anomaly-detection-in-stacked-rnn-framework"><span class="nav-number">8.</span> <span class="nav-text">A revisit of sparse coding based anomaly detection in stacked rnn framework</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alpha Yang"
+      src="/images/IMG_1979(20200206-160439).JPG">
+  <p class="site-author-name" itemprop="name">Alpha Yang</p>
+  <div class="site-description" itemprop="description">世间万物，唯代码美食，不能辜负。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Alpha-Yang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Alpha-Yang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+<div style="">
+  <canvas id="canvas" style="width:60%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+      </div>
+	  
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alpha Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+</body>
+</html>

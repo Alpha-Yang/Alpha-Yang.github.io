@@ -158,6 +158,275 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/" class="post-title-link" itemprop="url">异常检测|视频监控方向8篇论文模型浅析</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-25 20:55:25" itemprop="dateCreated datePublished" datetime="2020-10-25T20:55:25Z">2020-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-01 14:41:01" itemprop="dateModified" datetime="2020-11-01T14:41:01Z">2020-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">异常检测</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在上星期的异常检测的<a href="https://zhuanlan.zhihu.com/p/266513299" target="_blank" rel="noopener">综述论文</a>中，我们谈及了异常检测的方向的很多应用层面，由于之后我的实验室可能会展开视屏监控(video surveillance)方面的任务，所以我也最近在研究该方向的论文，需要说明的是，异常检测并不是异常预测，无法提前知晓异常行为的发生，常见的异常情况如所有人都在走，有人突然跑起来或者骑了车的人路过，或者有人在视频下突然打起架来，检测难度是相当大的。另外要说的是，这些异常检测方法可以分为不同的任务，例如重构(reconstruction)任务与预测(prediction)任务，按照不同的任务训练数据集，将其中的异常行为给检测出来。上周内我阅读了8篇idea非常好并且可能会对我之后工作有启发式意义的论文，暂且对他们进行了粗略的阅读(阅读了模型idea与结果)，并以此文按照一定顺序介绍这些论文的模型方法，下周我可能会挑选1~2篇进行精读，西电电信大三的专业课是真的多（逃</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/26/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7%E6%96%B9%E5%90%918%E7%AF%87%E8%AE%BA%E6%96%87%E6%A8%A1%E5%9E%8B%E6%B5%85%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/20/%E3%80%90%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E3%80%91%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/20/%E3%80%90%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E3%80%91%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">【决策模型】马尔可夫决策过程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-19 16:45:09" itemprop="dateCreated datePublished" datetime="2020-10-19T16:45:09Z">2020-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-01 14:40:10" itemprop="dateModified" datetime="2020-11-01T14:40:10Z">2020-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">数学建模</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%A8%A1%E5%9E%8B%E7%AF%87/" itemprop="url" rel="index">
+                    <span itemprop="name">模型篇</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>咕了2个月的时光，我终于开始更新这个专栏系列了，真的惭愧，这两天在忙着整理校长奖学金的材料，所以写完这篇文章我可能需要再咕一段时间QAQ。</p>
+<p>这次来讲一个数学模型中常见但是非常难以理解的话题，马尔可夫决策过程。可能很多同学都听过这个，那么这篇文章将带你搞懂马尔可夫性、马尔可夫链、马尔可夫过程、马尔可夫决策过程这些概念。由于本章内容有些难以理解，所以我前前后后也研究了一个多月。由于我目前的研究兴趣在于强化学习，而马尔可夫决策过程是强化学习建模的最基本模型，所以本文是根据David Silver的强化学习公开课整理的资料，马尔可夫决策过程是非常重要的模型。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/20/%E3%80%90%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B%E3%80%91%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/" class="post-title-link" itemprop="url">异常检测|Anomaly Detection综述</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-17 20:39:56" itemprop="dateCreated datePublished" datetime="2020-10-17T20:39:56Z">2020-10-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-01 14:40:53" itemprop="dateModified" datetime="2020-11-01T14:40:53Z">2020-11-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>异常检测一直是机器学习中一个非常重要的子分支，在各种人工智能落地应用例如计算机视觉、数据挖掘、NLP中，异常检测算法都是很热门的研究方向，特别是大数据时代，人工处理数据的速度已经远远赶不上机器了，所以更快地检测数据中的异常情况成为了我们当下非常重要的任务。在深度学习广泛的推广之前，传统的异常检测算法有很多，例如高斯拟合，半监督学习等等，而在深度学习大火之后，人们也开始研究将深度学习应用于各种异常任务中(也就是Deep Anomaly Detection，以下统称DAD)，并取得了很大的成功，本文将把当下该方向热门的研究方向分类并列举了对应的文章，希望能帮助大家更好地理解此方向的研究。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/18/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-Anomaly-Detection%E7%BB%BC%E8%BF%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/26/Pycharm%E9%80%9A%E8%BF%87ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5GPU%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%AD%E7%BB%83%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -779,267 +1048,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%E3%80%90%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E3%80%91K-means%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/06/%E3%80%90%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E3%80%91K-means%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">【聚类算法】K-means无监督学习</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-05 19:48:34" itemprop="dateCreated datePublished" datetime="2020-07-05T19:48:34Z">2020-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 07:12:55" itemprop="dateModified" datetime="2020-07-10T07:12:55Z">2020-07-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">数学建模</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%AE%97%E6%B3%95%E7%AF%87/" itemprop="url" rel="index">
-                    <span itemprop="name">算法篇</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前我们讨论过关于线性回归、Logistic回归与SVM等模型与算法，然而之前讨论的事物在机器学习中，我们都统称为监督学习。在这之后，我将花两篇博客的内容来介绍一些无监督学习的算法，机器学习算法广义而言分为两类：监督学习与无监督学习，其判断标准其实就是我们所拥有的样本是否含有标签信息。当然，现在的学者们都专注在弱监督学习领域，一个更适用于工业的学习方法。下面我将会介绍无监督学习即不含标签的样本，并对其进行分类，我们称为<strong>聚类</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/06/%E3%80%90%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E3%80%91K-means%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/06/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">【吴恩达笔记】无监督学习K-means聚类算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-05 19:48:02" itemprop="dateCreated datePublished" datetime="2020-07-05T19:48:02Z">2020-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-10 07:13:05" itemprop="dateModified" datetime="2020-07-10T07:13:05Z">2020-07-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前我们讨论过关于线性回归、Logistic回归与SVM等模型与算法，然而之前讨论的事物在机器学习中，我们都统称为监督学习。在这之后，我将花两篇博客的内容来介绍一些无监督学习的算法，机器学习算法广义而言分为两类：监督学习与无监督学习，其判断标准其实就是我们所拥有的样本是否含有标签信息。当然，现在的学者们都专注在弱监督学习领域，一个更适用于工业的学习方法。下面我将会介绍无监督学习即不含标签的样本，并对其进行分类，我们称为<strong>聚类</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/06/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
-      <meta itemprop="name" content="Alpha Yang">
-      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨文昊的个人博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/" class="post-title-link" itemprop="url">【吴恩达笔记】支持向量机SVM</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-07-04 11:01:10 / 修改时间：05:18:11" itemprop="dateCreated datePublished" datetime="2020-07-04T11:01:10Z">2020-07-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程笔记</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Support Vector Machines(简称SVM)支持向量机</strong>是机器学习中非常重要的一种算法，一般用于分类与判别，你可以能还会见到<strong>Support Vector Classification(简称SVC)、Support Vector Regression(简称SVR)</strong>，分别用于分类与回归，别担心他们的内理是一模一样的，只是功能不同而进行了划分罢了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/04/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1112,20 +1120,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
