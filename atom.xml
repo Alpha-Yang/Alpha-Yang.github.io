@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-17T13:08:38.760Z</updated>
+  <updated>2020-11-17T13:24:24.821Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,18 +21,15 @@
     <link href="http://yoursite.com/2020/11/18/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     <id>http://yoursite.com/2020/11/18/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</id>
     <published>2020-11-17T21:06:38.000Z</published>
-    <updated>2020-11-17T13:08:38.760Z</updated>
+    <updated>2020-11-17T13:24:24.821Z</updated>
     
-    <content type="html"><![CDATA[<object data="DRL.pdf" type="application/pdf" width="100%" height="450px">]]></content>
+    <content type="html"><![CDATA[<p>AlphaGo的出现让人工智能技术受到了广泛的关注，其中的核心算法就是深度强化学习(Deep Reinforcement Learning)</p><p>pdf课件由beamer所制，博主于2020年11月17日在西电人工智能课堂上报告。</p><p>课程教师：<a href="https://web.xidian.edu.cn/mggong/" target="_blank" rel="noopener">公茂果</a></p><a id="more"></a><object data="DRL.pdf" type="application/pdf" width="100%" height="450px">]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;object data=&quot;DRL.pdf&quot; type=&quot;application/pdf&quot; width=&quot;100%&quot; height=&quot;450px&quot;&gt;
-
-
-      
+      &lt;p&gt;AlphaGo的出现让人工智能技术受到了广泛的关注，其中的核心算法就是深度强化学习(Deep Reinforcement Learning)&lt;/p&gt;
+&lt;p&gt;pdf课件由beamer所制，博主于2020年11月17日在西电人工智能课堂上报告。&lt;/p&gt;
+&lt;p&gt;课程教师：&lt;a href=&quot;https://web.xidian.edu.cn/mggong/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;公茂果&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
@@ -51,20 +48,15 @@
     <link href="http://yoursite.com/2020/11/18/%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
     <id>http://yoursite.com/2020/11/18/%E7%BA%BF%E6%AE%B5%E6%A0%91/</id>
     <published>2020-11-17T20:54:38.000Z</published>
-    <updated>2020-11-17T13:06:09.834Z</updated>
+    <updated>2020-11-17T13:17:57.492Z</updated>
     
-    <content type="html"><![CDATA[<object data="线段树.pdf" type="application/pdf" width="100%" height="450px">]]></content>
+    <content type="html"><![CDATA[<p>线段树是算法竞赛中常用的用来维护 <strong>区间信息</strong> 的数据结构。</p><p>pdf课件由beamer所制，博主于2020年11月16日在西电ACM程序设计选修课上报告。</p><p>课程教师：王煦</p><a id="more"></a><object data="线段树.pdf" type="application/pdf" width="100%" height="450px">]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;object data=&quot;线段树.pdf&quot; type=&quot;application/pdf&quot; width=&quot;100%&quot; height=&quot;450px&quot;&gt;
-
-
-
-
-      
+      &lt;p&gt;线段树是算法竞赛中常用的用来维护 &lt;strong&gt;区间信息&lt;/strong&gt; 的数据结构。&lt;/p&gt;
+&lt;p&gt;pdf课件由beamer所制，博主于2020年11月16日在西电ACM程序设计选修课上报告。&lt;/p&gt;
+&lt;p&gt;课程教师：王煦&lt;/p&gt;
     
     </summary>
     
