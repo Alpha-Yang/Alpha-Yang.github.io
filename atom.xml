@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-19T11:09:27.748Z</updated>
+  <updated>2021-01-09T06:25:36.035Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>西电数模美赛培训与参赛经验分享</title>
+    <link href="http://yoursite.com/2020/12/19/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B%E5%9F%B9%E8%AE%AD%E4%B8%8E%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
+    <id>http://yoursite.com/2020/12/19/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B%E5%9F%B9%E8%AE%AD%E4%B8%8E%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</id>
+    <published>2020-12-18T23:47:26.000Z</published>
+    <updated>2021-01-09T06:25:36.035Z</updated>
+    
+    <content type="html"><![CDATA[<p>本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。</p><p>去年我们团队获得了2020年的数模美赛O奖，并且是D题的best paper，培训期间跟着张胜利指导教练，获益良多，当然也有很多自己的一些经验总结，我会写在接下来的博客里。</p><h3 id="1-培训基本规则与流程"><a href="#1-培训基本规则与流程" class="headerlink" title="1. 培训基本规则与流程"></a>1. 培训基本规则与流程</h3><p>   首先，先给第一次参加美赛培训的学弟学妹说说，美赛一般根据中国的过年时间来决定（哈哈哈毕竟90%都是中国参赛队伍），这次是在过年前，一般而言，在期末结束到正式比赛之间，西电校队培训是采用以导师为单位的培训制度，但是基本上训练模式是一样的。就是去写真题，这是最有效的方案，相信对于大二、大三的同学而言，掌握完常用模型和算法(可参考我知乎之前的Pages，<a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a>)后，写真题是最有效的训练办法，原因在下文中我也会提到。在比赛前，对于每个队伍而言，可以训练3-4篇真题，希望认真对待。</p><p>   同样，指导教练会根据大家的训练情况来选择正式队伍与挂名队伍，所以认真培训是很重要的。</p><h3 id="2-培训一些参考经验"><a href="#2-培训一些参考经验" class="headerlink" title="2. 培训一些参考经验"></a>2. 培训一些参考经验</h3><p>作为一个团队而言，我觉得一个队伍在培训期间需要注意以下几个方面：</p><ul><li><strong>优秀论文！！！：</strong>这是我在各个经验贴里面反复强调的事情，我一直认为美赛备赛中最重要的就是要广泛的阅读O奖论文，去年培训时我们团队阅读了近三年来所有O奖论文，也在网上找了部分美赛F、M、H论文。17-20年的O奖论文，我已经放在了我的<a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">知乎专栏</a>里，后面等我回家我也会考虑上传其他奖项的文章。去年我们团队还纵向比较奖项的论文，O奖一定有他的可学之处。</li><li><strong>团队配合和风格：</strong> 还有一点比较重要，就是在训练的期间，就把训练当做正式比赛，训练期间就和队友尽快磨合好，各种配合问题以及分工问题最好在培训期间就能商量以及调和好。还有一点就是培训期间尽量形成自己的<strong>团队风格</strong>，包括论文的排版与写作，还有比较关键的，论文的插图与结果图排版是否合理，毕竟不是学术论文，出现大段的描述文字并不是一件很nice的事情。</li><li><strong>其他方面：</strong> 还有点其他东西，就是美赛其实真的很重视大家的插图制作能力，这里一定要给大家推一下我们论文队友的<a href="https://www.bilibili.com/video/BV1c5411W7U9" target="_blank" rel="noopener">教学视频</a>，相信看完你一定有很大的启发。</li></ul><h3 id="3-正式比赛相关建议"><a href="#3-正式比赛相关建议" class="headerlink" title="3. 正式比赛相关建议"></a>3. 正式比赛相关建议</h3><p>下面给大家展示下我们队伍美赛四天的团队合作流程，我4天据统计应该只睡了17h</p><ul><li>2.14：早上6点开题，平时训练D题较多，毫不犹豫。然后论文队友开始写background、重述等等，我和建模队友疯狂找资料，段同学负责查找相关论文，然后我负责去分析题目数据。等相关论文找的差不多了之后，我和段正鹏开始疯狂看论文，提取出有用的信息，钱同学负责看论文中的插图以及结果图，看看有没有可以借鉴的东西，之后就开始使劲读题，理解意思。中午到晚上，完成Task 1的模型建立，晚上熬夜到2-3点完成Task 1算法实现以及数据导出。</li><li>2.15：早上到下午完成Task 2模型建立与指标选择，晚上开始疯狂处理数据，那天我们熬夜到了4点，成功导出了数据，并交代论文队友完成相应的插图制作。</li><li>2.16：早上9点起来开始实现算法，一直到中午完成了满意的结果，然后中午看了一场球赛得到了启发，完成了Task 3模型的建立以及图解法的应用。Task 4是开放型问题，熬夜到1点搞定。</li><li>2.17：最后一天是最紧张的一天，虽然模型算法已经全部搞定，但需要修改的地方还有很多，检查与润色之前的论文，添加插图，检查结果。段正鹏与我开始写模型优缺点以及灵敏性分析(很重要！)。然后开始一起写摘要(最重要！)。</li><li>2.18：最后冲刺，挑战20小时不合眼，疯狂改摘要，不停地审核论文，摘要大大小小修改30遍+，论文整体修改10遍+。所有的表格插图结果图认真审核(最后几小时改了一张数据表)，文字表达也会修改。到早上7点，上交作品。</li></ul><p>这只是我们队伍习惯的一种流程，每个队伍都可以有自己的日程表，但是我觉得作为队长的同学来把握大局，安排时间是最理想的情况。</p><h3 id="4-其他可参考的"><a href="#4-其他可参考的" class="headerlink" title="4. 其他可参考的"></a>4. 其他可参考的</h3><p>这里我就自吹自擂了，我推荐下我的几个专栏以及我在西电微软学生俱乐部的技术沙龙的录播把。</p><ul><li><a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a></li><li><a href="https://zhuanlan.zhihu.com/p/145434397" target="_blank" rel="noopener">如何写出一份高质量的数模答卷</a></li><li><a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">2017-2020数模美赛特等奖论文</a></li><li>西电MSC俱乐部11月27日晚技术沙龙录播：<a href="https://www.bilibili.com/video/BV1Ef4y1v78w" target="_blank" rel="noopener">数模竞赛入门&amp;美赛经验分享</a></li><li>公开的当晚讲义：【20201127西电MSC技术沙龙资料整合 - 外】<a href="https://www.lanzoui.com/idF9zivlvxe" target="_blank" rel="noopener">https://www.lanzoui.com/idF9zivlvxe</a><br>密码:xdmsc</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。&lt;/p&gt;
+&lt;p&gt;去年我们团队获得
+      
+    
+    </summary>
+    
+    
+      <category term="数学建模" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
+    
+      <category term="入门指导" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%85%A5%E9%97%A8%E6%8C%87%E5%AF%BC/"/>
+    
+    
+      <category term="美赛" scheme="http://yoursite.com/tags/%E7%BE%8E%E8%B5%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>Online Course Certificate</title>
@@ -502,32 +531,6 @@
     
     
       <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【初等模型】Logistic回归模型</title>
-    <link href="http://yoursite.com/2020/06/29/%E3%80%90%E5%88%9D%E7%AD%89%E6%A8%A1%E5%9E%8B%E3%80%91Logistic%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://yoursite.com/2020/06/29/%E3%80%90%E5%88%9D%E7%AD%89%E6%A8%A1%E5%9E%8B%E3%80%91Logistic%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B/</id>
-    <published>2020-06-28T21:14:03.000Z</published>
-    <updated>2020-07-02T16:09:56.294Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇博客中，我们讲到了线性回归模型，是监督学习中的一个做预测工作的例子。而这里的Logistic回归则是监督学习的一个做分类工作例子，在数学建模与机器学习中，Logistic回归通常用于分类的目的，例如邮件的垃圾邮件分类，肿瘤的恶性良性分类等等。By the way，Logistic回归和Logistic分类是一回事，大家完全可以将两者等价。</p><p>Logistic回归有两种任务情况，分别是二元分类和多元分类问题，从字面上理解来说，binary problem是二元问题：非此即彼，非0即1 。而多元分类则是有多个分类组别，下面我们先从易入难，从binary的Logistic回归说起。</p><a id="more"></a><h3 id="Logistic模型描述"><a href="#Logistic模型描述" class="headerlink" title="Logistic模型描述"></a>Logistic模型描述</h3><p>和线性回归模型思想一项，也会存在单特征或多个特征$x^{(1)}_j$的情况，但是我们的目标值或者是输出值只有两种，0或1，即$y\in \{0,1\}$。其中”0”代表”Negative Class”，”1”代表”Positive Class”。</p><p>但是我们通过假设函数计算的输出值即$h_{\theta}(x)$可不可能只有0或1两个情况，很显然，根本没有连续函数能达到这个功能，所以在输出值有一段连续值得情况下，我们设置一个<strong>阈值(threshold)</strong>。例如我们讨论关于肿瘤恶性与良性的分类，设置阈值为0.5，这是什么意思呢？</p><p>如果$h_{\theta}(x)\geq 0.5$，那我们预测$y=1$，即在这种情况下，我们更倾向于将这个肿瘤划分为恶性的。反之$h_{\theta}(x)&lt;0.5$，则$y=0$。在这方面，后来也有很多扩展，比如应用于年龄估计和情感计算的多标签分布学习与标记增强，拜读过东南大学耿新老师的论文，如果有兴趣可以去看看。</p><p>为了使得分类任务靠设定阈值顺利进行，我们其实还得保证输出$h(x)$的范围的确定性，如果范围过于不确定，那阈值的选择会比较困难，所以之后我们会讲到这种方法，使得$0\leq h_{\theta}(x)\leq 1$。</p><h3 id="假设函数的新表示方法-区别于线性回归"><a href="#假设函数的新表示方法-区别于线性回归" class="headerlink" title="假设函数的新表示方法(区别于线性回归)"></a>假设函数的新表示方法(区别于线性回归)</h3><p>在上文中提到，我们为了想让$0\leq h_{\theta}(x)\leq 1$满足在这个范围内，我们引入一个神奇的函数，在机器学习中这个函数当真反复出现，<strong>Sigmoid function/Logistic function</strong>(这两个函数就是等价的，一个意思)：</p><p><img src="/../image/ml21.jpg" alt=""></p><p>这是个生物学函数，为了显示它的重要性，我单独列一行出来：</p><script type="math/tex; mode=display">g(z)=\frac{1}{1+e^{-z}}</script><p>现在我们写出Logistic回归模型的假设函数，并与之前的线性回归模型的进行对比：</p><script type="math/tex; mode=display">\begin{align}Linear&:h_{\theta}(x)=\theta^Tx\\Logistic&:h_{\theta}(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}\end{align}</script><p>事实上，就是区别于Sigmoid函数，还是之前恶性与良性肿瘤的例子。根据我输入的特征向量，求出的假设函数$h(x)$实际上代表着预测$y=1$的概率，即：</p><script type="math/tex; mode=display">h(x)=P(y=1|x;\theta),y=0,1</script><p>比如输出一组特征值，我们输出$h(x)=0.7$代表肿瘤为恶性的可能性为$70\%$，考虑到我们之前所定阈值为0.5，所以这个肿瘤我们划分在恶性中去。</p><h3 id="决策界限-Decision-Boundary"><a href="#决策界限-Decision-Boundary" class="headerlink" title="决策界限(Decision Boundary)"></a>决策界限(Decision Boundary)</h3><h4 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h4><p><img src="/../image/ml22.jpg" alt=""></p><p>通常选择线性or非线性，主要还是观察数据集的分布情况。比如上图，我们采用线性Boundary，$z=\theta^Tx$我们通过现有的数据集计算出了，$\theta^T=\begin{bmatrix}-3 &amp; 1&amp; 1\end{bmatrix}$，由于我们知道Sigmoid函数的性质我们知道，当$z\geq0$时，$g(z)\geq0.5$，我们认为它属于恶性肿瘤，反之相对即可。即我们最终计算出的线性决策界限，就是$z\geq0$时为恶性肿瘤，即$-3+x_1+x_2\geq0$。我们通过$\theta$反推得出了决策界限。</p><h4 id="非线性"><a href="#非线性" class="headerlink" title="非线性"></a>非线性</h4><p><img src="/../image/ml23.jpg" alt=""></p><p>在这个非线性的例子中，我们处理非线性的决策边界问题，令假设函数的表达式为：</p><script type="math/tex; mode=display">h(x)=g(\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1^2+\theta_4x_2^2)</script><p>当然你可能会觉得这个假设函数的设置过于主观，that’s ok. 这可能是我通常不会选择Logistic来处理非线性分类问题的原因。在这种分类问题，我更喜欢构建SVM的模型，这个我们之后会提到。好了，话说回来，这个我们通过计算得到，$\theta^T=\begin{bmatrix}-1 &amp; 0 &amp; 0 &amp; 1 &amp; 1\end{bmatrix}$，由Sigmoid的性质可得，当$z\geq 0$时，即$x_1^2+x^2_2\geq 1$，在这个情况下，我们更希望相信这个分类成为恶性肿瘤，反之也相对。下面我们来说说，Logistic回归的代价函数。</p><h3 id="代价函数-Cost-Function"><a href="#代价函数-Cost-Function" class="headerlink" title="代价函数(Cost Function)"></a>代价函数(Cost Function)</h3><h4 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h4><p>我们上述讨论了决策边界的问题，那么我们现在需要解决的问题就是如何选取最优的$\theta$值，即代价函数最小。首先，我先说Logistic的代价函数，和我们之前的线性回归的表达形式一模一样：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}\sum_{i=1}^m\left(h_\theta(x^{(i)})-y^{(i)}\right)^2</script><p>你可能觉得这个代价函数和线性回归的一模一样，但是有一些细微的差别，在这里$h(x)=g(z)$，而线性回归则没有加入sigmoid函数。但是，我们其实通常并不选择这个函数为我们所要的代价函数，我这里简单说下原因，由于我们的假设函数是关于sigmoid的函数，是一个非线性的函数。代入计算，我们的代价函数会是一个非凸函数。</p><p><img src="/../image/ml24.jpg" alt=""></p><p>在这个情况下，非凸函数如左图所示，他有很多的局部最优点，所以我们使用梯度下降法是找不到全局最优点的。而我们需要找一个<strong>凸函数(convex function)</strong>，也就是弓形函数，仅有一个全局最优解，所以我们通过梯度下降法就能很好做到找到代价函数的最优点。</p><h4 id="改进Cost，重新化简代价函数"><a href="#改进Cost，重新化简代价函数" class="headerlink" title="改进Cost，重新化简代价函数"></a>改进Cost，重新化简代价函数</h4><p>在上个引入部分中，我们令代价函数的部分为：</p><script type="math/tex; mode=display">\begin{align}J(\theta)&=\frac{1}{m}\sum_{i=1}^m\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2\\Cost(h_\theta(x^{(i)}),y^{(i)})&=\frac{1}{2}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2\\\end{align}</script><p>下面我们来改进一个新的Cost从而得到新的代价函数，而这个代价函数我们希望他是convex的，还是以二分类问题来举例：</p><script type="math/tex; mode=display">Cost(h_\theta(x),y)=\begin{cases}-log(h_\theta(x)) & \text{if } y=1\\-log(1-h_\theta(x)) & \text{if } y=0\\\end{cases}</script><p>在binary的问题中，我们注意到y的值总是0或1，所以我们重新化简代价函数：</p><script type="math/tex; mode=display">J(\theta)=-\frac{1}{m}[\sum_{i=1}^my^{(i)}logh_{\theta}(x^{(i)})+(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]</script><p>然后我们又可以愉快地用梯度下降算法啦！！</p><h3 id="多元分类问题-Multi-class-classification"><a href="#多元分类问题-Multi-class-classification" class="headerlink" title="多元分类问题(Multi-class classification)"></a>多元分类问题(Multi-class classification)</h3><p>其实，多元分类与二元分类基本类似，我们现在假设我们有三个类别(更多的也一样)，Class 1~3，我们简单用下图来说明下问题。</p><p><img src="/../image/ml25.jpg" alt=""></p><p>吴恩达老师上课的课件，看到$h_{\theta}^{(i)}=P(y=i|x;\theta)$这个公式(julao不愧是julao)，让我茅塞顿开。其实多元分类问题就可以写成二元分类，如果你还没看懂，我来做下简单的解释。</p><script type="math/tex; mode=display">J^{(i)}(\theta)=-\frac{1}{m}[\sum_{i=1}^mylogh^{(i)}_{\theta}(x)+(i-y)log(1-h^{(i)}_{\theta}(x))]</script><p>这样，我们便依然可以采用梯度下降法去求解。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇博客中，我们讲到了线性回归模型，是监督学习中的一个做预测工作的例子。而这里的Logistic回归则是监督学习的一个做分类工作例子，在数学建模与机器学习中，Logistic回归通常用于分类的目的，例如邮件的垃圾邮件分类，肿瘤的恶性良性分类等等。By the way，Logistic回归和Logistic分类是一回事，大家完全可以将两者等价。&lt;/p&gt;
-&lt;p&gt;Logistic回归有两种任务情况，分别是二元分类和多元分类问题，从字面上理解来说，binary problem是二元问题：非此即彼，非0即1 。而多元分类则是有多个分类组别，下面我们先从易入难，从binary的Logistic回归说起。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数学建模" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
-    
-      <category term="模型篇" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%A8%A1%E5%9E%8B%E7%AF%87/"/>
-    
-    
-      <category term="Logistic" scheme="http://yoursite.com/tags/Logistic/"/>
     
   </entry>
   
