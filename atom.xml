@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-01-09T06:25:36.035Z</updated>
+  <updated>2021-01-13T10:44:16.018Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pytorch极简教程</title>
+    <link href="http://yoursite.com/2021/01/14/Pytorch%E6%9E%81%E7%AE%80%E6%95%99%E7%A8%8B/"/>
+    <id>http://yoursite.com/2021/01/14/Pytorch%E6%9E%81%E7%AE%80%E6%95%99%E7%A8%8B/</id>
+    <published>2021-01-13T18:39:34.000Z</published>
+    <updated>2021-01-13T10:44:16.018Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+      <category term="Pytorch" scheme="http://yoursite.com/tags/Pytorch/"/>
+    
+  </entry>
   
   <entry>
     <title>西电数模美赛培训与参赛经验分享</title>
@@ -50,9 +67,9 @@
     <link href="http://yoursite.com/2020/11/20/Online-Course-Certificate/"/>
     <id>http://yoursite.com/2020/11/20/Online-Course-Certificate/</id>
     <published>2020-11-19T19:03:35.000Z</published>
-    <updated>2020-11-19T11:09:27.748Z</updated>
+    <updated>2021-01-14T01:08:06.779Z</updated>
     
-    <content type="html"><![CDATA[<p>This is a page that stores the verified certificates of classical online courses I have learned. And theses courses are all from coursera made by Andrew Ng.  </p><a id="more"></a><object data="Coursera NCB8UYE7W25Y.pdf" type="application/pdf" width="100%" height="450px">]]></content>
+    <content type="html"><![CDATA[<p>This is a page that stores the verified certificates of classical online courses I have learned. And theses courses are all from coursera made by Andrew Ng.  </p><a id="more"></a><object data="Coursera NCB8UYE7W25Y.pdf" type="application/pdf" width="100%" height="450px"><object data="Coursera WTLBT9VQEJLZ.pdf" type="application/pdf" width="100%" height="450px">]]></content>
     
     <summary type="html">
     
@@ -503,31 +520,6 @@
       <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="吴恩达课程笔记" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【模型优化】浅谈正则化</title>
-    <link href="http://yoursite.com/2020/07/03/%E3%80%90%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96%E3%80%91%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99%E5%8C%96/"/>
-    <id>http://yoursite.com/2020/07/03/%E3%80%90%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96%E3%80%91%E6%B5%85%E8%B0%88%E6%AD%A3%E5%88%99%E5%8C%96/</id>
-    <published>2020-07-03T11:43:35.000Z</published>
-    <updated>2020-07-04T05:18:02.374Z</updated>
-    
-    <content type="html"><![CDATA[<p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p><a id="more"></a><h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p><p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p><h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p><p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;关于&lt;strong&gt;Regularization(正则化)&lt;/strong&gt;的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数学建模" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/"/>
-    
-      <category term="模型篇" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%A8%A1%E5%9E%8B%E7%AF%87/"/>
     
     
       <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
