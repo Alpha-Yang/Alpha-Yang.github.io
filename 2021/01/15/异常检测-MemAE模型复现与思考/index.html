@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近在实验室继续研究异常检测的课题，与师兄们交流后逐渐有了自己的想法，所以把可以说是当前异常检测领域效果最好的方法，再次拿过来仔细分析了一番，想对这样的方法进行一些改进。本文不是原文的翻译，是阅读完整篇文章后，对模型的思考与总结，欢迎大家一起讨论。 论文title：Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异常检测|MemAE模型复现与思考">
+<meta property="og:url" content="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="杨文昊的个人博客">
+<meta property="og:description" content="最近在实验室继续研究异常检测的课题，与师兄们交流后逐渐有了自己的想法，所以把可以说是当前异常检测领域效果最好的方法，再次拿过来仔细分析了一番，想对这样的方法进行一些改进。本文不是原文的翻译，是阅读完整篇文章后，对模型的思考与总结，欢迎大家一起讨论。 论文title：Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoe">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/01.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/02.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/04.png">
+<meta property="article:published_time" content="2021-01-15T09:34:41.000Z">
+<meta property="article:modified_time" content="2021-01-15T11:44:58.263Z">
+<meta property="article:author" content="Alpha Yang">
+<meta property="article:tag" content="异常检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/01.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>异常检测|MemAE模型复现与思考 | 杨文昊的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="杨文昊的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨文昊的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">愿你出走半生，归来仍是少年。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1979(20200206-160439).JPG">
+      <meta itemprop="name" content="Alpha Yang">
+      <meta itemprop="description" content="世间万物，唯代码美食，不能辜负。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨文昊的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          异常检测|MemAE模型复现与思考
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-15 09:34:41 / 修改时间：11:44:58" itemprop="dateCreated datePublished" datetime="2021-01-15T09:34:41Z">2021-01-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">科研路漫漫</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">异常检测</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近在实验室继续研究异常检测的课题，与师兄们交流后逐渐有了自己的想法，所以把可以说是当前异常检测领域效果最好的方法，再次拿过来仔细分析了一番，想对这样的方法进行一些改进。本文不是原文的翻译，是阅读完整篇文章后，对模型的思考与总结，欢迎大家一起讨论。</p>
+<p><strong>论文title：</strong>Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection</p>
+<p><strong>GB/T论文引用：</strong>Gong D, Liu L, Le V, et al. Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection[C]//Proceedings of the IEEE International Conference on Computer Vision. 2019: 1705-1714.</p>
+<p><strong>thecvf下载地址：</strong><a href="https://openaccess.thecvf.com/content_ICCV_2019/html/Gong_Memorizing_Normality_to_Detect_Anomaly_Memory-Augmented_Deep_Autoencoder_for_Unsupervised_ICCV_2019_paper.html" target="_blank" rel="noopener">Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection</a></p>
+<a id="more"></a>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>在现在的异常检测领域，为了检测出某个图像/视屏信息的异常情况，通常的方向有两种：一是进行reconstruction重构任务，二是进行prediction预测任务。现在，我们先说预测任务，大体思路是通过$I_t$时刻的图像经过网络预测下一时刻的图像$\hat{I}_{t+1}$，并与真实的ground truth标签$I_{t+1}$进行对比，从而达到任务。</p>
+<p>重构任务是本文所采取的方法，一般配合AutoEncoder使用，是指对某一时刻的图像$I_t$进行编码Encoder，然后变成一个low-level的特征$z$，然后通过一个与Encoder逆向的网络作为解码Decoder，输出图像$\hat{x}$。最后用$x$与$\hat{x}$计算重构损失，用来检测异常。</p>
+<p>本文进行的是重构任务，而以上使用AE的方法是最普通的方法，为了改进我们的重构任务，让他对于我们的异常情况更加敏感，很多科研工作者开始研究中间的变换，也就在中间新增一个网络结构，让low-level的特征$z$变化为$\hat{z}$,然后使用$\hat{z}$通过解码器变为新的$\hat{x}$，本文也同样是这样的思路。</p>
+<p><img src="异常检测-MemAE模型复现与思考\01.png" alt=""></p>
+<h2 id="2-Unsupervised-Learning-Training-Method"><a href="#2-Unsupervised-Learning-Training-Method" class="headerlink" title="2. Unsupervised Learning Training Method"></a>2. Unsupervised Learning Training Method</h2><p>第二部分我想谈谈当前大部分异常检测方法的训练思路，因为我觉得这样的思考可以解释为什么这篇文章的效果会这么好。我们知道当前大部分的异常检测方法采用的是无监督学习，大部分open-source的data训练都只有normal的正样本。我能够想到的是，建立一个无监督学习的网络，这个网络能很好地提取出所有训练的正样本的特征信息，之后测试阶段它大概率能对异常情况敏感。那么我觉得本文的模型效果呢个如此稳定，就是因为他把正样本的正常信息给完完全全学到了，好，下面就来说说，本文从$z$到$\hat{z}$发生了什么。</p>
+<h2 id="3-Memory-Module-with-Attention-based-Sparse-Addressing"><a href="#3-Memory-Module-with-Attention-based-Sparse-Addressing" class="headerlink" title="3. Memory Module with Attention-based Sparse Addressing"></a>3. Memory Module with Attention-based Sparse Addressing</h2><h3 id="3-1-Memory-based-Representation"><a href="#3-1-Memory-based-Representation" class="headerlink" title="3.1 Memory-based Representation"></a>3.1 Memory-based Representation</h3><p>文章设计了一个Memory模块，即$\mathbf{M} \in \mathbb{R}^{N \times C}$，其中N表示Mem包含N个有效特征信息，而C表示特征信息的值。而Mem模块的计算公式为：</p>
+<script type="math/tex; mode=display">\widehat{\mathbf{z}}=\mathbf{w} \mathbf{M}=\sum_{i=1}^{N} w_{i} \mathbf{m}_{i}</script><p>其实就是最简单的乘积公式，但是值得注意的是，在本文中并不是$z$直接变换为$\hat{z}$的，其中还需要通过注意力机制（下一个part提到）变为$w$，然后再变换成为$\hat{z}$的。不难发现，$\mathbf{w} \in \mathbb{R}^{1 \times N}$。</p>
+<h3 id="3-2-Attention-for-Memory-Addressing"><a href="#3-2-Attention-for-Memory-Addressing" class="headerlink" title="3.2 Attention for Memory Addressing"></a>3.2 Attention for Memory Addressing</h3><p>几乎所有需要专注信息提取的视觉领域都需要attention机制的加入，而异常检测更多的是利用无监督学习去学习足够大的正常样本，attention机制就更为重要了。在这里，文章也给出了$z$到$w$的变换公式：</p>
+<script type="math/tex; mode=display">w_{i}=\frac{\exp \left(d\left(\mathbf{z}, \mathbf{m}_{i}\right)\right)}{\sum_{j=1}^{N} \exp \left(d\left(\mathbf{z}, \mathbf{m}_{j}\right)\right)}</script><p>利用非指数形式的softmax函数，计算出权重$w$，而d函数则是cosine相似度：</p>
+<script type="math/tex; mode=display">d\left(\mathbf{z}, \mathbf{m}_{i}\right)=\frac{\mathbf{z} \mathbf{m}_{i}^{\top}}{\|\mathbf{z}\|\left\|\mathbf{m}_{i}\right\|}</script><p>基本上整个模块处理就是这些公式内容了，在训练阶段我们只用正常的正样本进行训练，然后构造Loss函数，梯度下降来更新Mem模块。训练模块下个流程里，我们再说明。</p>
+<h3 id="3-3-Hard-Shrinkage-for-Sparse-Addressing"><a href="#3-3-Hard-Shrinkage-for-Sparse-Addressing" class="headerlink" title="3.3 Hard Shrinkage for Sparse Addressing"></a>3.3 Hard Shrinkage for Sparse Addressing</h3><p>其实上面两个部分基本定义了整体文章的思路，但是作者实验的效果并没有达到满意的结果（之后的实验结果有放），所以在权重这块加入了稀疏处理，原因就是low-level的信息比较冗杂，我们希望提取更有用的部分，所以我之后的实验应该也会借鉴如此的实验思路。</p>
+<p>这里的紧缩处理稀疏数据是借用ReLU函数的形式：</p>
+<script type="math/tex; mode=display">\widehat{w}_{i}=\frac{\max \left(w_{i}-\lambda, 0\right) \cdot w_{i}}{\left|w_{i}-\lambda\right|+\epsilon}</script><p>其中$\epsilon$是一个非常小的正参量。进行shrinkage处理之后再把权重进行归一化，即$\widehat{w}_{i}=\widehat{w}_{i} /|\widehat{\mathbf{w}}|_{1}$，然后我们就可以写出最终的含有Mem模块的变换公式：</p>
+<script type="math/tex; mode=display">\widehat{\mathbf{z}}=\hat{\mathbf{w}} \mathbf{M}</script><p>至此整篇的论文结构应该已经非常清晰了，整体的流程图如下图所示：</p>
+<p><img src="异常检测-MemAE模型复现与思考\02.png" alt=""></p>
+<h2 id="4-Training"><a href="#4-Training" class="headerlink" title="4. Training"></a>4. Training</h2><p>由于本文的代码并没有给Training的代码，所以我详细看了这里，还好原文的代码写的较为完整与规范，因此真正看懂这块内容后，我就对文章进行了复现，这个之后再说。先说回这块的训练部分，训练的思想还是传统神经网络训练思想，利用梯度下降，向Loss低的方向拟合，这篇文章定义了两个Loss。</p>
+<h3 id="4-1-Reconstruction-Loss"><a href="#4-1-Reconstruction-Loss" class="headerlink" title="4.1 Reconstruction Loss"></a>4.1 Reconstruction Loss</h3><p>这个就是之前说的最基本的Loss了，也是检测异常情况最需要拟合的部分，基本上形式如下：</p>
+<script type="math/tex; mode=display">R\left(\mathrm{x}^{t}, \widehat{\mathrm{x}}^{t}\right)=\left\|\mathrm{x}^{t}-\widehat{\mathrm{x}}^{t}\right\|_{2}^{2}</script><p>就是重建前后的L2范式误差。</p>
+<h3 id="4-2-Entropy-Loss"><a href="#4-2-Entropy-Loss" class="headerlink" title="4.2 Entropy Loss"></a>4.2 Entropy Loss</h3><p>这是本文使用的第二个Loss，来自稀疏处理过程中的Loss：</p>
+<script type="math/tex; mode=display">E\left(\widehat{\mathrm{w}}^{t}\right)=\sum_{i=1}^{T}-\widehat{w}_{i} \cdot \log \left(\widehat{w}_{i}\right)</script><h3 id="4-3-Final-Loss"><a href="#4-3-Final-Loss" class="headerlink" title="4.3 Final Loss"></a>4.3 Final Loss</h3><p>然后我们合并4.2和4.3的Loss，得到最终我们需要minimize的Loss函数，从而更新我们的Mem模块。</p>
+<script type="math/tex; mode=display">L\left(\theta_{e}, \theta_{d}, \mathbf{M}\right)=\frac{1}{T} \sum_{t=1}^{T}\left(R\left(\mathbf{x}^{t}, \widehat{\mathbf{x}}^{t}\right)+\alpha E\left(\widehat{\mathbf{w}}^{t}\right)\right)</script><h2 id="5-Experiment"><a href="#5-Experiment" class="headerlink" title="5. Experiment"></a>5. Experiment</h2><p>训练得到的模型后，就是我们的实验部分了，首先放上论文中的实验结果：</p>
+<p><img src="异常检测-MemAE模型复现与思考\04.png" alt=""></p>
+<p>实验通过Adam优化器，学习率等等跑出了以上的结果，因为对此文非常感兴趣且有开源的代码可以使用，所以我也对其进行了代码复现，得到的训练效果与原文中的效果差不多且在没运用什么tricks的情况下，说明模型效果很好，我将我复现的结果放在了下表中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">This Paper</th>
+<th style="text-align:center">My Experiment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">UCSD-ped2</td>
+<td style="text-align:center">94.1</td>
+<td style="text-align:center">92.7</td>
+</tr>
+<tr>
+<td style="text-align:center">CUHK</td>
+<td style="text-align:center">83.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="5-Others"><a href="#5-Others" class="headerlink" title="5. Others"></a>5. Others</h2><p>其实论文中，还提到了很多其他东西，包括MemAE的可视化效果，用于图像数据，MemAE到底学会了什么，还有相关性工作的研究，这个如果感兴趣的话，可以去原文的<a href="https://donggong1.github.io/anomdec-memae" target="_blank" rel="noopener">博客</a>或者论文中看，这里我就不拓展说明了，感觉和我接下来的实验其实关系不是很大，但是如果你研究的topic是关于视觉的，且是需要对正样本有强拟合要求的，我会推荐尝试MemAE的方法，下面最后一个Module谈谈我对这个topic的思考。</p>
+<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a>6. Conclusion</h2><p>当时老师给了我们三位实习生三个topic进行研究，其实啥也不懂，随意挑了一个异常检测。在这几个月的时间里，师兄给我推荐了一些论文加上自己看的几篇论文和综述，感觉这个领域可以做的东西还是很多的，上科大的复杂数据集到现在都不能实验出特别好的效果。</p>
+<p>其实这个寒假来到实验室就已经带了几个我之前想的idea了，不过经过一天的实验，Loss不是分分钟飙到Nan就是以诡异的趋势在下降中横冲直撞，异常检测大多数用mini-batch训练，有点耗时间。后来我想着改进又想到了2-3个idea，不过和师兄交谈时被指出motivation不够，建议不要做。</p>
+<p>接下来我认为我应当仔细分析这个topic当前的领域，显然MemAE效果是有他一定的原理在其中的，包括经过稀疏处理后他的百分点确实得到了相应的提升，还是需要考虑信息的level来进行idea的构思。</p>
+<p>最后，没什么说的了哈哈，祝大家新年快乐吧~</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/atom.xml">
+                <span class="icon">
+                  <i class="fa fa-rss"></i>
+                </span>
+
+                <span class="label">RSS</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" rel="tag"># 异常检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/14/Pytorch%E6%9E%81%E7%AE%80%E6%95%99%E7%A8%8B/" rel="prev" title="Pytorch极简教程">
+      <i class="fa fa-chevron-left"></i> Pytorch极简教程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">1.</span> <span class="nav-text">1. Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Unsupervised-Learning-Training-Method"><span class="nav-number">2.</span> <span class="nav-text">2. Unsupervised Learning Training Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Memory-Module-with-Attention-based-Sparse-Addressing"><span class="nav-number">3.</span> <span class="nav-text">3. Memory Module with Attention-based Sparse Addressing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Memory-based-Representation"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Memory-based Representation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Attention-for-Memory-Addressing"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Attention for Memory Addressing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Hard-Shrinkage-for-Sparse-Addressing"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Hard Shrinkage for Sparse Addressing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Training"><span class="nav-number">4.</span> <span class="nav-text">4. Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Reconstruction-Loss"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Reconstruction Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Entropy-Loss"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 Entropy Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-Final-Loss"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 Final Loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Experiment"><span class="nav-number">5.</span> <span class="nav-text">5. Experiment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Others"><span class="nav-number">6.</span> <span class="nav-text">5. Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Conclusion"><span class="nav-number">7.</span> <span class="nav-text">6. Conclusion</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Alpha Yang"
+      src="/images/IMG_1979(20200206-160439).JPG">
+  <p class="site-author-name" itemprop="name">Alpha Yang</p>
+  <div class="site-description" itemprop="description">世间万物，唯代码美食，不能辜负。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Alpha-Yang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Alpha-Yang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+<div style="">
+  <canvas id="canvas" style="width:60%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+      </div>
+	  
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alpha Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-01-13T10:44:16.018Z</updated>
+  <updated>2021-01-15T11:44:58.263Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>异常检测|MemAE模型复现与思考</title>
+    <link href="http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/"/>
+    <id>http://yoursite.com/2021/01/15/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B-MemAE%E6%A8%A1%E5%9E%8B%E5%A4%8D%E7%8E%B0%E4%B8%8E%E6%80%9D%E8%80%83/</id>
+    <published>2021-01-15T09:34:41.000Z</published>
+    <updated>2021-01-15T11:44:58.263Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在实验室继续研究异常检测的课题，与师兄们交流后逐渐有了自己的想法，所以把可以说是当前异常检测领域效果最好的方法，再次拿过来仔细分析了一番，想对这样的方法进行一些改进。本文不是原文的翻译，是阅读完整篇文章后，对模型的思考与总结，欢迎大家一起讨论。</p><p><strong>论文title：</strong>Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection</p><p><strong>GB/T论文引用：</strong>Gong D, Liu L, Le V, et al. Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection[C]//Proceedings of the IEEE International Conference on Computer Vision. 2019: 1705-1714.</p><p><strong>thecvf下载地址：</strong><a href="https://openaccess.thecvf.com/content_ICCV_2019/html/Gong_Memorizing_Normality_to_Detect_Anomaly_Memory-Augmented_Deep_Autoencoder_for_Unsupervised_ICCV_2019_paper.html" target="_blank" rel="noopener">Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection</a></p><a id="more"></a><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>在现在的异常检测领域，为了检测出某个图像/视屏信息的异常情况，通常的方向有两种：一是进行reconstruction重构任务，二是进行prediction预测任务。现在，我们先说预测任务，大体思路是通过$I_t$时刻的图像经过网络预测下一时刻的图像$\hat{I}_{t+1}$，并与真实的ground truth标签$I_{t+1}$进行对比，从而达到任务。</p><p>重构任务是本文所采取的方法，一般配合AutoEncoder使用，是指对某一时刻的图像$I_t$进行编码Encoder，然后变成一个low-level的特征$z$，然后通过一个与Encoder逆向的网络作为解码Decoder，输出图像$\hat{x}$。最后用$x$与$\hat{x}$计算重构损失，用来检测异常。</p><p>本文进行的是重构任务，而以上使用AE的方法是最普通的方法，为了改进我们的重构任务，让他对于我们的异常情况更加敏感，很多科研工作者开始研究中间的变换，也就在中间新增一个网络结构，让low-level的特征$z$变化为$\hat{z}$,然后使用$\hat{z}$通过解码器变为新的$\hat{x}$，本文也同样是这样的思路。</p><p><img src="异常检测-MemAE模型复现与思考\01.png" alt=""></p><h2 id="2-Unsupervised-Learning-Training-Method"><a href="#2-Unsupervised-Learning-Training-Method" class="headerlink" title="2. Unsupervised Learning Training Method"></a>2. Unsupervised Learning Training Method</h2><p>第二部分我想谈谈当前大部分异常检测方法的训练思路，因为我觉得这样的思考可以解释为什么这篇文章的效果会这么好。我们知道当前大部分的异常检测方法采用的是无监督学习，大部分open-source的data训练都只有normal的正样本。我能够想到的是，建立一个无监督学习的网络，这个网络能很好地提取出所有训练的正样本的特征信息，之后测试阶段它大概率能对异常情况敏感。那么我觉得本文的模型效果呢个如此稳定，就是因为他把正样本的正常信息给完完全全学到了，好，下面就来说说，本文从$z$到$\hat{z}$发生了什么。</p><h2 id="3-Memory-Module-with-Attention-based-Sparse-Addressing"><a href="#3-Memory-Module-with-Attention-based-Sparse-Addressing" class="headerlink" title="3. Memory Module with Attention-based Sparse Addressing"></a>3. Memory Module with Attention-based Sparse Addressing</h2><h3 id="3-1-Memory-based-Representation"><a href="#3-1-Memory-based-Representation" class="headerlink" title="3.1 Memory-based Representation"></a>3.1 Memory-based Representation</h3><p>文章设计了一个Memory模块，即$\mathbf{M} \in \mathbb{R}^{N \times C}$，其中N表示Mem包含N个有效特征信息，而C表示特征信息的值。而Mem模块的计算公式为：</p><script type="math/tex; mode=display">\widehat{\mathbf{z}}=\mathbf{w} \mathbf{M}=\sum_{i=1}^{N} w_{i} \mathbf{m}_{i}</script><p>其实就是最简单的乘积公式，但是值得注意的是，在本文中并不是$z$直接变换为$\hat{z}$的，其中还需要通过注意力机制（下一个part提到）变为$w$，然后再变换成为$\hat{z}$的。不难发现，$\mathbf{w} \in \mathbb{R}^{1 \times N}$。</p><h3 id="3-2-Attention-for-Memory-Addressing"><a href="#3-2-Attention-for-Memory-Addressing" class="headerlink" title="3.2 Attention for Memory Addressing"></a>3.2 Attention for Memory Addressing</h3><p>几乎所有需要专注信息提取的视觉领域都需要attention机制的加入，而异常检测更多的是利用无监督学习去学习足够大的正常样本，attention机制就更为重要了。在这里，文章也给出了$z$到$w$的变换公式：</p><script type="math/tex; mode=display">w_{i}=\frac{\exp \left(d\left(\mathbf{z}, \mathbf{m}_{i}\right)\right)}{\sum_{j=1}^{N} \exp \left(d\left(\mathbf{z}, \mathbf{m}_{j}\right)\right)}</script><p>利用非指数形式的softmax函数，计算出权重$w$，而d函数则是cosine相似度：</p><script type="math/tex; mode=display">d\left(\mathbf{z}, \mathbf{m}_{i}\right)=\frac{\mathbf{z} \mathbf{m}_{i}^{\top}}{\|\mathbf{z}\|\left\|\mathbf{m}_{i}\right\|}</script><p>基本上整个模块处理就是这些公式内容了，在训练阶段我们只用正常的正样本进行训练，然后构造Loss函数，梯度下降来更新Mem模块。训练模块下个流程里，我们再说明。</p><h3 id="3-3-Hard-Shrinkage-for-Sparse-Addressing"><a href="#3-3-Hard-Shrinkage-for-Sparse-Addressing" class="headerlink" title="3.3 Hard Shrinkage for Sparse Addressing"></a>3.3 Hard Shrinkage for Sparse Addressing</h3><p>其实上面两个部分基本定义了整体文章的思路，但是作者实验的效果并没有达到满意的结果（之后的实验结果有放），所以在权重这块加入了稀疏处理，原因就是low-level的信息比较冗杂，我们希望提取更有用的部分，所以我之后的实验应该也会借鉴如此的实验思路。</p><p>这里的紧缩处理稀疏数据是借用ReLU函数的形式：</p><script type="math/tex; mode=display">\widehat{w}_{i}=\frac{\max \left(w_{i}-\lambda, 0\right) \cdot w_{i}}{\left|w_{i}-\lambda\right|+\epsilon}</script><p>其中$\epsilon$是一个非常小的正参量。进行shrinkage处理之后再把权重进行归一化，即$\widehat{w}_{i}=\widehat{w}_{i} /|\widehat{\mathbf{w}}|_{1}$，然后我们就可以写出最终的含有Mem模块的变换公式：</p><script type="math/tex; mode=display">\widehat{\mathbf{z}}=\hat{\mathbf{w}} \mathbf{M}</script><p>至此整篇的论文结构应该已经非常清晰了，整体的流程图如下图所示：</p><p><img src="异常检测-MemAE模型复现与思考\02.png" alt=""></p><h2 id="4-Training"><a href="#4-Training" class="headerlink" title="4. Training"></a>4. Training</h2><p>由于本文的代码并没有给Training的代码，所以我详细看了这里，还好原文的代码写的较为完整与规范，因此真正看懂这块内容后，我就对文章进行了复现，这个之后再说。先说回这块的训练部分，训练的思想还是传统神经网络训练思想，利用梯度下降，向Loss低的方向拟合，这篇文章定义了两个Loss。</p><h3 id="4-1-Reconstruction-Loss"><a href="#4-1-Reconstruction-Loss" class="headerlink" title="4.1 Reconstruction Loss"></a>4.1 Reconstruction Loss</h3><p>这个就是之前说的最基本的Loss了，也是检测异常情况最需要拟合的部分，基本上形式如下：</p><script type="math/tex; mode=display">R\left(\mathrm{x}^{t}, \widehat{\mathrm{x}}^{t}\right)=\left\|\mathrm{x}^{t}-\widehat{\mathrm{x}}^{t}\right\|_{2}^{2}</script><p>就是重建前后的L2范式误差。</p><h3 id="4-2-Entropy-Loss"><a href="#4-2-Entropy-Loss" class="headerlink" title="4.2 Entropy Loss"></a>4.2 Entropy Loss</h3><p>这是本文使用的第二个Loss，来自稀疏处理过程中的Loss：</p><script type="math/tex; mode=display">E\left(\widehat{\mathrm{w}}^{t}\right)=\sum_{i=1}^{T}-\widehat{w}_{i} \cdot \log \left(\widehat{w}_{i}\right)</script><h3 id="4-3-Final-Loss"><a href="#4-3-Final-Loss" class="headerlink" title="4.3 Final Loss"></a>4.3 Final Loss</h3><p>然后我们合并4.2和4.3的Loss，得到最终我们需要minimize的Loss函数，从而更新我们的Mem模块。</p><script type="math/tex; mode=display">L\left(\theta_{e}, \theta_{d}, \mathbf{M}\right)=\frac{1}{T} \sum_{t=1}^{T}\left(R\left(\mathbf{x}^{t}, \widehat{\mathbf{x}}^{t}\right)+\alpha E\left(\widehat{\mathbf{w}}^{t}\right)\right)</script><h2 id="5-Experiment"><a href="#5-Experiment" class="headerlink" title="5. Experiment"></a>5. Experiment</h2><p>训练得到的模型后，就是我们的实验部分了，首先放上论文中的实验结果：</p><p><img src="异常检测-MemAE模型复现与思考\04.png" alt=""></p><p>实验通过Adam优化器，学习率等等跑出了以上的结果，因为对此文非常感兴趣且有开源的代码可以使用，所以我也对其进行了代码复现，得到的训练效果与原文中的效果差不多且在没运用什么tricks的情况下，说明模型效果很好，我将我复现的结果放在了下表中：</p><div class="table-container"><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">This Paper</th><th style="text-align:center">My Experiment</th></tr></thead><tbody><tr><td style="text-align:center">UCSD-ped2</td><td style="text-align:center">94.1</td><td style="text-align:center">92.7</td></tr><tr><td style="text-align:center">CUHK</td><td style="text-align:center">83.3</td></tr></tbody></table></div><h2 id="5-Others"><a href="#5-Others" class="headerlink" title="5. Others"></a>5. Others</h2><p>其实论文中，还提到了很多其他东西，包括MemAE的可视化效果，用于图像数据，MemAE到底学会了什么，还有相关性工作的研究，这个如果感兴趣的话，可以去原文的<a href="https://donggong1.github.io/anomdec-memae" target="_blank" rel="noopener">博客</a>或者论文中看，这里我就不拓展说明了，感觉和我接下来的实验其实关系不是很大，但是如果你研究的topic是关于视觉的，且是需要对正样本有强拟合要求的，我会推荐尝试MemAE的方法，下面最后一个Module谈谈我对这个topic的思考。</p><h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a>6. Conclusion</h2><p>当时老师给了我们三位实习生三个topic进行研究，其实啥也不懂，随意挑了一个异常检测。在这几个月的时间里，师兄给我推荐了一些论文加上自己看的几篇论文和综述，感觉这个领域可以做的东西还是很多的，上科大的复杂数据集到现在都不能实验出特别好的效果。</p><p>其实这个寒假来到实验室就已经带了几个我之前想的idea了，不过经过一天的实验，Loss不是分分钟飙到Nan就是以诡异的趋势在下降中横冲直撞，异常检测大多数用mini-batch训练，有点耗时间。后来我想着改进又想到了2-3个idea，不过和师兄交谈时被指出motivation不够，建议不要做。</p><p>接下来我认为我应当仔细分析这个topic当前的领域，显然MemAE效果是有他一定的原理在其中的，包括经过稀疏处理后他的百分点确实得到了相应的提升，还是需要考虑信息的level来进行idea的构思。</p><p>最后，没什么说的了哈哈，祝大家新年快乐吧~</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在实验室继续研究异常检测的课题，与师兄们交流后逐渐有了自己的想法，所以把可以说是当前异常检测领域效果最好的方法，再次拿过来仔细分析了一番，想对这样的方法进行一些改进。本文不是原文的翻译，是阅读完整篇文章后，对模型的思考与总结，欢迎大家一起讨论。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;论文title：&lt;/strong&gt;Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GB/T论文引用：&lt;/strong&gt;Gong D, Liu L, Le V, et al. Memorizing normality to detect anomaly: Memory-augmented deep autoencoder for unsupervised anomaly detection[C]//Proceedings of the IEEE International Conference on Computer Vision. 2019: 1705-1714.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;thecvf下载地址：&lt;/strong&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content_ICCV_2019/html/Gong_Memorizing_Normality_to_Detect_Anomaly_Memory-Augmented_Deep_Autoencoder_for_Unsupervised_ICCV_2019_paper.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Memorizing Normality to Detect Anomaly: Memory-augmented Deep Autoencoder (MemAE) for Unsupervised Anomaly Detection&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="科研路漫漫" scheme="http://yoursite.com/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/"/>
+    
+      <category term="异常检测" scheme="http://yoursite.com/categories/%E7%A7%91%E7%A0%94%E8%B7%AF%E6%BC%AB%E6%BC%AB/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/"/>
+    
+    
+      <category term="异常检测" scheme="http://yoursite.com/tags/%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Pytorch极简教程</title>
@@ -38,17 +66,14 @@
     <link href="http://yoursite.com/2020/12/19/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B%E5%9F%B9%E8%AE%AD%E4%B8%8E%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
     <id>http://yoursite.com/2020/12/19/%E8%A5%BF%E7%94%B5%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B%E5%9F%B9%E8%AE%AD%E4%B8%8E%E5%8F%82%E8%B5%9B%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</id>
     <published>2020-12-18T23:47:26.000Z</published>
-    <updated>2021-01-09T06:25:36.035Z</updated>
+    <updated>2021-02-09T07:46:16.516Z</updated>
     
-    <content type="html"><![CDATA[<p>本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。</p><p>去年我们团队获得了2020年的数模美赛O奖，并且是D题的best paper，培训期间跟着张胜利指导教练，获益良多，当然也有很多自己的一些经验总结，我会写在接下来的博客里。</p><h3 id="1-培训基本规则与流程"><a href="#1-培训基本规则与流程" class="headerlink" title="1. 培训基本规则与流程"></a>1. 培训基本规则与流程</h3><p>   首先，先给第一次参加美赛培训的学弟学妹说说，美赛一般根据中国的过年时间来决定（哈哈哈毕竟90%都是中国参赛队伍），这次是在过年前，一般而言，在期末结束到正式比赛之间，西电校队培训是采用以导师为单位的培训制度，但是基本上训练模式是一样的。就是去写真题，这是最有效的方案，相信对于大二、大三的同学而言，掌握完常用模型和算法(可参考我知乎之前的Pages，<a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a>)后，写真题是最有效的训练办法，原因在下文中我也会提到。在比赛前，对于每个队伍而言，可以训练3-4篇真题，希望认真对待。</p><p>   同样，指导教练会根据大家的训练情况来选择正式队伍与挂名队伍，所以认真培训是很重要的。</p><h3 id="2-培训一些参考经验"><a href="#2-培训一些参考经验" class="headerlink" title="2. 培训一些参考经验"></a>2. 培训一些参考经验</h3><p>作为一个团队而言，我觉得一个队伍在培训期间需要注意以下几个方面：</p><ul><li><strong>优秀论文！！！：</strong>这是我在各个经验贴里面反复强调的事情，我一直认为美赛备赛中最重要的就是要广泛的阅读O奖论文，去年培训时我们团队阅读了近三年来所有O奖论文，也在网上找了部分美赛F、M、H论文。17-20年的O奖论文，我已经放在了我的<a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">知乎专栏</a>里，后面等我回家我也会考虑上传其他奖项的文章。去年我们团队还纵向比较奖项的论文，O奖一定有他的可学之处。</li><li><strong>团队配合和风格：</strong> 还有一点比较重要，就是在训练的期间，就把训练当做正式比赛，训练期间就和队友尽快磨合好，各种配合问题以及分工问题最好在培训期间就能商量以及调和好。还有一点就是培训期间尽量形成自己的<strong>团队风格</strong>，包括论文的排版与写作，还有比较关键的，论文的插图与结果图排版是否合理，毕竟不是学术论文，出现大段的描述文字并不是一件很nice的事情。</li><li><strong>其他方面：</strong> 还有点其他东西，就是美赛其实真的很重视大家的插图制作能力，这里一定要给大家推一下我们论文队友的<a href="https://www.bilibili.com/video/BV1c5411W7U9" target="_blank" rel="noopener">教学视频</a>，相信看完你一定有很大的启发。</li></ul><h3 id="3-正式比赛相关建议"><a href="#3-正式比赛相关建议" class="headerlink" title="3. 正式比赛相关建议"></a>3. 正式比赛相关建议</h3><p>下面给大家展示下我们队伍美赛四天的团队合作流程，我4天据统计应该只睡了17h</p><ul><li>2.14：早上6点开题，平时训练D题较多，毫不犹豫。然后论文队友开始写background、重述等等，我和建模队友疯狂找资料，段同学负责查找相关论文，然后我负责去分析题目数据。等相关论文找的差不多了之后，我和段正鹏开始疯狂看论文，提取出有用的信息，钱同学负责看论文中的插图以及结果图，看看有没有可以借鉴的东西，之后就开始使劲读题，理解意思。中午到晚上，完成Task 1的模型建立，晚上熬夜到2-3点完成Task 1算法实现以及数据导出。</li><li>2.15：早上到下午完成Task 2模型建立与指标选择，晚上开始疯狂处理数据，那天我们熬夜到了4点，成功导出了数据，并交代论文队友完成相应的插图制作。</li><li>2.16：早上9点起来开始实现算法，一直到中午完成了满意的结果，然后中午看了一场球赛得到了启发，完成了Task 3模型的建立以及图解法的应用。Task 4是开放型问题，熬夜到1点搞定。</li><li>2.17：最后一天是最紧张的一天，虽然模型算法已经全部搞定，但需要修改的地方还有很多，检查与润色之前的论文，添加插图，检查结果。段正鹏与我开始写模型优缺点以及灵敏性分析(很重要！)。然后开始一起写摘要(最重要！)。</li><li>2.18：最后冲刺，挑战20小时不合眼，疯狂改摘要，不停地审核论文，摘要大大小小修改30遍+，论文整体修改10遍+。所有的表格插图结果图认真审核(最后几小时改了一张数据表)，文字表达也会修改。到早上7点，上交作品。</li></ul><p>这只是我们队伍习惯的一种流程，每个队伍都可以有自己的日程表，但是我觉得作为队长的同学来把握大局，安排时间是最理想的情况。</p><h3 id="4-其他可参考的"><a href="#4-其他可参考的" class="headerlink" title="4. 其他可参考的"></a>4. 其他可参考的</h3><p>这里我就自吹自擂了，我推荐下我的几个专栏以及我在西电微软学生俱乐部的技术沙龙的录播把。</p><ul><li><a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a></li><li><a href="https://zhuanlan.zhihu.com/p/145434397" target="_blank" rel="noopener">如何写出一份高质量的数模答卷</a></li><li><a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">2017-2020数模美赛特等奖论文</a></li><li>西电MSC俱乐部11月27日晚技术沙龙录播：<a href="https://www.bilibili.com/video/BV1Ef4y1v78w" target="_blank" rel="noopener">数模竞赛入门&amp;美赛经验分享</a></li><li>公开的当晚讲义：【20201127西电MSC技术沙龙资料整合 - 外】<a href="https://www.lanzoui.com/idF9zivlvxe" target="_blank" rel="noopener">https://www.lanzoui.com/idF9zivlvxe</a><br>密码:xdmsc</li></ul>]]></content>
+    <content type="html"><![CDATA[<p>本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。</p><p>去年我们团队获得了2020年的数模美赛O奖，并且是D题的best paper，培训期间跟着张胜利指导教练，获益良多，当然也有很多自己的一些经验总结，我会写在接下来的博客里。</p><a id="more"></a><h3 id="1-培训基本规则与流程"><a href="#1-培训基本规则与流程" class="headerlink" title="1. 培训基本规则与流程"></a>1. 培训基本规则与流程</h3><p>   首先，先给第一次参加美赛培训的学弟学妹说说，美赛一般根据中国的过年时间来决定（哈哈哈毕竟90%都是中国参赛队伍），这次是在过年前，一般而言，在期末结束到正式比赛之间，西电校队培训是采用以导师为单位的培训制度，但是基本上训练模式是一样的。就是去写真题，这是最有效的方案，相信对于大二、大三的同学而言，掌握完常用模型和算法(可参考我知乎之前的Pages，<a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a>)后，写真题是最有效的训练办法，原因在下文中我也会提到。在比赛前，对于每个队伍而言，可以训练3-4篇真题，希望认真对待。</p><p>   同样，指导教练会根据大家的训练情况来选择正式队伍与挂名队伍，所以认真培训是很重要的。</p><h3 id="2-培训一些参考经验"><a href="#2-培训一些参考经验" class="headerlink" title="2. 培训一些参考经验"></a>2. 培训一些参考经验</h3><p>作为一个团队而言，我觉得一个队伍在培训期间需要注意以下几个方面：</p><ul><li><strong>优秀论文！！！：</strong>这是我在各个经验贴里面反复强调的事情，我一直认为美赛备赛中最重要的就是要广泛的阅读O奖论文，去年培训时我们团队阅读了近三年来所有O奖论文，也在网上找了部分美赛F、M、H论文。17-20年的O奖论文，我已经放在了我的<a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">知乎专栏</a>里，后面等我回家我也会考虑上传其他奖项的文章。去年我们团队还纵向比较奖项的论文，O奖一定有他的可学之处。</li><li><strong>团队配合和风格：</strong> 还有一点比较重要，就是在训练的期间，就把训练当做正式比赛，训练期间就和队友尽快磨合好，各种配合问题以及分工问题最好在培训期间就能商量以及调和好。还有一点就是培训期间尽量形成自己的<strong>团队风格</strong>，包括论文的排版与写作，还有比较关键的，论文的插图与结果图排版是否合理，毕竟不是学术论文，出现大段的描述文字并不是一件很nice的事情。</li><li><strong>其他方面：</strong> 还有点其他东西，就是美赛其实真的很重视大家的插图制作能力，这里一定要给大家推一下我们论文队友的<a href="https://www.bilibili.com/video/BV1c5411W7U9" target="_blank" rel="noopener">教学视频</a>，相信看完你一定有很大的启发。</li></ul><h3 id="3-正式比赛相关建议"><a href="#3-正式比赛相关建议" class="headerlink" title="3. 正式比赛相关建议"></a>3. 正式比赛相关建议</h3><p>下面给大家展示下我们队伍美赛四天的团队合作流程，我4天据统计应该只睡了17h</p><ul><li>2.14：早上6点开题，平时训练D题较多，毫不犹豫。然后论文队友开始写background、重述等等，我和建模队友疯狂找资料，段同学负责查找相关论文，然后我负责去分析题目数据。等相关论文找的差不多了之后，我和段正鹏开始疯狂看论文，提取出有用的信息，钱同学负责看论文中的插图以及结果图，看看有没有可以借鉴的东西，之后就开始使劲读题，理解意思。中午到晚上，完成Task 1的模型建立，晚上熬夜到2-3点完成Task 1算法实现以及数据导出。</li><li>2.15：早上到下午完成Task 2模型建立与指标选择，晚上开始疯狂处理数据，那天我们熬夜到了4点，成功导出了数据，并交代论文队友完成相应的插图制作。</li><li>2.16：早上9点起来开始实现算法，一直到中午完成了满意的结果，然后中午看了一场球赛得到了启发，完成了Task 3模型的建立以及图解法的应用。Task 4是开放型问题，熬夜到1点搞定。</li><li>2.17：最后一天是最紧张的一天，虽然模型算法已经全部搞定，但需要修改的地方还有很多，检查与润色之前的论文，添加插图，检查结果。段正鹏与我开始写模型优缺点以及灵敏性分析(很重要！)。然后开始一起写摘要(最重要！)。</li><li>2.18：最后冲刺，挑战20小时不合眼，疯狂改摘要，不停地审核论文，摘要大大小小修改30遍+，论文整体修改10遍+。所有的表格插图结果图认真审核(最后几小时改了一张数据表)，文字表达也会修改。到早上7点，上交作品。</li></ul><p>这只是我们队伍习惯的一种流程，每个队伍都可以有自己的日程表，但是我觉得作为队长的同学来把握大局，安排时间是最理想的情况。</p><h3 id="4-其他可参考的"><a href="#4-其他可参考的" class="headerlink" title="4. 其他可参考的"></a>4. 其他可参考的</h3><p>这里我就自吹自擂了，我推荐下我的几个专栏以及我在西电微软学生俱乐部的技术沙龙的录播把。</p><ul><li><a href="https://zhuanlan.zhihu.com/p/147853046" target="_blank" rel="noopener">数模竞赛备赛常用模型与算法</a></li><li><a href="https://zhuanlan.zhihu.com/p/145434397" target="_blank" rel="noopener">如何写出一份高质量的数模答卷</a></li><li><a href="https://zhuanlan.zhihu.com/p/314325181" target="_blank" rel="noopener">2017-2020数模美赛特等奖论文</a></li><li>西电MSC俱乐部11月27日晚技术沙龙录播：<a href="https://www.bilibili.com/video/BV1Ef4y1v78w" target="_blank" rel="noopener">数模竞赛入门&amp;美赛经验分享</a></li><li>公开的当晚讲义：【20201127西电MSC技术沙龙资料整合 - 外】<a href="https://www.lanzoui.com/idF9zivlvxe" target="_blank" rel="noopener">https://www.lanzoui.com/idF9zivlvxe</a><br>密码:xdmsc</li></ul>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。&lt;/p&gt;
-&lt;p&gt;去年我们团队获得
-      
+      &lt;p&gt;本来打算12.18考完随机信号就来写这篇博客的，后来由于射频微原微波实在都没学，不得不复习去了。昨天我也完成了所有的考试，今天来到老校区开始了一些科研工作，下午休息的时候想完成这篇博客。毕竟美赛培训也快开始了，希望能给大家一些参加美赛的经验。&lt;/p&gt;
+&lt;p&gt;去年我们团队获得了2020年的数模美赛O奖，并且是D题的best paper，培训期间跟着张胜利指导教练，获益良多，当然也有很多自己的一些经验总结，我会写在接下来的博客里。&lt;/p&gt;
     
     </summary>
     
@@ -67,9 +92,9 @@
     <link href="http://yoursite.com/2020/11/20/Online-Course-Certificate/"/>
     <id>http://yoursite.com/2020/11/20/Online-Course-Certificate/</id>
     <published>2020-11-19T19:03:35.000Z</published>
-    <updated>2021-01-14T01:08:06.779Z</updated>
+    <updated>2021-02-09T07:51:00.839Z</updated>
     
-    <content type="html"><![CDATA[<p>This is a page that stores the verified certificates of classical online courses I have learned. And theses courses are all from coursera made by Andrew Ng.  </p><a id="more"></a><object data="Coursera NCB8UYE7W25Y.pdf" type="application/pdf" width="100%" height="450px"><object data="Coursera WTLBT9VQEJLZ.pdf" type="application/pdf" width="100%" height="450px">]]></content>
+    <content type="html"><![CDATA[<p>This is a page that stores the verified certificates of classical online courses I have learned. And theses courses are all from coursera made by Andrew Ng.  </p><a id="more"></a><object data="Coursera NCB8UYE7W25Y.pdf" type="application/pdf" width="100%" height="450px"><object data="Coursera QHYNFW29V54A.pdf" type="application/pdf" width="100%" height="450px"><object data="Coursera SRUKUDNKUK6D.pdf" type="application/pdf" width="100%" height="450px"><object data="Coursera WTLBT9VQEJLZ.pdf" type="application/pdf" width="100%" height="450px">]]></content>
     
     <summary type="html">
     
@@ -498,31 +523,6 @@
     
     
       <category term="SVM" scheme="http://yoursite.com/tags/SVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【吴恩达笔记】正则化</title>
-    <link href="http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/"/>
-    <id>http://yoursite.com/2020/07/03/%E3%80%90%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%E3%80%91%E6%AD%A3%E5%88%99%E5%8C%96/</id>
-    <published>2020-07-03T11:44:01.000Z</published>
-    <updated>2020-07-04T05:17:53.202Z</updated>
-    
-    <content type="html"><![CDATA[<p>关于<strong>Regularization(正则化)</strong>的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。</p><a id="more"></a><h3 id="关于拟合：Underfitting-VS-Overfitting"><a href="#关于拟合：Underfitting-VS-Overfitting" class="headerlink" title="关于拟合：Underfitting VS Overfitting"></a>关于拟合：Underfitting VS Overfitting</h3><p><img src="/../image/ml31.jpg" alt=""></p><p>还是之前关于房价的例子，如果我们尝试用不同的函数进行拟合，选用一次函数，我们会发现，我们并没有完成一个比较好的拟合效果，所以我们称这种拟合为<strong>欠拟合(Underfitting)</strong>。而选用四次函数，我们会发现这样的拟合可能会误差很小，即<script type="math/tex">J(\theta)=\frac{1}{2m}\sum\limits_{i=1}^n\left(h_\theta(x)-y^{(i)}\right)^2\approx0</script>，但是很显然这个，函数拟合的并不满足实际情况(实际曲线根本不可能这么陡峭)，也就是说这个拟合的泛化效果不好，这种情况我们称为过拟合。而正则化正是为我们解决过拟合问题的。</p><h3 id="正则化代价函数"><a href="#正则化代价函数" class="headerlink" title="正则化代价函数"></a>正则化代价函数</h3><p>我们考虑一个问题，会出现过拟合现象的原因可能是我们对于参数的权重选用不得当，所以我们得像个办法来进行约束，引入一个新的正则化参数$\lambda$，<strong>regularization parament</strong> 。从而我们可以得到新的代价函数：</p><script type="math/tex; mode=display">J(\theta)=\frac{1}{2m}[\sum_{i=1}^{m}\left(h_\theta(x^{(i)})-y^{(i)}\right)^2+\lambda\sum_{i=1}^n\theta_j^2]</script><p>这样我们通过控制正则化参数的值就能对模型或者系统进行一定程度的优化或者说可视化的控制。</p><p>不管是正则化任何模型，我们控制的都是我们待定的权重，通过这样的方式，我们可以固定函数的类别，得到更合理的模型，在处理非线性的问题中广泛应用。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;关于&lt;strong&gt;Regularization(正则化)&lt;/strong&gt;的问题，这实际上在数学模型优化以及机器学习系统设计中，都是特别难处理的问题，所以我这里也只能用我浅显的认知和大家讲述正则化中最基本的知识。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="吴恩达课程笔记" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%90%B4%E6%81%A9%E8%BE%BE%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="正则化" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E5%8C%96/"/>
     
   </entry>
   
